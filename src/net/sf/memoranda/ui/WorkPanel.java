@@ -34,10 +34,12 @@ public class WorkPanel extends JPanel {
 	public JButton notesB = new JButton();
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
+	public SchedulePanel schedulePanel = new SchedulePanel();
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
+	public JButton scheduleB = new JButton();
 	JButton currentB = null;
 	Border border1;
 
@@ -97,7 +99,6 @@ public class WorkPanel extends JPanel {
 		eventsB.setBackground(Color.white);
 		eventsB.setMaximumSize(new Dimension(60, 80));
 		eventsB.setMinimumSize(new Dimension(30, 30));
-
 		eventsB.setFont(new java.awt.Font("Dialog", 1, 10));
 		eventsB.setPreferredSize(new Dimension(50, 50));
 		eventsB.setBorderPainted(false);
@@ -196,15 +197,43 @@ public class WorkPanel extends JPanel {
 		filesB.setOpaque(false);
 		filesB.setMaximumSize(new Dimension(60, 80));
 		filesB.setBackground(Color.white);
+		
+		scheduleB.setSelected(true);
+		scheduleB.setMargin(new Insets(0, 0, 0, 0));
+		scheduleB.setIcon(
+			new ImageIcon(
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+					"resources/icons/schedule.png")));
+		scheduleB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		scheduleB.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				scheduleB_actionPerformed(e);
+			}
+		});
+		scheduleB.setFont(new java.awt.Font("Dialog", 1, 10));
+		scheduleB.setVerticalAlignment(SwingConstants.TOP);
+		scheduleB.setText(Local.getString("Schedule"));
+		scheduleB.setHorizontalTextPosition(SwingConstants.CENTER);
+		scheduleB.setFocusPainted(false);
+		scheduleB.setBorderPainted(false);
+		scheduleB.setContentAreaFilled(false);
+		scheduleB.setPreferredSize(new Dimension(50, 50));
+		scheduleB.setMinimumSize(new Dimension(30, 30));
+		scheduleB.setOpaque(false);
+		scheduleB.setMaximumSize(new Dimension(60, 80));
+		scheduleB.setBackground(Color.white);		
+		
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
+		panel.add(schedulePanel, "SCHEDULE");
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
+		toolBar.add(scheduleB, null);
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -227,6 +256,8 @@ public class WorkPanel extends JPanel {
 				eventsB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
+			else if (pan.equals("SCHEDULE"))
+				scheduleB_actionPerformed(null);
 		}
 	}
 
@@ -262,6 +293,14 @@ public class WorkPanel extends JPanel {
 		cardLayout1.show(panel, "FILES");
 		setCurrentButton(filesB);
 		Context.put("CURRENT_PANEL", "FILES");
+	}
+	
+	public void scheduleB_actionPerformed(ActionEvent e) {
+		//cardLayout1.show(panel, "DAILYITEMS");
+		//dailyItemsPanel.selectPanel("TASKS");
+		cardLayout1.show(panel, "SCHEDULE");
+		setCurrentButton(scheduleB);
+		Context.put("CURRENT_PANEL", "SCHEDULE");
 	}
 
 	void setCurrentButton(JButton cb) {
