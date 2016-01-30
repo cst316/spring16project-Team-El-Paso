@@ -180,6 +180,30 @@ public class ProjectImpl implements Project {
             desc.appendChild(s);    	
     	}
     }
+    
+    public String getGoal() {
+    	Element thisElement = _root.getFirstChildElement("goal");
+    	if (thisElement == null) {
+    		return null;
+    	}
+    	else {
+       		return thisElement.getValue();
+    	}
+    }
+
+    public void setGoal(String s) {
+    	Element goal = _root.getFirstChildElement("goal");
+    	if (goal == null) {
+        	goal = new Element("goal");
+            goal.appendChild(s);
+            _root.appendChild(goal);    	
+    	}
+    	else {
+            goal.removeChildren();
+            goal.appendChild(s);    	
+    	}
+    }
+
         
     /**
      * @see net.sf.memoranda.Project#getTaskList()

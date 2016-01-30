@@ -47,6 +47,10 @@ public class ProjectDialog extends JDialog {
     JPanel centerPanel = new JPanel(new GridBagLayout());
     JLabel titleLabel = new JLabel();
     public JTextField prTitleField = new JTextField();
+    JLabel descriptionLabel = new JLabel();
+    public JTextField prDescriptionField = new JTextField();
+    JLabel goalLabel = new JLabel();
+    public JTextField prGoalField = new JTextField();
     JLabel sdLabel = new JLabel();
     public JSpinner startDate = new JSpinner(new SpinnerDateModel());
     JButton sdButton = new JButton();
@@ -102,12 +106,51 @@ public class ProjectDialog extends JDialog {
         gbc.anchor = GridBagConstraints.CENTER;
         centerPanel.add(prTitleField, gbc);
         
+        descriptionLabel.setText(Local.getString("Description"));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0; gbc.gridy = 2;
+        gbc.gridwidth = 5;
+        gbc.insets = new Insets(5, 10, 5, 10);
+        //gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        centerPanel.add(descriptionLabel, gbc);
+        
+        //prDescriptionField.setPreferredSize(new Dimension(270, 20));
+        gbc = new GridBagConstraints();
+        gbc.gridwidth = 5;
+        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 10, 5, 0);
+        //gbc.anchor = GridBagConstraints.EAST;
+        gbc.anchor = GridBagConstraints.CENTER;
+        centerPanel.add(prDescriptionField, gbc);
+        
+        goalLabel.setText(Local.getString("Goal"));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0; gbc.gridy = 4;
+        gbc.gridwidth = 5;
+        gbc.insets = new Insets(5, 10, 5, 10);
+        //gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        centerPanel.add(goalLabel, gbc);
+        
+        //prGoalField.setPreferredSize(new Dimension(270, 20));
+        gbc = new GridBagConstraints();
+        gbc.gridwidth = 5;
+        gbc.gridx = 0; gbc.gridy = 5;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 10, 5, 0);
+        //gbc.anchor = GridBagConstraints.EAST;
+        gbc.anchor = GridBagConstraints.CENTER;
+        centerPanel.add(prGoalField, gbc);
+        
+        
         sdLabel.setText(Local.getString("Start date"));
         sdLabel.setPreferredSize(new Dimension(70, 20));
         sdLabel.setMinimumSize(new Dimension(70, 20));
         sdLabel.setMaximumSize(new Dimension(70, 20));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 2;
+        gbc.gridx = 0; gbc.gridy = 6;
         gbc.insets = new Insets(5, 10, 10, 10);
         centerPanel.add(sdLabel, gbc);
 
@@ -137,7 +180,7 @@ public class ProjectDialog extends JDialog {
             }
         });
         gbc = new GridBagConstraints();
-        gbc.gridx = 1; gbc.gridy = 2;
+        gbc.gridx = 1; gbc.gridy = 6;
         gbc.insets = new Insets(5, 0, 10, 5);
         centerPanel.add(startDate, gbc);
         
@@ -150,7 +193,7 @@ public class ProjectDialog extends JDialog {
             }
         });
         gbc = new GridBagConstraints();
-        gbc.gridx = 2; gbc.gridy = 2;
+        gbc.gridx = 2; gbc.gridy = 6;
         gbc.insets = new Insets(5, 0, 10, 25);
         gbc.anchor = GridBagConstraints.WEST;
         centerPanel.add(sdButton, gbc);
@@ -163,7 +206,7 @@ public class ProjectDialog extends JDialog {
             }
         });
         gbc = new GridBagConstraints();
-        gbc.gridx = 3; gbc.gridy = 2;
+        gbc.gridx = 3; gbc.gridy = 6;
         gbc.insets = new Insets(5, 0, 10, 5);
         gbc.anchor = GridBagConstraints.WEST;
         centerPanel.add(endDateChB, gbc);
@@ -192,7 +235,7 @@ public class ProjectDialog extends JDialog {
         });
         //((JSpinner.DateEditor) endDate.getEditor()).setLocale(Local.getCurrentLocale());
         gbc = new GridBagConstraints();
-        gbc.gridx = 4; gbc.gridy = 2;
+        gbc.gridx = 4; gbc.gridy = 6;
         gbc.insets = new Insets(5, 0, 10, 5);
         gbc.anchor = GridBagConstraints.WEST;
         centerPanel.add(endDate, gbc);
@@ -208,7 +251,7 @@ public class ProjectDialog extends JDialog {
             }
         });
         gbc = new GridBagConstraints();
-        gbc.gridx = 5; gbc.gridy = 2;
+        gbc.gridx = 5; gbc.gridy = 6;
         gbc.insets = new Insets(5, 0, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
         centerPanel.add(edButton, gbc);
@@ -318,11 +361,13 @@ public class ProjectDialog extends JDialog {
         if (dlg.CANCELLED)
             return;
         String title = dlg.prTitleField.getText();
+        String description = dlg.prDescriptionField.getText();
+        String goal = dlg.prGoalField.getText(); 
         CalendarDate startD = new CalendarDate((Date) dlg.startDate.getModel().getValue());
         CalendarDate endD = null;
         if (dlg.endDateChB.isSelected())
             endD = new CalendarDate((Date) dlg.endDate.getModel().getValue());
-        Project prj = ProjectManager.createProject(title, startD, endD);
+        Project prj = ProjectManager.createProject(title, startD, endD, description, goal);
         /*if (dlg.freezeChB.isSelected())
             prj.freeze();*/
         CurrentStorage.get().storeProjectManager();
