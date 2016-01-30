@@ -192,7 +192,7 @@ public class ProjectsTablePanel extends JPanel {
             case Project.COMPLETED :
                 return Local.getString("Completed");
             case Project.FAILED :
-                return Local.getString("Failed");
+                return Local.getString("Late");
             case Project.FROZEN :
                 return Local.getString("Frozen");
             case Project.SCHEDULED :
