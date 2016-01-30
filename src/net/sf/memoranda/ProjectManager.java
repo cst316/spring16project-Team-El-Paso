@@ -109,9 +109,23 @@ public class ProjectManager {
         CurrentStorage.get().createProjectStorage(prj);
         return prj;
     }
+    
+    public static Project createProject(String id, String title, CalendarDate startDate, CalendarDate endDate, String description, String aGoal) {
+        Element el = new Element("project");
+        el.addAttribute(new Attribute("id", id));
+        _root.appendChild(el);
+        Project prj = new ProjectImpl(el);
+        prj.setTitle(title);
+        prj.setStartDate(startDate);
+        prj.setEndDate(endDate);
+        prj.setDescription(description);
+        prj.setGoal(aGoal);
+        CurrentStorage.get().createProjectStorage(prj);
+        return prj;
+    }
 
-    public static Project createProject(String title, CalendarDate startDate, CalendarDate endDate) {
-        return createProject(Util.generateId(), title, startDate, endDate);
+    public static Project createProject(String title, CalendarDate startDate, CalendarDate endDate, String description, String aGoal) {
+        return createProject(Util.generateId(), title, startDate, endDate, description, aGoal);
     }
     
     public static void removeProject(String id) {

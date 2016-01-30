@@ -41,6 +41,9 @@ public interface Project {
     void setDescription(String description);
     String getDescription();
     
+    String getGoal();
+    void setGoal(String aGoal);
+    
     int getStatus();
             
     //int getProgress();
