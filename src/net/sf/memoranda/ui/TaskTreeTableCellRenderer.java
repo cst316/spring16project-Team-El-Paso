@@ -201,7 +201,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
                 return new Color(192, 230, 255);
             case Task.DEADLINE:
                 return new Color(255, 240, 160);
-            case Task.FAILED:
+            case Task.LATE:
                 return new Color(255, 192, 192);
             case Task.COMPLETED:
                 return new Color(230, 255, 230);
@@ -214,7 +214,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
                 return new Color(0, 120, 255);
             case Task.DEADLINE:
                 return new Color(160, 90, 0);
-            case Task.FAILED:
+            case Task.LATE:
                 return new Color(255, 0, 0);
             case Task.COMPLETED:
                 return new Color(0, 120, 0);
@@ -232,7 +232,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             return TASK_SCHEDULED_ICON;
         case Task.DEADLINE:
             return TASK_DEADLINE_ICON;
-        case Task.FAILED:
+        case Task.LATE:
             return TASK_FAILED_ICON;
         case Task.COMPLETED:
             return TASK_COMPLETED_ICON;

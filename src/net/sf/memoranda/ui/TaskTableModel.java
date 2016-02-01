@@ -116,7 +116,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             return Local.getString("Deadline");
         case Task.COMPLETED:
             return Local.getString("Completed");
-        case Task.FAILED:
+        case Task.LATE:
             return Local.getString("Late");
         case Task.FROZEN:
             return Local.getString("Frozen");

@@ -26,7 +26,7 @@ public interface Task {
 
     public static final int FROZEN = 4;
 
-    public static final int FAILED = 5;
+    public static final int LATE = 5;
     
     public static final int LOCKED = 6;
     
