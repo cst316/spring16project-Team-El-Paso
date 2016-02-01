@@ -271,10 +271,12 @@ public class AgendaGenerator {
 		String s = "<h2><a href=\"memoranda:project#"
 				+ p.getID()
 				+ "\">"
-				+ p.getTitle()
+				+ "<font color=\"#0000ff\">" + p.getTitle()+ "</font>" 
 				+ "</a></h2>\n"
 				+ "<table border=\"0\" width=\"100%\" cellpadding=\"2\" bgcolor=\"#EFEFEF\"><tr><td>" 
-				+ Local.getString("Start date")+": <i>"+p.getStartDate().getMediumDateString()+"</i>\n";
+				+ "<br /" + "Description: " + p.getDescription()
+				+ "<br /" + "Goal: " + p.getGoal()
+				+ "<br /" + Local.getString("Start date")+": <i>"+p.getStartDate().getMediumDateString()+"</i>\n";
 		if (p.getEndDate() != null)
 			s += "<br>" + Local.getString("End date")+": <i>"+p.getEndDate().getMediumDateString()
 			+"</i>\n";        
