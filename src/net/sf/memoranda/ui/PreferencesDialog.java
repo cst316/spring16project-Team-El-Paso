@@ -494,7 +494,7 @@ public class PreferencesDialog extends JDialog {
 		((GridLayout)econfPanel.getLayout()).setVgap(5);
 		editorConfigPanel.add(econfPanel, BorderLayout.NORTH);
 		
-		// Build LangaugePanel
+		// Build LanguagePanel
 		languageSelectLabel.setText(Local.getString("Select Language"));
 		languageSelectLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		langPanel.add(languageSelectLabel);
@@ -502,8 +502,7 @@ public class PreferencesDialog extends JDialog {
 		langPanel.setBorder(BorderFactory.createEmptyBorder(10,5,10,10));
 		((GridLayout)langPanel.getLayout()).setHgap(10);
 		((GridLayout)langPanel.getLayout()).setVgap(5);
-		languagePanel.add(langPanel, BorderLayout.NORTH);
-		
+		languagePanel.add(langPanel, BorderLayout.NORTH);	
 		
 		// Build TabbedPanel
 		tabbedPanel.add(GeneralPanel, Local.getString("General"));
@@ -747,8 +746,7 @@ public class PreferencesDialog extends JDialog {
 				e.printStackTrace();
 			}  
 		}
-
-		
+	
 		Configuration.saveConfig();
 		
 	}

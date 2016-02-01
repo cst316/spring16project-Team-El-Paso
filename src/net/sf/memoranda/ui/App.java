@@ -98,8 +98,6 @@ public class App {
 		}
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
-		
-		
 	}
 
 	void init() {
@@ -144,9 +142,7 @@ public class App {
 	public static void closeWindow() {
 		if (frame == null)
 			return;
-		//frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.doExit();
-		
 	}
 
 	/**
