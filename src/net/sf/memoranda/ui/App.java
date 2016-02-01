@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 
 import net.sf.memoranda.EventsScheduler;
 import net.sf.memoranda.util.Configuration;
@@ -141,7 +142,7 @@ public class App {
 	public static void closeWindow() {
 		if (frame == null)
 			return;
-		frame.dispose();
+		frame.doExit();
 	}
 
 	/**
