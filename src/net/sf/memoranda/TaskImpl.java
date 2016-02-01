@@ -155,7 +155,7 @@ public class TaskImpl implements Task, Comparable {
 			return Task.ACTIVE;
 		}
 
-        return Task.FAILED;
+        return Task.LATE;
     }
     /**
      * Method isDependsCompleted.

@@ -296,8 +296,6 @@ public class WorkPanel extends JPanel {
 	}
 	
 	public void scheduleB_actionPerformed(ActionEvent e) {
-		//cardLayout1.show(panel, "DAILYITEMS");
-		//dailyItemsPanel.selectPanel("TASKS");
 		cardLayout1.show(panel, "SCHEDULE");
 		setCurrentButton(scheduleB);
 		Context.put("CURRENT_PANEL", "SCHEDULE");
