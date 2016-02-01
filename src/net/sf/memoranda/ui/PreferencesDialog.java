@@ -1,10 +1,16 @@
 package net.sf.memoranda.ui;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Locale;
 import java.util.Vector;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import net.sf.memoranda.util.Configuration;
 import net.sf.memoranda.util.CurrentStorage;
+import net.sf.memoranda.util.LoadableProperties;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.MimeTypesList;
 import java.awt.*;
@@ -137,6 +143,12 @@ public class PreferencesDialog extends JDialog {
 	JLabel headerFontLabel = new JLabel();
 	JLabel monoFontLabel = new JLabel();
 	JLabel baseFontSizeLabel = new JLabel();
+	
+	JPanel languagePanel = new JPanel(new BorderLayout());
+	JPanel langPanel = new JPanel(new GridLayout(5, 2));
+	Vector languages = getLangauges();
+	JComboBox languageSelectCB =  new JComboBox(languages);
+	JLabel languageSelectLabel = new JLabel();
 
 	public PreferencesDialog(Frame frame) {
 		super(frame, Local.getString("Preferences"), true);
@@ -481,11 +493,24 @@ public class PreferencesDialog extends JDialog {
 		((GridLayout)econfPanel.getLayout()).setHgap(10);
 		((GridLayout)econfPanel.getLayout()).setVgap(5);
 		editorConfigPanel.add(econfPanel, BorderLayout.NORTH);
+		
+		// Build LangaugePanel
+		languageSelectLabel.setText(Local.getString("Select Language"));
+		languageSelectLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		langPanel.add(languageSelectLabel);
+		langPanel.add(languageSelectCB);
+		langPanel.setBorder(BorderFactory.createEmptyBorder(10,5,10,10));
+		((GridLayout)langPanel.getLayout()).setHgap(10);
+		((GridLayout)langPanel.getLayout()).setVgap(5);
+		languagePanel.add(langPanel, BorderLayout.NORTH);
+		
+		
 		// Build TabbedPanel
 		tabbedPanel.add(GeneralPanel, Local.getString("General"));
 		tabbedPanel.add(resourcePanel, Local.getString("Resource types"));
 		tabbedPanel.add(soundPanel, Local.getString("Sound"));
 		tabbedPanel.add(editorConfigPanel, Local.getString("Editor"));
+		tabbedPanel.add(languagePanel, Local.getString("Language"));
 
 		// Build TopPanel
 		topPanel.add(tabbedPanel, BorderLayout.CENTER);
@@ -709,6 +734,21 @@ public class PreferencesDialog extends JDialog {
 		App.getFrame().workPanel.dailyItemsPanel.editorPanel.initCSS();
 		App.getFrame().workPanel.dailyItemsPanel.editorPanel.editor.repaint();
 		
+		// **WIP** Language change. Does not fully work yet.
+		// Language selection works and file is correctly changed, but need to force app to read it.
+		LoadableProperties messages = new LoadableProperties();
+		// trying with one language selection to test
+		if(languageSelectCB.getSelectedItem().equals("Spanish")) {
+			try {
+				messages.load(Local.class.getResourceAsStream("localmessages/messages_es.properties"));
+				App.getFrame().workPanel.dailyItemsPanel.editorPanel.initCSS();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}
+
+		
 		Configuration.saveConfig();
 		
 	}
@@ -890,5 +930,19 @@ public class PreferencesDialog extends JDialog {
         for (int i = 0; i < envfonts.length; i++)
             fonts.add(envfonts[i]);
 		return fonts;
+	}
+	
+	Vector getLangauges(){
+		
+		Vector langs = new Vector();
+		langs.add("English");
+		langs.add("Spanish");
+		langs.add("German");
+		langs.add("French");
+		langs.add("Japanese");
+		langs.add("Russian");
+		langs.add("Italian");
+		
+		return langs;
 	}
 }
