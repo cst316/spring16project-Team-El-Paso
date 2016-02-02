@@ -146,7 +146,7 @@ public class PreferencesDialog extends JDialog {
 	
 	JPanel languagePanel = new JPanel(new BorderLayout());
 	JPanel langPanel = new JPanel(new GridLayout(5, 2));
-	Vector languages = getLangauges();
+	Vector languages = getLanguages();
 	JComboBox languageSelectCB =  new JComboBox(languages);
 	JLabel languageSelectLabel = new JLabel();
 
@@ -930,7 +930,7 @@ public class PreferencesDialog extends JDialog {
 		return fonts;
 	}
 	
-	Vector getLangauges(){
+	Vector getLanguages(){
 		
 		Vector langs = new Vector();
 		langs.add("English");
