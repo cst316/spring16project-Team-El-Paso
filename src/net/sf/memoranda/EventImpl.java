@@ -46,6 +46,14 @@ public class EventImpl implements Event, Comparable {
         return new Integer(_elem.getAttribute("min").getValue()).intValue();
     }
     
+    public int getDHour() {
+    	return new Integer(_elem.getAttribute("durationHour").getValue()).intValue();
+    }
+    
+    public int getDMinute() {
+    	return new Integer(_elem.getAttribute("durationMin").getValue()).intValue();
+    }
+    
     public String getTimeString() {
         return Local.getTimeString(getHour(), getMinute());
     }
@@ -56,6 +64,17 @@ public class EventImpl implements Event, Comparable {
      */
     public String getText() {
         return _elem.getValue();
+    }
+    
+    /**
+     * @see net.sf.memoranda.Event#getLocation()
+     */
+    public String getLocation() {
+    	return _elem.getAttributeValue("Location");
+    }
+    
+    public String getParticipants() {
+    	return _elem.getAttributeValue("Participants");
     }
 
     /**
@@ -129,6 +148,17 @@ public class EventImpl implements Event, Comparable {
 		calendar.set(Calendar.SECOND, 0); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
 		d = calendar.getTime(); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
         return d;
+    }
+    
+    public Date getDuration() {
+    	Date d = new Date();
+		Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+		calendar.setTime(d); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+		calendar.set(Calendar.HOUR_OF_DAY, getDHour()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+		calendar.set(Calendar.MINUTE, getDMinute()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+		calendar.set(Calendar.SECOND, 0); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+		d = calendar.getTime(); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+    	return d;
     }
 	
 	/**
