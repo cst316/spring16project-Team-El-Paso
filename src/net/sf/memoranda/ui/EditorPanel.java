@@ -83,6 +83,8 @@ public class EditorPanel extends JPanel {
 	JButton newB = new JButton();
 
 	JButton previewB = new JButton();
+	
+	JButton saveB = new JButton();
 
 	DailyItemsPanel parentPanel = null;
 
@@ -153,6 +155,15 @@ public class EditorPanel extends JPanel {
 			previewB_actionPerformed(e);
 		}
 	};
+	
+	public Action saveAction = new AbstractAction(Local
+			.getString("Save Note"), new ImageIcon(
+			net.sf.memoranda.ui.AppFrame.class
+					.getResource("resources/icons/save.png"))) {
+		public void actionPerformed(ActionEvent e) {
+			saveB_actionPerformed(e);
+		}
+	};
 
 	void jbInit() throws Exception {
 
@@ -165,14 +176,14 @@ public class EditorPanel extends JPanel {
 		this.setLayout(borderLayout1);
 
 		newB.setAction(newAction);
-		newB.setMaximumSize(new Dimension(24, 24));
-		newB.setMinimumSize(new Dimension(24, 24));
-		newB.setPreferredSize(new Dimension(24, 24));
+		newB.setMaximumSize(new Dimension(100, 24));
+		newB.setMinimumSize(new Dimension(100, 24));
+		newB.setPreferredSize(new Dimension(100, 24));
 		newB.setRequestFocusEnabled(false);
 		newB.setToolTipText(Local.getString("New note"));
 		newB.setBorderPainted(false);
 		newB.setFocusable(false);
-		newB.setText("");
+		newB.setText("New Note");
 
 		importB.setAction(importAction);
 		importB.setBorderPainted(false);
@@ -293,6 +304,16 @@ public class EditorPanel extends JPanel {
 		previewB.setMinimumSize(new Dimension(24, 24));
 		previewB.setMaximumSize(new Dimension(24, 24));
 		previewB.setText("");
+		
+		saveB.setAction(saveAction);
+		saveB.setMaximumSize(new Dimension(100, 24));
+		saveB.setMinimumSize(new Dimension(100, 24));
+		saveB.setPreferredSize(new Dimension(100, 24));
+		saveB.setRequestFocusEnabled(false);
+		saveB.setToolTipText(Local.getString("Save Note"));
+		saveB.setBorderPainted(false);
+		saveB.setFocusable(false);
+		saveB.setText("Save Note");
 
 		/*
 		 * printB.setAction(printAction); printB.setMaximumSize(new
@@ -305,8 +326,9 @@ public class EditorPanel extends JPanel {
 		 */
 
 		jPanel1.setLayout(borderLayout2);
-		titleLabel.setFont(new java.awt.Font("Dialog", 1, 10));
+		titleLabel.setFont(new java.awt.Font("Dialog", 1, 20));
 		titleLabel.setText(Local.getString("Title") + "  ");
+		titleField.setFont(new java.awt.Font("Dialog", 0, 18));
 		titleField.setText("");
 		editorToolBar.setFloatable(false);
 		editor.editToolbar.setFloatable(false);
@@ -331,6 +353,8 @@ public class EditorPanel extends JPanel {
 		editorToolBar.add(exportB, null);
 		editorToolBar.addSeparator(new Dimension(8, 24));
 		editorToolBar.add(previewB, null);
+		editorToolBar.addSeparator(new Dimension(8, 24));
+		editorToolBar.add(saveB, null);
 		// editorToolBar.add(printB, null);
 		jPanel1.add(editorToolBar, BorderLayout.NORTH);
 		jPanel1.add(editor, BorderLayout.CENTER);
@@ -586,5 +610,9 @@ public class EditorPanel extends JPanel {
 		} catch (IOException ioe) {
 			new ExceptionDialog(ioe, "Cannot create temporary file", null);
 		}
+	}
+	
+	void saveB_actionPerformed(ActionEvent e) {
+		CurrentNote.set(null, true);
 	}
 }
