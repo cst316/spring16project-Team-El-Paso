@@ -297,17 +297,10 @@ public class EventsPanel extends JPanel {
 		int start_mm = startCalendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
 		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
 		
-<<<<<<< HEAD
 	Calendar durationCalendar = new GregorianCalendar(Local.getCurrentLocale());
 	durationCalendar.setTime((Date) dlg.durationSpin.getModel().getValue());
 	int duration_hh = durationCalendar.get(Calendar.HOUR_OF_DAY);
 	int duration_mm = durationCalendar.get(Calendar.MINUTE);
-=======
-		Calendar durationCalendar = new GregorianCalendar(Local.getCurrentLocale());
-		durationCalendar.setTime((Date) dlg.durationSpin.getModel().getValue());
-		int duration_hh = durationCalendar.get(Calendar.HOUR_OF_DAY);
-		int duration_mm = durationCalendar.get(Calendar.MINUTE);
->>>>>>> 357d2651829959287937d923deb5a6e1114a2df1
         
         //int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
         //int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();

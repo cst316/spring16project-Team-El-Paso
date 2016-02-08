@@ -152,21 +152,12 @@ public class EventImpl implements Event, Comparable {
     
     public Date getDuration() {
     	Date d = new Date();
-<<<<<<< HEAD
-    	Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-    	calendar.setTime(d); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-    	calendar.set(Calendar.HOUR_OF_DAY, getDHour()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-    	calendar.set(Calendar.MINUTE, getDMinute()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-    	calendar.set(Calendar.SECOND, 0); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-    	d = calendar.getTime(); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-=======
-		Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-		calendar.setTime(d); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-		calendar.set(Calendar.HOUR_OF_DAY, getDHour()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-		calendar.set(Calendar.MINUTE, getDMinute()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-		calendar.set(Calendar.SECOND, 0); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-		d = calendar.getTime(); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
->>>>>>> 357d2651829959287937d923deb5a6e1114a2df1
+		Calendar calendar = new GregorianCalendar(Local.getCurrentLocale());
+		calendar.setTime(d);
+		calendar.set(Calendar.HOUR_OF_DAY, getDHour());
+		calendar.set(Calendar.MINUTE, getDMinute()); 
+		calendar.set(Calendar.SECOND, 0); 
+		d = calendar.getTime(); 
     	return d;
     }
 	
