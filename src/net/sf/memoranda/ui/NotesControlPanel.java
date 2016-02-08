@@ -36,13 +36,13 @@ import net.sf.memoranda.util.Configuration;
 /*$Id: NotesControlPanel.java,v 1.16 2005/05/05 16:19:16 ivanrise Exp $*/
 public class NotesControlPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
-    SearchPanel searchPanel = new SearchPanel();
-    NotesListPanel notesListPanel = new NotesListPanel();
-    BookmarksPanel bookmarksListPanel = new BookmarksPanel();
+    static SearchPanel searchPanel = new SearchPanel();
+    static NotesListPanel notesListPanel = new NotesListPanel();
+    static BookmarksPanel bookmarksListPanel = new BookmarksPanel();
     JTabbedPane tabbedPane = new JTabbedPane();
     JToolBar toolBar = new JToolBar();
 
-    NotesList notesList = null;
+    static NotesList notesList = null;
 
     FlowLayout flowLayout1 = new FlowLayout();
     JButton ppOpenB = new JButton();
@@ -281,6 +281,8 @@ public class NotesControlPanel extends JPanel {
                 Local.getString("Clear note")
                     + "\n'"
                     + ((Note) notesList.getNote(notesList.getSelectedIndex())).getDate().getFullDateString()
+                    + "\n" 
+                    + ((Note) notesList.getNote(notesList.getSelectedIndex())).getTitle()
                     + "'\n"
                     + Local.getString("Are you sure?");
 
