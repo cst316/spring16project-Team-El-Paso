@@ -289,18 +289,18 @@ public class EventsPanel extends JPanel {
         EventsManager.removeEvent(ev);
         
         Calendar startCalendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		startCalendar.setTime((Date)dlg.timeSpin.getModel().getValue());//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		int start_hh = startCalendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		int start_mm = startCalendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+	startCalendar.setTime((Date)dlg.timeSpin.getModel().getValue());//Fix deprecated methods to get hours
+	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+	int start_hh = startCalendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
+	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+	int start_mm = startCalendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
+	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
 		
-		Calendar durationCalendar = new GregorianCalendar(Local.getCurrentLocale());
-		durationCalendar.setTime((Date) dlg.durationSpin.getModel().getValue());
-		int duration_hh = durationCalendar.get(Calendar.HOUR_OF_DAY);
-		int duration_mm = durationCalendar.get(Calendar.MINUTE);
+	Calendar durationCalendar = new GregorianCalendar(Local.getCurrentLocale());
+	durationCalendar.setTime((Date) dlg.durationSpin.getModel().getValue());
+	int duration_hh = durationCalendar.get(Calendar.HOUR_OF_DAY);
+	int duration_mm = durationCalendar.get(Calendar.MINUTE);
         
         //int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
         //int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
@@ -313,7 +313,7 @@ public class EventsPanel extends JPanel {
         }
         else 
         {
-	    updateEvents(dlg, start_hh, start_mm, duration_hh, duration_mm, text, locText, participantsText);
+		updateEvents(dlg, start_hh, start_mm, duration_hh, duration_mm, text, locText, participantsText);
         }    
         saveEvents();
     }
