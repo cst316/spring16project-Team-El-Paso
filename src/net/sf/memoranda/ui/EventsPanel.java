@@ -61,6 +61,7 @@ public class EventsPanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+    
     void jbInit() throws Exception {
         eventsToolBar.setFloatable(false);
 
@@ -235,8 +236,11 @@ public class EventsPanel extends JPanel {
             ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(new Date());
         else
         ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(CalendarDate.today().getDate());
-        ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/    
+        ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/
+        dlg.durationSpin.getModel().setValue(ev.getDuration());
         dlg.textField.setText(ev.getText());
+        dlg.locTextField.setText(ev.getLocation());
+        dlg.participantsField.setText(ev.getParticipants());
         int rep = ev.getRepeat();
         if (rep > 0) {
             dlg.startDate.getModel().setValue(ev.getStartDate().getDate());
@@ -284,24 +288,34 @@ public class EventsPanel extends JPanel {
             return;
         EventsManager.removeEvent(ev);
         
-		Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		calendar.setTime(((Date)dlg.timeSpin.getModel().getValue()));//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		int hh = calendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		int mm = calendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+        Calendar startCalendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
+	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+	startCalendar.setTime((Date)dlg.timeSpin.getModel().getValue());//Fix deprecated methods to get hours
+	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+	int start_hh = startCalendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
+	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+	int start_mm = startCalendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
+	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
+		
+	Calendar durationCalendar = new GregorianCalendar(Local.getCurrentLocale());
+	durationCalendar.setTime((Date) dlg.durationSpin.getModel().getValue());
+	int duration_hh = durationCalendar.get(Calendar.HOUR_OF_DAY);
+	int duration_mm = durationCalendar.get(Calendar.MINUTE);
         
         //int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
         //int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
         String text = dlg.textField.getText();
-        if (dlg.noRepeatRB.isSelected())
-   	    EventsManager.createEvent(CurrentDate.get(), hh, mm, text);
-        else {
-	    updateEvents(dlg,hh,mm,text);
-	}    
-	saveEvents();
+        String locText = dlg.locTextField.getText();
+        String participantsText = dlg.participantsField.getText();
+        if (dlg.noRepeatRB.isSelected()) 
+        {
+        	EventsManager.createEvent(CurrentDate.get(), start_hh, start_mm, duration_hh, duration_mm, text, locText, participantsText);
+        }
+        else 
+        {
+		updateEvents(dlg, start_hh, start_mm, duration_hh, duration_mm, text, locText, participantsText);
+        }    
+        saveEvents();
     }
 
     void newEventB_actionPerformed(ActionEvent e) {
@@ -310,10 +324,10 @@ public class EventsPanel extends JPanel {
         cdate.set(Calendar.MINUTE,0);  
         Util.debug("Default time is " + cdate);
         
-    	newEventB_actionPerformed(e, null, cdate.getTime(), cdate.getTime());
+    	newEventB_actionPerformed(e, null, null, null, cdate.getTime(), cdate.getTime());
     }
     
-    void newEventB_actionPerformed(ActionEvent e, String tasktext, Date startDate, Date endDate) {
+    void newEventB_actionPerformed(ActionEvent e, String tasktext, String location, String participants, Date startDate, Date endDate) {
     	EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("New event"));
     	Dimension frmSize = App.getFrame().getSize();
     	Point loc = App.getFrame().getLocation();
@@ -329,25 +343,33 @@ public class EventsPanel extends JPanel {
 		dlg.setVisible(true);
     	if (dlg.CANCELLED)
     		return;
-    	Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
+    	Calendar startCalendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
     	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-    	calendar.setTime(((Date)dlg.timeSpin.getModel().getValue()));//Fix deprecated methods to get hours
+    	startCalendar.setTime(((Date)dlg.timeSpin.getModel().getValue()));//Fix deprecated methods to get hours
     	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-    	int hh = calendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
+    	int start_hh = startCalendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
     	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-    	int mm = calendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
+    	int start_mm = startCalendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
     	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
     	
     	//int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
     	//int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
+    	
+    	Calendar durationCalendar = new GregorianCalendar(Local.getCurrentLocale());
+    	durationCalendar.setTime((Date) dlg.durationSpin.getModel().getValue());
+    	int duration_hh = durationCalendar.get(Calendar.HOUR_OF_DAY);
+    	int duration_mm = durationCalendar.get(Calendar.MINUTE);
+    	
     	String text = dlg.textField.getText();
-		
+    	String locText = dlg.locTextField.getText();
+		String participantsText = dlg.participantsField.getText();
+    	
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 		
     	if (dlg.noRepeatRB.isSelected())
-    		EventsManager.createEvent(eventCalendarDate, hh, mm, text);
+    		EventsManager.createEvent(eventCalendarDate, start_hh, start_mm, duration_hh, duration_mm, text, locText, participantsText);
     	else {
-    		updateEvents(dlg,hh,mm,text);
+    		updateEvents(dlg, start_hh, start_mm, duration_hh, duration_mm, text, locText, participantsText);
     	}
     	saveEvents();
     }
@@ -360,7 +382,7 @@ public class EventsPanel extends JPanel {
         parentPanel.updateIndicators();
     }
 
-    private void updateEvents(EventDialog dlg, int hh, int mm, String text) {
+    private void updateEvents(EventDialog dlg, int hh, int mm, int duration_hh, int duration_mm, String text, String locText, String participantsText) {
 	int rtype;
         int period;
         CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
@@ -388,7 +410,7 @@ public class EventsPanel extends JPanel {
             rtype = EventsManager.REPEAT_MONTHLY;
             period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
         }
-        EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, dlg.workingDaysOnlyCB.isSelected());
+        EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, duration_hh, duration_mm, text, locText, participantsText, dlg.workingDaysOnlyCB.isSelected());
     }
 
     void removeEventB_actionPerformed(ActionEvent e) {
