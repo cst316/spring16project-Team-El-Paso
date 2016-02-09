@@ -41,6 +41,7 @@ public class EventsTable extends JTable {
         setModel(new EventsTableModel());
         initTable(CurrentDate.get());
         this.setShowGrid(false);
+        this.setAutoCreateRowSorter(true);
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
                 //updateUI();
@@ -53,7 +54,7 @@ public class EventsTable extends JTable {
         events = (Vector)EventsManager.getEventsForDate(d);
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
-	clearSelection();
+        clearSelection();
         updateUI();
     }
 
@@ -74,8 +75,9 @@ public class EventsTable extends JTable {
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 Event ev = (Event)getModel().getValueAt(row, EVENT);
                 comp.setForeground(java.awt.Color.gray);
-                if (ev.isRepeatable())
+                if (ev.isRepeatable()) {
                     comp.setFont(comp.getFont().deriveFont(Font.ITALIC));
+                }
                 if (CurrentDate.get().after(CalendarDate.today())) {
                   comp.setForeground(java.awt.Color.black);
                 }                
@@ -95,7 +97,8 @@ public class EventsTable extends JTable {
 
         String[] columnNames = {
             Local.getString("Time"),
-                Local.getString("Details")
+            Local.getString("Details"),
+            Local.getString("Location")
         };
 
         EventsTableModel() {
@@ -103,7 +106,8 @@ public class EventsTable extends JTable {
         }
 
         public int getColumnCount() {
-            return 2;
+            return columnNames.length;
+        	//return 3;
         }
 
         public int getRowCount() {
@@ -119,14 +123,22 @@ public class EventsTable extends JTable {
 
         public Object getValueAt(int row, int col) {
            Event ev = (Event)events.get(row);
-           if (col == 0)
+           if (col == 0) {
                 //return ev.getHour()+":"+ev.getMinute();
                 return ev.getTimeString();
-           else if (col == 1)
+           }
+           else if (col == 1) {
                 return ev.getText();
-           else if (col == EVENT_ID)
+           }
+           else if (col == 2) {
+        	   return ev.getLocation();
+           }
+           else if (col == EVENT_ID) {
                 return ev.getId();
-           else return ev;
+           }
+           else {
+        	   return ev;
+           }
         }
 
         public String getColumnName(int col) {

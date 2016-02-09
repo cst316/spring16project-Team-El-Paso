@@ -22,25 +22,62 @@ public interface Event {
     
     //CalendarDate getDate();
     
+    /**
+     * 
+     * @return The integer representation of the hour when this event occurs.
+     */
     int getHour();
     
+    /**
+     * 
+     * @return The integer representation of the minute when this event occurs.
+     */
     int getMinute();
     
+    /**
+     * 
+     * @return The integer representation of the hour of the duration of this event.
+     */
     int getDHour();
     
+    /**
+     * 
+     * @return The integer representation of the minutes of the duration of this event.
+     */
     int getDMinute();
     
     //Date getTime();
     
+    /**
+     * 
+     * @return The details of this event as a String.
+     */
     String getText();
     
+    /**
+     * 
+     * @return The location of this event as a String.
+     */
     String getLocation();
     
+    /**
+     * 
+     * @return The participants of this event as a String.
+     */
     String getParticipants();
     
+    /**
+     * 
+     * @return The element that contains this event.
+     */
     nu.xom.Element getContent();
     
+    /**
+     * 
+     * @return The value associated with the key "repeat type"; an int from 0-5 that indicates the repeat frequency as defined in EventsManager.
+     */
     int getRepeat();
+    
     
     CalendarDate getStartDate();
     CalendarDate getEndDate();
