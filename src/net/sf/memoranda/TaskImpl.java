@@ -130,6 +130,31 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
 
+    
+    public String getCategory() {
+    	Element thisElement = _element.getFirstChildElement("category");
+    	if (thisElement == null) {
+    		return null;
+    	}
+    	else {
+       		return thisElement.getValue();
+    	}
+    }
+
+    
+    public void setCategory(String taskCategory) {
+    	Element category = _element.getFirstChildElement("category");
+    	if (category == null) {
+        	category = new Element("category");
+            category.appendChild(taskCategory);
+            _element.appendChild(category);    	
+    	}
+    	else {
+            category.removeChildren();
+            category.appendChild(taskCategory);    	
+    	}
+    }
+
     /**s
      * @see net.sf.memoranda.Task#getStatus()
      */

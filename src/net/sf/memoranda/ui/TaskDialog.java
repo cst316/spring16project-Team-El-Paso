@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -58,7 +59,14 @@ public class TaskDialog extends JDialog {
 //    Border border5;
 //    Border border6;
     JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
+
     JTextField todoField = new JTextField();
+    
+    
+    String[] category = {"Planning", "Design", "Development", "Testing", "Postmortem", "Other"};
+    JComboBox categoryCB = new JComboBox(category);
+    JLabel jLabelCategory = new JLabel();
+    
     
     // added by rawsushi
     JTextField effortField = new JTextField();
@@ -186,6 +194,27 @@ public class TaskDialog extends JDialog {
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 1;
         gbLayout.setConstraints(todoField,gbCon);
+        
+        
+        jLabelCategory.setMaximumSize(new Dimension(100, 40));
+        jLabelCategory.setMinimumSize(new Dimension(60, 40));
+        jLabelCategory.setText("Category:   ");
+        gbCon = new GridBagConstraints();
+        gbCon.gridwidth = 2;
+        gbCon.weighty = 3;
+        gbCon.insets = new Insets(10,0,10,0);
+        gbCon.anchor = GridBagConstraints.WEST;
+        gbLayout.setConstraints(jLabelCategory,gbCon);
+        
+       
+        gbCon = new GridBagConstraints();
+        gbCon.gridwidth = GridBagConstraints.REMAINDER;
+        gbCon.weighty = 3;
+        gbCon.insets = new Insets(10,0,10,0);
+        gbCon.anchor = GridBagConstraints.WEST;
+        gbLayout.setConstraints(categoryCB,gbCon);
+        
+
         
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
@@ -333,6 +362,8 @@ public class TaskDialog extends JDialog {
         dialogTitlePanel.add(header, null);
         areaPanel.add(jPanel8, BorderLayout.NORTH);
         jPanel8.add(todoField, null);
+        jPanel8.add(jLabelCategory, null);
+        jPanel8.add(categoryCB, null);
         jPanel8.add(jLabelDescription);
         jPanel8.add(descriptionScrollPane, null);
         areaPanel.add(jPanel2, BorderLayout.CENTER);
