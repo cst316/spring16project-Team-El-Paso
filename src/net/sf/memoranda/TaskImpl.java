@@ -137,7 +137,7 @@ public class TaskImpl implements Task, Comparable {
     		return null;
     	}
     	else {
-       		return thisElement.getValue();
+    		return thisElement.getValue();
     	}
     }
 
@@ -145,7 +145,7 @@ public class TaskImpl implements Task, Comparable {
     public void setCategory(String taskCategory) {
     	Element category = _element.getFirstChildElement("category");
     	if (category == null) {
-        	category = new Element("category");
+    		category = new Element("category");
             category.appendChild(taskCategory);
             _element.appendChild(category);    	
     	}
