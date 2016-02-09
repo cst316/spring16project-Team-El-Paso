@@ -3,6 +3,7 @@ package net.sf.memoranda.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
@@ -26,17 +27,23 @@ import java.net.URL;
 /*$Id: EventNotificationDialog.java,v 1.8 2004/10/18 19:08:56 ivanrise Exp $*/
 public class EventNotificationDialog extends JFrame {
   JPanel panel1 = new JPanel();
+  JPanel textSubPanel = new JPanel();
+  JPanel locationSubPanel = new JPanel();
   BorderLayout borderLayout1 = new BorderLayout();
+  GridLayout gridLayout1 = new GridLayout(4, 1);
   JButton jButton1 = new JButton();
   Border border1;
   Border border2;
   Border border3;
   JPanel jPanel1 = new JPanel();
+  JLabel textName = new JLabel();
   JLabel textLabel = new JLabel();
   JLabel timeLabel = new JLabel();
+  JLabel locName = new JLabel();
+  JLabel locLabel = new JLabel();
   Border border4;
 
-  public EventNotificationDialog(String title, String time, String text) {
+  public EventNotificationDialog(String title, String time, String text, String loc) {
     super();
     this.setTitle(title);
     try {
@@ -50,6 +57,7 @@ public class EventNotificationDialog extends JFrame {
     timeLabel.setIcon(new ImageIcon(net.sf.memoranda.ui.TaskDialog.class.getResource(
             "resources/icons/event48.png")));
     textLabel.setText(text);
+    locLabel.setText(loc);
     this.setSize(300,200);
     this.setLocationRelativeTo(null);
     this.setVisible(true);    
@@ -59,7 +67,7 @@ public class EventNotificationDialog extends JFrame {
   }
 
   public EventNotificationDialog() {
-    this("", "", "");
+    this("", "", "", "");
   }
   void jbInit() throws Exception {
     this.setResizable(false);
@@ -68,7 +76,8 @@ public class EventNotificationDialog extends JFrame {
     border2 = BorderFactory.createEmptyBorder(0,30,0,30);
     border3 = BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(Color.white,new Color(142, 142, 142)),BorderFactory.createEmptyBorder(0,30,0,30));
     border4 = BorderFactory.createEmptyBorder(10,10,0,10);
-    panel1.setLayout(borderLayout1);
+    //panel1.setLayout(borderLayout1);
+    panel1.setLayout(gridLayout1);
     panel1.setBackground(new Color(251, 197, 63));
     
     jButton1.setText(Local.getString("Ok"));
@@ -85,15 +94,33 @@ public class EventNotificationDialog extends JFrame {
     panel1.setBorder(border4);
     panel1.setMinimumSize(new Dimension(300, 200));
     panel1.setPreferredSize(new Dimension(300, 200));
+    textName.setText("Details:");
+    textName.setHorizontalAlignment(SwingConstants.CENTER);
+    locName.setText("Location:");
+    locName.setHorizontalAlignment(SwingConstants.CENTER);
+    textSubPanel.setLayout(new BorderLayout());
+    textSubPanel.setBackground(new Color(251, 197, 63));
+    locationSubPanel.setLayout(new BorderLayout());
+    locationSubPanel.setBackground(new Color(251, 197, 63));
     timeLabel.setFont(new java.awt.Font("Dialog", 0, 20));
     timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
     textLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    locLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    textSubPanel.add(textName, BorderLayout.NORTH);
+    textSubPanel.add(textLabel, BorderLayout.CENTER);
+    locationSubPanel.add(locName, BorderLayout.NORTH);
+    locationSubPanel.add(locLabel, BorderLayout.CENTER);
     getContentPane().add(panel1);
-    panel1.add(jPanel1,  BorderLayout.SOUTH);
     jPanel1.add(jButton1, null);
     jPanel1.setBackground(new Color(251, 197, 63));
-    panel1.add(textLabel, BorderLayout.CENTER);
-    panel1.add(timeLabel, BorderLayout.NORTH);
+    //panel1.add(timeLabel, BorderLayout.NORTH);
+    panel1.add(timeLabel);
+    //panel1.add(textSubPanel, BorderLayout.CENTER);
+    panel1.add(textSubPanel);
+    //panel1.add(locationSubPanel, BorderLayout.SOUTH);
+    panel1.add(locationSubPanel);
+    //panel1.add(jPanel1,  BorderLayout.SOUTH);
+    panel1.add(jPanel1);
     playSoundNotification();
   }
 
