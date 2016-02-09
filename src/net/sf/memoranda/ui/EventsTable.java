@@ -62,16 +62,15 @@ public class EventsTable extends JTable {
     }
 
      public TableCellRenderer getCellRenderer(int row, int column) {
-        return new javax.swing.table.DefaultTableCellRenderer() {
-
-            public Component getTableCellRendererComponent(
-                JTable table,
-                Object value,
-                boolean isSelected,
-                boolean hasFocus,
-                int row,
-                int column) {
-                Component comp;
+    	 return new javax.swing.table.DefaultTableCellRenderer() {
+    		 public Component getTableCellRendererComponent(
+    			JTable table,
+    			Object value,
+    			boolean isSelected,
+    			boolean hasFocus,
+    			int row,
+    			int column) {
+    			Component comp;
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 Event ev = (Event)getModel().getValueAt(row, EVENT);
                 comp.setForeground(java.awt.Color.gray);
@@ -90,15 +89,13 @@ public class EventsTable extends JTable {
                 return comp;
             }
         };
-
     }
 
     class EventsTableModel extends AbstractTableModel {
 
         String[] columnNames = {
-            //Local.getString("Task name"),
             Local.getString("Time"),
-                Local.getString("Text")
+                Local.getString("Details")
         };
 
         EventsTableModel() {

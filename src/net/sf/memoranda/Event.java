@@ -26,9 +26,17 @@ public interface Event {
     
     int getMinute();
     
+    int getDHour();
+    
+    int getDMinute();
+    
     //Date getTime();
     
     String getText();
+    
+    String getLocation();
+    
+    String getParticipants();
     
     nu.xom.Element getContent();
     
@@ -40,6 +48,7 @@ public interface Event {
     boolean isRepeatable();
     
     Date getTime();
+    Date getDuration();
     String getTimeString();
     
 	boolean getWorkingDays();
