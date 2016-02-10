@@ -350,11 +350,10 @@ public class ProjectDialog extends JDialog {
         endCalFrame.show();
     }
     
-    public static void newProject() {
-    	
+    public static void newProject() {    	
     	String title = null;
-        ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
-        
+    	ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
+       
         Dimension dlgSize = dlg.getSize();
         //dlg.setSize(dlgSize);
         Dimension frmSize = App.getFrame().getSize();
@@ -363,15 +362,16 @@ public class ProjectDialog extends JDialog {
         dlg.setVisible(true);
         if (dlg.CANCELLED)
             return;
+        // Checks if title for the project is entered ** Required
         if (dlg.prTitleField.getText().equals("")) {
         	Object[] options = {"OK"};
         	JOptionPane.showOptionDialog(App.getFrame(),
-                    "Title cannot be empty!","Error",
-                    JOptionPane.PLAIN_MESSAGE,
-                    JOptionPane.ERROR_MESSAGE,
-                    null,
-                    options,
-                    options[0]);
+        			"Title cannot be empty!","Error",
+        			JOptionPane.PLAIN_MESSAGE,
+        			JOptionPane.ERROR_MESSAGE,
+        			null,
+        			options,
+        			options[0]);
         	return;
         }
         else {
