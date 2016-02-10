@@ -317,7 +317,11 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(lfJavaRB, gbc);
+		lfGroup.add(lfSystemRB);
+		lfGroup.add(lfJavaRB);
 		lfGroup.add(lfCustomRB);
+		lfSystemRB.setText("System");
+		lfJavaRB.setText("Java");
 		lfCustomRB.setText(Local.getString("Custom"));
 		lfCustomRB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
