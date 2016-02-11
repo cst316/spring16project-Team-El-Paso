@@ -232,11 +232,6 @@ public class EventsPanel extends JPanel {
                 EventsTable.EVENT);
         
         dlg.timeSpin.getModel().setValue(ev.getTime());
-        /*if (new CalendarDate(ev.getTime()).equals(CalendarDate.today())) 
-            ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(new Date());
-        else
-        ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(CalendarDate.today().getDate());
-        ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/
         dlg.durationSpin.getModel().setValue(ev.getDuration());
         dlg.textField.setText(ev.getText());
         dlg.locTextField.setText(ev.getLocation());
@@ -383,7 +378,7 @@ public class EventsPanel extends JPanel {
     }
 
     private void updateEvents(EventDialog dlg, int hh, int mm, int duration_hh, int duration_mm, String text, String locText, String participantsText) {
-	int rtype;
+    	int rtype;
         int period;
         CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
         CalendarDate ed = null;
@@ -393,20 +388,24 @@ public class EventsPanel extends JPanel {
             rtype = EventsManager.REPEAT_DAILY;
             period = ((Integer) dlg.daySpin.getModel().getValue()).intValue();
         }
-        else if (dlg.weeklyRepeatRB.isSelected()) {
+        else if (dlg.weeklyRepeatRB.isSelected()) 
+        {
             rtype = EventsManager.REPEAT_WEEKLY;
             period = dlg.weekdaysCB.getSelectedIndex() + 1;
-	    if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
-		if(period==7) period=1;
-		else period++;
-	    }
+            if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) 
+            	{
+            		if(period==7) period=1;
+            		else period++;
+            	}
         }
-	else if (dlg.yearlyRepeatRB.isSelected()) {
-	    rtype = EventsManager.REPEAT_YEARLY;
-	    period = sd.getCalendar().get(Calendar.DAY_OF_YEAR);
-	    if((sd.getYear() % 4) == 0 && sd.getCalendar().get(Calendar.DAY_OF_YEAR) > 60) period--;
-	}
-        else {
+        else if (dlg.yearlyRepeatRB.isSelected()) 
+        {
+        	rtype = EventsManager.REPEAT_YEARLY;
+        	period = sd.getCalendar().get(Calendar.DAY_OF_YEAR);
+        	if((sd.getYear() % 4) == 0 && sd.getCalendar().get(Calendar.DAY_OF_YEAR) > 60) period--;
+        }	
+        else 
+        {
             rtype = EventsManager.REPEAT_MONTHLY;
             period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
         }
@@ -442,12 +441,7 @@ public class EventsPanel extends JPanel {
         EventsManager.removeEvent(ev);
 		}
         eventsTable.getSelectionModel().clearSelection();
-/*        CurrentStorage.get().storeEventsManager();
-        eventsTable.refresh();
-        EventsScheduler.init();
-        parentPanel.calendar.jnCalendar.updateUI();
-        parentPanel.updateIndicators();
-*/ saveEvents();  
+        saveEvents();  
   }
 
     class PopupListener extends MouseAdapter {
