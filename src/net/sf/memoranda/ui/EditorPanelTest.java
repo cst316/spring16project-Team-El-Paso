@@ -26,11 +26,11 @@ public class EditorPanelTest {
 
 	@Before
 	public void setUp() throws Exception {
+		testabc.titleField.setText("Test Title1");
 		testClear = testabc.clearB;
 		testSave = testabc.saveB;
 		testNew = testabc.newB;
-		
-			
+				
 	}
 	
 	// currently only testing that the buttons are visible
@@ -56,8 +56,7 @@ public class EditorPanelTest {
 	// Make sure entry into Title field works 
 	@Test
 	public void testTitleJTextField() {
-		testTitleField.setText("Test Title1");
-		assertEquals("Test Title1", testTitleField.getText());
+		assertEquals("Test Title1", testabc.titleField.getText());
 				
 	}	
 
