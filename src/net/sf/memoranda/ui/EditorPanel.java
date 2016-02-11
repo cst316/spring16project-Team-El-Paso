@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
@@ -30,6 +31,7 @@ import net.sf.memoranda.History;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.CurrentNote;
+import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 import net.sf.memoranda.util.Util;
 import net.sf.memoranda.util.Context;
@@ -83,6 +85,10 @@ public class EditorPanel extends JPanel {
 	JButton newB = new JButton();
 
 	JButton previewB = new JButton();
+	
+	JButton saveB = new JButton();
+	
+	JButton clearB = new JButton();
 
 	DailyItemsPanel parentPanel = null;
 
@@ -153,6 +159,24 @@ public class EditorPanel extends JPanel {
 			previewB_actionPerformed(e);
 		}
 	};
+	
+	public Action saveAction = new AbstractAction(Local
+			.getString("Save Note"), new ImageIcon(
+			net.sf.memoranda.ui.AppFrame.class
+					.getResource("resources/icons/save.png"))) {
+		public void actionPerformed(ActionEvent e) {
+			saveB_actionPerformed(e);
+		}
+	};
+	
+	public Action clearAction = new AbstractAction(Local
+			.getString("Clear Note"), new ImageIcon(
+			net.sf.memoranda.ui.AppFrame.class
+					.getResource("resources/icons/editdelete.png"))) {
+		public void actionPerformed(ActionEvent e) {
+			clearB_actionPerformed(e);
+		}
+	};
 
 	void jbInit() throws Exception {
 
@@ -165,14 +189,14 @@ public class EditorPanel extends JPanel {
 		this.setLayout(borderLayout1);
 
 		newB.setAction(newAction);
-		newB.setMaximumSize(new Dimension(24, 24));
-		newB.setMinimumSize(new Dimension(24, 24));
-		newB.setPreferredSize(new Dimension(24, 24));
+		newB.setMaximumSize(new Dimension(100, 24));
+		newB.setMinimumSize(new Dimension(100, 24));
+		newB.setPreferredSize(new Dimension(100, 24));
 		newB.setRequestFocusEnabled(false);
 		newB.setToolTipText(Local.getString("New note"));
 		newB.setBorderPainted(false);
 		newB.setFocusable(false);
-		newB.setText("");
+		newB.setText("New Note");
 
 		importB.setAction(importAction);
 		importB.setBorderPainted(false);
@@ -293,6 +317,26 @@ public class EditorPanel extends JPanel {
 		previewB.setMinimumSize(new Dimension(24, 24));
 		previewB.setMaximumSize(new Dimension(24, 24));
 		previewB.setText("");
+		
+		saveB.setAction(saveAction);
+		saveB.setMaximumSize(new Dimension(100, 24));
+		saveB.setMinimumSize(new Dimension(100, 24));
+		saveB.setPreferredSize(new Dimension(100, 24));
+		saveB.setRequestFocusEnabled(false);
+		saveB.setToolTipText(Local.getString("Save Note"));
+		saveB.setBorderPainted(false);
+		saveB.setFocusable(false);
+		saveB.setText("Save Note");
+		
+		clearB.setAction(clearAction);
+		clearB.setMaximumSize(new Dimension(100, 24));
+		clearB.setMinimumSize(new Dimension(100, 24));
+		clearB.setPreferredSize(new Dimension(100, 24));
+		clearB.setRequestFocusEnabled(false);
+		clearB.setToolTipText(Local.getString("Clear Note"));
+		clearB.setBorderPainted(false);
+		clearB.setFocusable(false);
+		clearB.setText("Clear Note");
 
 		/*
 		 * printB.setAction(printAction); printB.setMaximumSize(new
@@ -305,8 +349,9 @@ public class EditorPanel extends JPanel {
 		 */
 
 		jPanel1.setLayout(borderLayout2);
-		titleLabel.setFont(new java.awt.Font("Dialog", 1, 10));
+		titleLabel.setFont(new java.awt.Font("Dialog", 1, 20));
 		titleLabel.setText(Local.getString("Title") + "  ");
+		titleField.setFont(new java.awt.Font("Dialog", 0, 18));
 		titleField.setText("");
 		editorToolBar.setFloatable(false);
 		editor.editToolbar.setFloatable(false);
@@ -331,6 +376,10 @@ public class EditorPanel extends JPanel {
 		editorToolBar.add(exportB, null);
 		editorToolBar.addSeparator(new Dimension(8, 24));
 		editorToolBar.add(previewB, null);
+		editorToolBar.addSeparator(new Dimension(8, 24));
+		editorToolBar.add(saveB, null);
+		editorToolBar.addSeparator(new Dimension(8, 24));
+		editorToolBar.add(clearB, null);
 		// editorToolBar.add(printB, null);
 		jPanel1.add(editorToolBar, BorderLayout.NORTH);
 		jPanel1.add(editor, BorderLayout.CENTER);
@@ -586,5 +635,55 @@ public class EditorPanel extends JPanel {
 		} catch (IOException ioe) {
 			new ExceptionDialog(ioe, "Cannot create temporary file", null);
 		}
+	}
+	
+	void saveB_actionPerformed(ActionEvent e) {
+		CurrentNote.set(null, true);
+	}
+	
+	void clearB_actionPerformed(ActionEvent e) {
+        String msg;
+        if (NotesControlPanel.notesList.getSelectedIndices().length > 1)
+            msg =
+                Local.getString(Local.getString("Clear"))
+                    + " "
+                    + NotesControlPanel.notesList.getSelectedIndices().length
+                    + " "
+                    + Local.getString("notes")
+                    + "\n"
+                    + Local.getString("Are you sure?");
+        else
+            msg =
+                Local.getString("Clear Note")
+                    + "\n'"
+                    + ((Note) NotesControlPanel.notesList.getNote(NotesControlPanel.notesList.getSelectedIndex())).getDate().getFullDateString() 
+                    + "\n" 
+                    + ((Note) NotesControlPanel.notesList.getNote(NotesControlPanel.notesList.getSelectedIndex())).getTitle()
+                    + "'\n"
+                    + Local.getString("Are you sure?");
+
+        int n =
+            JOptionPane.showConfirmDialog(
+                App.getFrame(),
+                msg,
+                Local.getString("Clear note"),
+                JOptionPane.YES_NO_OPTION);
+        if (n != JOptionPane.YES_OPTION)
+            return;
+
+        for (int i = 0; i < NotesControlPanel.notesList.getSelectedIndices().length; i++) {
+            Note note = (Note) NotesControlPanel.notesList.getNote(NotesControlPanel.notesList.getSelectedIndices()[i]);
+			if(CurrentProject.getNoteList().getActiveNote() != null && note.getDate().equals(CurrentProject.getNoteList().getActiveNote().getDate())){ 
+				/*Debug*/ System.out.println("[DEBUG] Current note removed");
+				CurrentNote.set(null,true);
+			}
+			CurrentProject.getNoteList().removeNote(note.getDate(), note.getId());
+			CurrentStorage.get().removeNote(note);
+        }
+        NotesControlPanel.bookmarksListPanel.notesList.update();
+        NotesControlPanel.searchPanel.notesList.update();
+        NotesControlPanel.notesListPanel.notesList.update();
+        NotesControlPanel.notesList.updateUI();
+        NotesControlPanel.notesList.clearSelection();
 	}
 }
