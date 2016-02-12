@@ -24,7 +24,7 @@ public class TaskTableSorter extends TaskTableModel{
 	
 	Comparator comparator = new Comparator(){
 		public int compare(Object o1, Object o2){
-						if( (o1 instanceof Task) == false) return 0;
+			if( (o1 instanceof Task) == false) return 0;
 			if( (o2 instanceof Task) == false ) return 0;
 			
 			
