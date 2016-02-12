@@ -49,6 +49,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     JLabel label = new JLabel();
     //JLabel tree_label = new JLabel();
     TaskProgressLabel progressLabel;
+    
     JPanel empty_panel = new JPanel();
     // get Task objects via table (maybe not most elegant solution)
     TaskTable table;
@@ -108,7 +109,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             return label;
         }
         // if( column_name.equals("% " + Local.getString("done")) ){
-        if (column == 6) {
+        if (column == 7) {
             return getProgressCellRenderer(t, selected, hasFocus, column);
         }
         // if( column_name.equals("") ){
@@ -121,8 +122,16 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             label.setText(dateFormat.format((Date) value));
             return label;
         }
+        
+        // if( column_name.equals( Local.getString("Category") ) ){
+        if (column == 4) {
+            label.setText(value.toString());
+            return label;
+        }
+
+              
         // if( column_name.equals( Local.getString("Status") ) ){
-        if (column == 5) {
+        if (column == 6) {
             label.setText(value.toString());
             label.setForeground(getColorForTaskStatus(t, false));
             return label;
@@ -153,6 +162,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         applyFocus(hasFocus, progressLabel);
         return progressLabel;
     }
+    
 
     private Component getPriorityIconCellRenderer(Task t, boolean selected, boolean hasFocus) {
         applyFocus(false, label); // disable focus borders
