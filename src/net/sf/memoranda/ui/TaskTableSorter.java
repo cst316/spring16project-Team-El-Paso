@@ -38,7 +38,7 @@ public class TaskTableSorter extends TaskTableModel{
 
 			
 			// based on TaskTableModel.columnNames
-			switch(sorting_column){//dena
+			switch(sorting_column){
 				case 1: return task1.getText().compareTo(task2.getText());
 				case 2: return task1.getStartDate().getDate().compareTo(task2.getStartDate().getDate());
 				case 3: return task1.getEndDate().getDate().compareTo(task2.getEndDate().getDate());
@@ -93,7 +93,7 @@ public class TaskTableSorter extends TaskTableModel{
 		
             	// 0 == priority icon column
             	// 	4 == priority text column
-            	if(column == 0) sorting_column = 5;//dena
+            	if(column == 0) sorting_column = 5;
 		
             	if(e.isControlDown()) sorting_column = -1;
             	else opposite = !opposite;
