@@ -59,16 +59,13 @@ public class TaskDialog extends JDialog {
 //    Border border5;
 //    Border border6;
     JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
-
     JTextField todoField = new JTextField();
-    
     
     String[] category = {"Planning", "Design", "Development", "Testing", "Postmortem", "Other"};
     JComboBox categoryCB = new JComboBox(category);
     JLabel jLabelCategory = new JLabel();
     
-    
-    // added by rawsushi
+   // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
@@ -195,7 +192,6 @@ public class TaskDialog extends JDialog {
         gbCon.weighty = 1;
         gbLayout.setConstraints(todoField,gbCon);
         
-        
         jLabelCategory.setMaximumSize(new Dimension(100, 40));
         jLabelCategory.setMinimumSize(new Dimension(60, 40));
         jLabelCategory.setText("Category:   ");
@@ -213,8 +209,6 @@ public class TaskDialog extends JDialog {
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(categoryCB,gbCon);
-        
-
         
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
