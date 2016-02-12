@@ -76,7 +76,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getValueAt(java.lang.Object,
      *      int)
      */
-    public Object getValueAt(Object node, int column) {//dena
+    public Object getValueAt(Object node, int column) {
         if (node instanceof Project)
             return null;
         Task t = (Task) node;
@@ -92,7 +92,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
                 return null;
             else
                 return t.getEndDate().getDate();        
-        case 4: return t.getCategory(); //dena
+        case 4: return t.getCategory(); 
         	
         case 5:
             return getPriorityString(t.getPriority()); 
@@ -176,7 +176,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     /**
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnClass(int)
      */
-    public Class getColumnClass(int column) {//dena
+    public Class getColumnClass(int column) {
         try {
             switch (column) {
             case 1:

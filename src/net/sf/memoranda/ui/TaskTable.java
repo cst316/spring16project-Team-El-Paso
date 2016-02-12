@@ -160,7 +160,6 @@ public class TaskTable extends JTable {
 		
 		//  grid.
 		setShowGrid(false);
-		
 
 		// No intercell spacing
 		setIntercellSpacing(new Dimension(0, 0));
@@ -177,7 +176,7 @@ public class TaskTable extends JTable {
     }
 
     void initColumnWidths() {
-        for (int i = 0; i < 8; i++) { //dena
+        for (int i = 0; i < 8; i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(8);

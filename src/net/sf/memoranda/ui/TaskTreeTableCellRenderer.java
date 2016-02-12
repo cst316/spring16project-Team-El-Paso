@@ -109,7 +109,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             return label;
         }
         // if( column_name.equals("% " + Local.getString("done")) ){
-        if (column == 7) {//dena changed from 6 to 7
+        if (column == 7) {
             return getProgressCellRenderer(t, selected, hasFocus, column);
         }
         // if( column_name.equals("") ){
@@ -124,14 +124,14 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         }
         
         // if( column_name.equals( Local.getString("Category") ) ){
-        if (column == 4) {//dena changed from 4
+        if (column == 4) {
             label.setText(value.toString());
             return label;
         }
 
               
         // if( column_name.equals( Local.getString("Status") ) ){
-        if (column == 6) {//dena changed from 5 to 6
+        if (column == 6) {
             label.setText(value.toString());
             label.setForeground(getColorForTaskStatus(t, false));
             return label;
