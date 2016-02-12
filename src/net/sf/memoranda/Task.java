@@ -77,6 +77,10 @@ public interface Task {
     
     void setDescription(String description);
     String getDescription();
+    
+    
+    public String getCategory();
+    public void setCategory(String taskCategory);
 
     Task getParentTask();
     String getParentId();
