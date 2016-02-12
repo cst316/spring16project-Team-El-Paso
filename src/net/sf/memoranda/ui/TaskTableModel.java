@@ -42,8 +42,7 @@ import java.util.Hashtable;
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
 
     String[] columnNames = {"", Local.getString("To-do"),
-            Local.getString("Start date"), Local.getString("End date"),
-            Local.getString("Priority"), Local.getString("Status"),
+            Local.getString("Start date"), Local.getString("End date"), Local.getString("Category"), Local.getString("Priority"), Local.getString("Status"),
             "% " + Local.getString("done") };
 
     protected EventListenerList listenerList = new EventListenerList();
@@ -93,11 +92,13 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
                 return null;
             else
                 return t.getEndDate().getDate();        
-        case 4:
-            return getPriorityString(t.getPriority());
+        case 4: return t.getCategory(); 
+        	
         case 5:
+            return getPriorityString(t.getPriority()); 
+        case 6:
             return getStatusString(t.getStatus(CurrentDate.get()));
-        case 6:            
+        case 7:            
             //return new Integer(t.getProgress());
 			return t;
         case TaskTable.TASK_ID:
@@ -107,6 +108,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         }
         return "";
     }
+    
 
     String getStatusString(int status) {
         switch (status) {
@@ -183,11 +185,12 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
                 return TaskTable.class;
             case 4:
             case 5:
+            case 6:
                 return Class.forName("java.lang.String");
             case 2:
             case 3:
                 return Class.forName("java.util.Date");
-            case 6:
+            case 7:
                 return Class.forName("java.lang.Integer");
             }
         } catch (Exception ex) {
@@ -210,7 +213,8 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
      */
     public void fireUpdateCache(){
 		activeOnly = check_activeOnly();
-    }
+		
+	}
 
     public static boolean check_activeOnly(){
 		Object o = Context.get("SHOW_ACTIVE_TASKS_ONLY");
@@ -223,7 +227,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
     
     public boolean isCellEditable(Object node, int column) {
-		if(column == 6) return true; 
+		if(column == 7) return true; 
         return super.isCellEditable(node, column); 
     }
 

@@ -20,15 +20,21 @@ package net.sf.memoranda.ui.table;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 import net.sf.memoranda.util.Local;
 
 /*$Id: TableSorter.java,v 1.7 2004/10/07 08:52:32 ivanrise Exp $*/
@@ -50,6 +56,7 @@ public class TableSorter extends TableMap {
     public void setModel(TableModel model) {
         super.setModel(model); 
         reallocateIndexes(); 
+        
     }
 
     public int compareRowsByColumn(int row1, int row2, int column) {

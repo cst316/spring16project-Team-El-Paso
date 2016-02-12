@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -349,9 +350,10 @@ public class ProjectDialog extends JDialog {
         endCalFrame.show();
     }
     
-    public static void newProject() {
-        ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
-        
+    public static void newProject() {    	
+    	String title = null;
+    	ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
+       
         Dimension dlgSize = dlg.getSize();
         //dlg.setSize(dlgSize);
         Dimension frmSize = App.getFrame().getSize();
@@ -360,7 +362,22 @@ public class ProjectDialog extends JDialog {
         dlg.setVisible(true);
         if (dlg.CANCELLED)
             return;
-        String title = dlg.prTitleField.getText();
+        // Checks if title for the project is entered ** Required
+        if (dlg.prTitleField.getText().equals("")) {
+        	Object[] options = {"OK"};
+        	JOptionPane.showOptionDialog(App.getFrame(),
+        			"Title cannot be empty!","Error",
+        			JOptionPane.PLAIN_MESSAGE,
+        			JOptionPane.ERROR_MESSAGE,
+        			null,
+        			options,
+        			options[0]);
+        	return;
+        }
+        else {
+        	title = dlg.prTitleField.getText();
+        }
+ 
         String description = dlg.prDescriptionField.getText();
         String goal = dlg.prGoalField.getText(); 
         CalendarDate startD = new CalendarDate((Date) dlg.startDate.getModel().getValue());
