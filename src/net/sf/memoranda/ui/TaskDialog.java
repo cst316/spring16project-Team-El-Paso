@@ -206,7 +206,7 @@ public class TaskDialog extends JDialog {
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(jLabelCategory,gbCon);
         
-       
+        categoryCB.setFont(new java.awt.Font("Dialog", 0, 11));
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 3;

@@ -132,6 +132,7 @@ public class TaskImpl implements Task, Comparable {
 
     
     public String getCategory() {
+    	
     	Element thisElement = _element.getFirstChildElement("category");
     	if (thisElement == null) {
     		return null;
@@ -139,6 +140,7 @@ public class TaskImpl implements Task, Comparable {
     	else {
     		return thisElement.getValue();
     	}
+    	
     }
 
     
