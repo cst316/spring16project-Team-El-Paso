@@ -121,7 +121,7 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(lblTime, gbc);
-        timeSpin.setPreferredSize(new Dimension(70, 24));
+        timeSpin.setPreferredSize(new Dimension(90, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 1; gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 5, 0);
@@ -134,7 +134,7 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.EAST;
         eventPanel.add(lblDuration, gbc);
-        durationSpin.setPreferredSize(new Dimension(60, 24));
+        durationSpin.setPreferredSize(new Dimension(65, 24));
         durationSpin.setEditor(new JSpinner.DateEditor(durationSpin, "HH:mm"));
         Date spinDate = new Date();
         Calendar zeroTime = Calendar.getInstance();
@@ -276,7 +276,7 @@ public class EventDialog extends JDialog implements WindowListener {
                 ignoreStartChanged = false;
             }
         });
-        startDate.setPreferredSize(new Dimension(80, 24));
+        startDate.setPreferredSize(new Dimension(85, 24));
         
         //Added by (jcscoobyrs) on 12-Nov-2003 at 15:34:27 PM
 		//---------------------------------------------------
@@ -336,7 +336,7 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(5, 0, 5, 5);
         gbc.anchor = GridBagConstraints.EAST;
         repeatPanel.add(enableEndDateCB, gbc);
-        endDate.setPreferredSize(new Dimension(80, 24));
+        endDate.setPreferredSize(new Dimension(85, 24));
 		//Added by (jcscoobyrs) on 12-Nov-2003 at 15:34:27 PM
 		//---------------------------------------------------
 		endDate.setEditor(new JSpinner.DateEditor(endDate, sdf.toPattern()));
