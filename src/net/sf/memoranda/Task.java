@@ -82,6 +82,11 @@ public interface Task {
     public String getCategory();
     public void setCategory(String taskCategory);
 
+    
+    public String getTimer();
+    public void setTimer(String taskTimer);
+    
+    
     Task getParentTask();
     String getParentId();
     

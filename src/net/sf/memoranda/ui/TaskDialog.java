@@ -65,6 +65,10 @@ public class TaskDialog extends JDialog {
     JComboBox categoryCB = new JComboBox(category);
     JLabel jLabelCategory = new JLabel();
     
+    String[] timer = {"1", "2", "3", "4", "5", "6"};
+    JComboBox timerCB = new JComboBox(timer);
+    JLabel jLabelTimer = new JLabel();
+    
    // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
@@ -209,7 +213,25 @@ public class TaskDialog extends JDialog {
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(categoryCB,gbCon);
+        // MY GUI TIMER
+        jLabelCategory.setMaximumSize(new Dimension(150, 90));
+        jLabelCategory.setMinimumSize(new Dimension(110, 90));
+        jLabelCategory.setText("Timer:   ");
+        gbCon = new GridBagConstraints();
+        gbCon.gridwidth = 2;
+        gbCon.weighty = 3;
+        gbCon.insets = new Insets(20,0,20,0);
+        gbCon.anchor = GridBagConstraints.WEST;
+        gbLayout.setConstraints(jLabelTimer,gbCon);
         
+        categoryCB.setFont(new java.awt.Font("Dialog", 0, 11));
+        gbCon = new GridBagConstraints();
+        gbCon.gridwidth = GridBagConstraints.REMAINDER;
+        gbCon.weighty = 3;
+        gbCon.insets = new Insets(20,0,20,0);
+        gbCon.anchor = GridBagConstraints.WEST;
+        gbLayout.setConstraints(categoryCB,gbCon);
+        // done
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
         jLabelDescription.setText(Local.getString("Description"));
@@ -358,6 +380,10 @@ public class TaskDialog extends JDialog {
         jPanel8.add(todoField, null);
         jPanel8.add(jLabelCategory, null);
         jPanel8.add(categoryCB, null);
+        // my jPane
+        jPanel8.add(jLabelTimer, null);
+        jPanel8.add(timerCB, null);
+        // done
         jPanel8.add(jLabelDescription);
         jPanel8.add(descriptionScrollPane, null);
         areaPanel.add(jPanel2, BorderLayout.CENTER);
