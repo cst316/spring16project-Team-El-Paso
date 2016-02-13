@@ -415,5 +415,23 @@ public class TaskImpl implements Task, Comparable {
 		return false;
 	}
 
+	public void setSize(String size) {
+		setAttr("size", String.valueOf(size));
+ 
+    }
+		
+	public String getSize() { 
+		return _element.getAttribute("size").getValue();
+	}
+
+	public void setActualSize(String asize) {
+		setAttr("actualSize", String.valueOf(asize));
+		
+	}
+
+	public String getActualSize() {
+		return _element.getAttribute("actualSize").getValue();
+	}
+
 	
 }
