@@ -24,7 +24,6 @@ public class TaskTableSorter extends TaskTableModel{
 	
 	Comparator comparator = new Comparator(){
 		public int compare(Object o1, Object o2){
-			if(sorting_column == -1) return 0;
 			if( (o1 instanceof Task) == false) return 0;
 			if( (o2 instanceof Task) == false ) return 0;
 			
@@ -32,15 +31,22 @@ public class TaskTableSorter extends TaskTableModel{
 			Task task1 = (Task) o1;
 			Task task2 = (Task) o2;
 			
+			if(sorting_column == -1){
+				return task1.getEndDate().getDate().compareTo(task2.getEndDate().getDate());
+				//return 0;
+			}
+
+			
 			// based on TaskTableModel.columnNames
 			switch(sorting_column){
 				case 1: return task1.getText().compareTo(task2.getText());
 				case 2: return task1.getStartDate().getDate().compareTo(task2.getStartDate().getDate());
 				case 3: return task1.getEndDate().getDate().compareTo(task2.getEndDate().getDate());
 				case 0: // task priority, same as 4
-				case 4: return task1.getPriority() - task2.getPriority();
-				case 5: return task1.getStatus( CurrentDate.get() ) - task2.getStatus( CurrentDate.get() );
-				case 6: return task1.getProgress() - task2.getProgress();
+				case 4: return task1.getCategory().compareTo(task2.getCategory());
+				case 5: return task1.getPriority() - task2.getPriority();
+				case 6: return task1.getStatus( CurrentDate.get() ) - task2.getStatus( CurrentDate.get() );
+				case 7: return task1.getProgress() - task2.getProgress();
 			}
 			
 			return 0;
@@ -83,23 +89,23 @@ public class TaskTableSorter extends TaskTableModel{
             int viewColumn = columnModel.getColumnIndexAtX(e.getX());
             int column = columnModel.getColumn(viewColumn).getModelIndex();
             if (column != -1) {
-		sorting_column = column;
+            	sorting_column = column;
 		
-		// 0 == priority icon column
-		// 4 == priority text column
-		if(column == 0) sorting_column = 4;
+            	// 0 == priority icon column
+            	// 	4 == priority text column
+            	if(column == 0) sorting_column = 5;
 		
-		if(e.isControlDown()) sorting_column = -1;
-		else opposite = !opposite;
+            	if(e.isControlDown()) sorting_column = -1;
+            	else opposite = !opposite;
 		
-		TaskTable treetable = ( (TaskTable) h.getTable());
+            	TaskTable treetable = ( (TaskTable) h.getTable());
 		
-		//java.util.Collection expanded = treetable.getExpandedTreeNodes();
+            	//java.util.Collection expanded = treetable.getExpandedTreeNodes();
 		
-		treetable.tableChanged();
-		//treetable.setExpandedTreeNodes(expanded);
-		//h.updateUI();
-		h.resizeAndRepaint();
+            	treetable.tableChanged();
+            	//treetable.setExpandedTreeNodes(expanded);
+            	//h.updateUI();
+            	h.resizeAndRepaint();
             }
         }
     }

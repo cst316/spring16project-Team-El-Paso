@@ -46,14 +46,23 @@ public class EventImpl implements Event, Comparable {
         return new Integer(_elem.getAttribute("min").getValue()).intValue();
     }
     
+    /**
+     * @see net.sf.memoranda.Event#getDHour()
+     */
     public int getDHour() {
     	return new Integer(_elem.getAttribute("durationHour").getValue()).intValue();
     }
     
+    /**
+     * @see net.sf.memoranda.Event#getDMinute()
+     */
     public int getDMinute() {
     	return new Integer(_elem.getAttribute("durationMin").getValue()).intValue();
     }
     
+    /**
+     * @see net.sf.memoranda.Event#getTimeString()
+     */
     public String getTimeString() {
         return Local.getTimeString(getHour(), getMinute());
     }
@@ -73,6 +82,9 @@ public class EventImpl implements Event, Comparable {
     	return _elem.getAttributeValue("Location");
     }
     
+    /**
+     * @see net.sf.memoranda.Event#getParticipants()
+     */
     public String getParticipants() {
     	return _elem.getAttributeValue("Participants");
     }
@@ -83,52 +95,69 @@ public class EventImpl implements Event, Comparable {
     public Element getContent() {
         return _elem;
     }
+    
     /**
      * @see net.sf.memoranda.Event#isRepeatable()
      */
     public boolean isRepeatable() {
         return getStartDate() != null;
     }
+    
     /**
      * @see net.sf.memoranda.Event#getStartDate()
      */
     public CalendarDate getStartDate() {
         Attribute a = _elem.getAttribute("startDate");
-        if (a != null) return new CalendarDate(a.getValue());
+        if (a != null) {
+        	return new CalendarDate(a.getValue());
+        }
         return null;
     }
+    
     /**
      * @see net.sf.memoranda.Event#getEndDate()
      */
     public CalendarDate getEndDate() {
         Attribute a = _elem.getAttribute("endDate");
-        if (a != null) return new CalendarDate(a.getValue());
+        if (a != null) {
+        	return new CalendarDate(a.getValue());
+        }
         return null;
     }
+    
     /**
      * @see net.sf.memoranda.Event#getPeriod()
      */
     public int getPeriod() {
         Attribute a = _elem.getAttribute("period");
-        if (a != null) return new Integer(a.getValue()).intValue();
+        if (a != null) {
+        	return new Integer(a.getValue()).intValue();
+        }
         return 0;
     }
+    
     /**
      * @see net.sf.memoranda.Event#getId()
      */
     public String getId() {
         Attribute a = _elem.getAttribute("id");
-        if (a != null) return a.getValue();
+        if (a != null) {
+        	return a.getValue();
+        }
         return null;
     }
+    
     /**
      * @see net.sf.memoranda.Event#getRepeat()
      */
     public int getRepeat() {
         Attribute a = _elem.getAttribute("repeat-type");
-        if (a != null) return new Integer(a.getValue()).intValue();
+        if (a != null) {
+        	return new Integer(a.getValue()).intValue();
+        }
         return 0;
     }
+    
     /**
      * @see net.sf.memoranda.Event#getTime()
      */
@@ -150,6 +179,9 @@ public class EventImpl implements Event, Comparable {
         return d;
     }
     
+    /**
+     * @see net.sf.memoranda.Event#getDuration()
+     */
     public Date getDuration() {
     	Date d = new Date();
 	Calendar calendar = new GregorianCalendar(Local.getCurrentLocale());
@@ -166,7 +198,9 @@ public class EventImpl implements Event, Comparable {
      */
 	public boolean getWorkingDays() {
         Attribute a = _elem.getAttribute("workingDays");
-        if (a != null && a.getValue().equals("true")) return true;
+        if (a != null && a.getValue().equals("true")) {
+        	return true;
+        }
         return false;
 	}
 	

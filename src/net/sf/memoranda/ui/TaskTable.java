@@ -167,7 +167,7 @@ public class TaskTable extends JTable {
 		// And update the height of the trees row to match that of
 		// the table.
 		//if (tree.getRowHeight() < 1) {
-			setRowHeight(18);
+		setRowHeight(18);
 		//}
 		initColumnWidths();
 		
@@ -176,7 +176,7 @@ public class TaskTable extends JTable {
     }
 
     void initColumnWidths() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(8);
@@ -184,10 +184,14 @@ public class TaskTable extends JTable {
             else if (i == 1) {
                 column.setPreferredWidth(32767);
             }
-	    else if( i == 6 ){
-		    column.setPreferredWidth(100);
-		    column.setMinWidth(100);
-	    }
+            else if( i == 6 ){
+            	column.setPreferredWidth(100);
+            	column.setMinWidth(100);
+            }
+            else if ( i == 4){
+            	column.setPreferredWidth(80);
+            	column.setMinWidth(80);
+            }
             else {
                 column.setMinWidth(67); // 65);
                 column.setPreferredWidth(67); //65);

@@ -29,8 +29,10 @@ public class DefaultEventNotifier implements EventNotificationListener {
 		new EventNotificationDialog(
 			"Memoranda event",
 			ev.getTimeString(),
-			ev.getText());
+			ev.getText(),
+			ev.getLocation());
 	}
+	
 	/**
 	 * @see net.sf.memoranda.EventNotificationListener#eventsChanged()
 	 */
