@@ -170,7 +170,7 @@ public class TaskImpl implements Task, Comparable {
     	
     }
 
-    
+    //MY adding
     public void setTimer(String taskTimer) {
     	Element timer = _element.getFirstChildElement("timer");
     	if (timer == null) {
@@ -183,7 +183,7 @@ public class TaskImpl implements Task, Comparable {
             category.appendChild(taskTimer);    	
     	}
     } 
-    
+    //DONE
     
     
     /**s

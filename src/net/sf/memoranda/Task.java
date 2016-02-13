@@ -16,6 +16,7 @@ import net.sf.memoranda.date.CalendarDate;
  * 
  */
 /*$Id: Task.java,v 1.9 2005/06/16 04:21:32 alexeya Exp $*/
+//MY CHANGES START HERER
 public interface Task {
     
     public static final int SCHEDULED = 0;
@@ -82,10 +83,10 @@ public interface Task {
     public String getCategory();
     public void setCategory(String taskCategory);
 
-    
+    //MY adding
     public String getTimer();
     public void setTimer(String taskTimer);
-    
+    //DONE
     
     Task getParentTask();
     String getParentId();

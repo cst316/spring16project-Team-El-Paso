@@ -124,11 +124,11 @@ public class TaskListImpl implements TaskList {
         Element taskCategory = new Element("category");
         taskCategory.appendChild(category);
         el.appendChild(taskCategory);
-
+        //My TIMER
         Element taskTimer = new Element("timer");
         taskTimer.appendChild(timer);
         el.appendChild(taskTimer);
-
+        //DONE
         
         if (parentTaskId == null) {
             _root.appendChild(el);
