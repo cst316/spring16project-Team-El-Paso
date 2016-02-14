@@ -312,7 +312,7 @@ public class TaskImpl implements Task, Comparable {
     public void setPriority(int p) {
         setAttr("priority", String.valueOf(p));
     }
-
+    
     private void setAttr(String a, String value) {
         Attribute attr = _element.getAttribute(a);
         if (attr == null)
@@ -356,6 +356,43 @@ public class TaskImpl implements Task, Comparable {
 */
 		return -1*calcTaskRate(CurrentDate.get());
 	 }
+    
+	// Getters and Setter for size estimation/actual
+	public void setSize(int size) {
+		setAttr("size", String.valueOf(size));
+
+	}
+
+	public String getSize() {
+		Attribute si = _element.getAttribute("size");
+		if (si == null) {
+			return "0";
+		} else {
+			try {
+				return si.getValue();
+			} catch (NumberFormatException e) {
+				return "0";
+			}
+		}
+	}
+
+	public void setActualSize(int asize) {
+		setAttr("actualSize", String.valueOf(asize));
+
+	}
+
+	public String getActualSize() {
+		Attribute as = _element.getAttribute("actualSize");
+		if (as == null) {
+			return "0";
+		} else {
+			try {
+				return as.getValue();
+			} catch (NumberFormatException e) {
+				return "0";
+			}
+		}
+	}
 	   
 	 /*
 	  * Comparable interface
@@ -414,6 +451,5 @@ public class TaskImpl implements Task, Comparable {
 				return true;
 		return false;
 	}
-
 	
 }

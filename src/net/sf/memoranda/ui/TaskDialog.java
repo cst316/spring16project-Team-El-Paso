@@ -58,7 +58,7 @@ public class TaskDialog extends JDialog {
     Border border4;
 //    Border border5;
 //    Border border6;
-    JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
+    JPanel jPanel2 = new JPanel(new GridLayout(4, 2));
     JTextField todoField = new JTextField();
     
     String[] category = {"Planning", "Design", "Development", "Testing", "Postmortem", "Other"};
@@ -67,6 +67,8 @@ public class TaskDialog extends JDialog {
     
    // added by rawsushi
     JTextField effortField = new JTextField();
+    JTextField sizeField = new JTextField();
+    JTextField actualSizeField = new JTextField();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     
@@ -90,8 +92,10 @@ public class TaskDialog extends JDialog {
 //    JSpinner endDate = new JSpinner(new SpinnerDateModel());
     JButton setEndDateB = new JButton();
     //JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanelSize = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanelActualSize = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
     JButton setNotifB = new JButton();
@@ -99,6 +103,8 @@ public class TaskDialog extends JDialog {
     JLabel jLabel7 = new JLabel();
     // added by rawsushi
     JLabel jLabelEffort = new JLabel();
+    JLabel jLabelSize = new JLabel();
+    JLabel jLabelActualSize = new JLabel();
     JLabel jLabelDescription = new JLabel();
 	JCheckBox chkEndDate = new JCheckBox();
 	
@@ -233,8 +239,20 @@ public class TaskDialog extends JDialog {
         jLabelEffort.setMinimumSize(new Dimension(60, 16));
         jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
         effortField.setBorder(border8);
-        effortField.setPreferredSize(new Dimension(30, 24));
-
+        effortField.setPreferredSize(new Dimension(40, 24));
+        
+        jLabelSize.setMaximumSize(new Dimension(100, 16));
+        jLabelSize.setMinimumSize(new Dimension(60, 16));
+        jLabelSize.setText(Local.getString("Est Size(LOC)"));
+        sizeField.setBorder(border8);
+        sizeField.setPreferredSize(new Dimension(50, 24));  
+        
+        jLabelActualSize.setMaximumSize(new Dimension(100, 16));
+        jLabelActualSize.setMinimumSize(new Dimension(60, 16));
+        jLabelActualSize.setText(Local.getString("Actual Size(LOC)"));
+        actualSizeField.setBorder(border8);
+        actualSizeField.setPreferredSize(new Dimension(50, 24)); 
+        
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
 		SimpleDateFormat sdf = new SimpleDateFormat();
@@ -371,20 +389,29 @@ public class TaskDialog extends JDialog {
         jPanel1.add(endDate, null);
         jPanel1.add(setEndDateB, null);
         // added by rawsushi
-        jPanel2.add(jPanelEffort, null);
+        jPanel2.add(jPanelEffort, null);        
         jPanelEffort.add(jLabelEffort, null);
         jPanelEffort.add(effortField, null);
-
-        jPanel2.add(jPanel4, null);
-        jPanel4.add(priorityCB, null);
-        jPanel2.add(jPanel3, null);
-        
-        jPanel3.add(setNotifB, null);
         
         jLabelProgress.setText(Local.getString("Progress"));
         jPanelProgress.add(jLabelProgress, null);
         jPanelProgress.add(progress, null);
         jPanel2.add(jPanelProgress);
+        
+        jPanel2.add(jPanelSize, null);
+        jPanelSize.add(jLabelSize, null);
+        jPanelSize.add(sizeField, null);
+        
+        jPanel4.add(priorityCB, null);
+        jPanel2.add(jPanel4, null);
+            
+        jPanel2.add(jPanelActualSize, null);
+        jPanelActualSize.add(jLabelActualSize, null);
+        jPanelActualSize.add(actualSizeField, null);
+        
+        jPanel3.add(setNotifB, null);
+        jPanel2.add(jPanel3, null);
+
         
         priorityCB.setSelectedItem(Local.getString("Normal"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {

@@ -78,9 +78,14 @@ public interface Task {
     void setDescription(String description);
     String getDescription();
     
-    
     public String getCategory();
     public void setCategory(String taskCategory);
+    
+    void setSize(int size);
+    String getSize();
+    
+    void setActualSize(int asize);
+    String getActualSize();
 
     Task getParentTask();
     String getParentId();
