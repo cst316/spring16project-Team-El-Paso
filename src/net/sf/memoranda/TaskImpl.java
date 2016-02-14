@@ -357,12 +357,12 @@ public class TaskImpl implements Task, Comparable {
 		return -1*calcTaskRate(CurrentDate.get());
 	 }
     
-    // Getters and Setter for size estimation/actual 
-     public void setSize(int size) {
+	// Getters and Setter for size estimation/actual
+	public void setSize(int size) {
 		setAttr("size", String.valueOf(size));
 
 	}
-		
+
 	public String getSize() {
 		Attribute si = _element.getAttribute("size");
 		if (si == null) {
