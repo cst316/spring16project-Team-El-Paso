@@ -81,10 +81,10 @@ public interface Task {
     public String getCategory();
     public void setCategory(String taskCategory);
     
-    void setSize(String size);
+    void setSize(int size);
     String getSize();
     
-    void setActualSize(String asize);
+    void setActualSize(int asize);
     String getActualSize();
 
     Task getParentTask();

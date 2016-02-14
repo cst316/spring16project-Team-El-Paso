@@ -483,8 +483,16 @@ public class TaskPanel extends JPanel {
         t.setCategory((String)dlg.categoryCB.getSelectedItem()); 
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
-        t.setSize(dlg.sizeField.getText());
-        t.setActualSize(dlg.actualSizeField.getText());
+        try {
+        	t.setSize(Integer.parseInt(dlg.sizeField.getText()));
+        } catch (NumberFormatException nfe){
+        	t.setSize(0);
+        }
+        try {
+        	t.setActualSize(Integer.parseInt(dlg.actualSizeField.getText()));
+        } catch (NumberFormatException nfe){
+        	t.setActualSize(0);
+        }
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
 //		CurrentProject.getTaskList().adjustParentTasks(t);
@@ -497,7 +505,8 @@ public class TaskPanel extends JPanel {
 
     void newTaskB_actionPerformed(ActionEvent e) {
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New task"));
-        
+        int size = 0;
+        int aSize = 0;
         //XXX String parentTaskId = taskTable.getCurrentRootTask();
         
         Dimension frmSize = App.getFrame().getSize();
@@ -516,8 +525,18 @@ public class TaskPanel extends JPanel {
  		else
  			ed = null;
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
+        try {
+        	size = Integer.parseInt(dlg.sizeField.getText());
+        } catch (NumberFormatException nfe) {
+        	size = 0;
+        }
+        try {
+        	aSize = Integer.parseInt(dlg.actualSizeField.getText());
+        } catch (NumberFormatException nfe) {
+        	aSize = 0;
+        }
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-        Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.sizeField.getText(), dlg.actualSizeField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),(String)dlg.categoryCB.getSelectedItem(), null);
+        Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), size, aSize, dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),(String)dlg.categoryCB.getSelectedItem(), null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -529,7 +548,8 @@ public class TaskPanel extends JPanel {
     void addSubTask_actionPerformed(ActionEvent e) {
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New Task"));
         String parentTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
-        
+        int size = 0;
+        int aSize = 0;
 //        Util.debug("Adding sub task under " + parentTaskId);
         
         Dimension frmSize = App.getFrame().getSize();
@@ -558,8 +578,17 @@ public class TaskPanel extends JPanel {
  		else
  			ed = null;
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
-        
-        Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.sizeField.getText(), dlg.actualSizeField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),dlg.categoryCB.getToolTipText(), parentTaskId);
+        try {
+        	size = Integer.parseInt(dlg.sizeField.getText());
+        } catch (NumberFormatException nfe) {
+        	size = 0;
+        }
+        try {
+        	aSize = Integer.parseInt(dlg.actualSizeField.getText());
+        } catch (NumberFormatException nfe) {
+        	aSize = 0;
+        }
+        Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), size, aSize, dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),dlg.categoryCB.getToolTipText(), parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
