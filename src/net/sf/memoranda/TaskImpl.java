@@ -157,19 +157,6 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
 
-    
-    public String getCategory() {
-    	
-    	Element thisElement = _element.getFirstChildElement("category");
-    	if (thisElement == null) {
-    		return null;
-    	}
-    	else {
-    		return thisElement.getValue();
-    	}
-    	
-    }
-
     //MY adding
     public void setTimer(String taskTimer) {
     	Element timer = _element.getFirstChildElement("timer");
@@ -179,10 +166,23 @@ public class TaskImpl implements Task, Comparable {
             _element.appendChild(timer);    	
     	}
     	else {
-            category.removeChildren();
-            category.appendChild(taskTimer);    	
+            timer.removeChildren();
+            timer.appendChild(taskTimer);   	
     	}
-    } 
+    }
+
+    
+    public String getTimer() {
+    	
+    	Element thisElement = _element.getFirstChildElement("timer");
+    	if (thisElement == null) {
+    		return null;
+    	}
+    	else {
+    		return thisElement.getValue();
+    	}
+    	
+    }
     //DONE
     
     

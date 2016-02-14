@@ -64,8 +64,8 @@ public class TaskDialog extends JDialog {
     String[] category = {"Planning", "Design", "Development", "Testing", "Postmortem", "Other"};
     JComboBox categoryCB = new JComboBox(category);
     JLabel jLabelCategory = new JLabel();
-    
-    String[] timer = {"1", "2", "3", "4", "5", "6"};
+    //MY add
+    String[] timer = {"red", "blue", "3", "4", "5", "6"};
     JComboBox timerCB = new JComboBox(timer);
     JLabel jLabelTimer = new JLabel();
     
@@ -381,8 +381,9 @@ public class TaskDialog extends JDialog {
         jPanel8.add(jLabelCategory, null);
         jPanel8.add(categoryCB, null);
         // my jPane
-        jPanel8.add(jLabelTimer, null);
-        jPanel8.add(timerCB, null);
+        jPanel9.add(todoField, null);
+        jPanel9.add(jLabelTimer, null);
+        jPanel9.add(timerCB, null);
         // done
         jPanel8.add(jLabelDescription);
         jPanel8.add(descriptionScrollPane, null);
