@@ -16,7 +16,7 @@ import net.sf.memoranda.date.CalendarDate;
  * 
  */
 /*$Id: Task.java,v 1.9 2005/06/16 04:21:32 alexeya Exp $*/
-//MY CHANGES START HERE
+
 public interface Task {
     
     public static final int SCHEDULED = 0;

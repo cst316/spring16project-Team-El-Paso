@@ -64,11 +64,35 @@ public class TaskDialog extends JDialog {
     String[] category = {"Planning", "Design", "Development", "Testing", "Postmortem", "Other"};
     JComboBox categoryCB = new JComboBox(category);
     JLabel jLabelCategory = new JLabel();
-    //MY add
-    String[] timer = {"red", "blue", "3", "4", "5", "6"};
-    JComboBox timerCB = new JComboBox(timer);
-    JLabel jLabelTimer = new JLabel();
+    //MY2
+    JLabel lblTimer = new JLabel();
+    public JSpinner timerSpin = new JSpinner(new SpinnerDateModel(new Date(0), null, null, Calendar.MINUTE));
     
+    //MY add
+    //String[] timer = {"red", "blue", "3", "4", "5", "6"};
+    //JComboBox timerCB = new JComboBox(timer);
+    //JLabel jLabelTimer = new JLabel();
+    //MY next try with hr min
+    lblTimer.setText(Local.getString("Timer"));
+    lblTimer.setMinimumSize(new Dimension(160,24));
+    gbc = new GridBagConstraints();
+    gbc.gridx = 3; gbc.gridy = 0;
+    gbc.insets = new Insets(10, 10, 5, 10);
+    gbc.anchor = GridBagConstraints.EAST;
+    eventPanel.add(lblTimer, gbc);
+    durationSpin.setPreferredSize(new Dimension(65, 24));
+    durationSpin.setEditor(new JSpinner.DateEditor(durationSpin, "HH:mm"));
+    Date spinDate = new Date();
+    Calendar zeroTime = Calendar.getInstance();
+    zeroTime.set(0, 0, 0, 0, 0, 0);
+    spinDate = zeroTime.getTime();
+    timerSpin.setValue(spinDate);
+    gbc = new GridBagConstraints();
+    gbc.gridx = 4; gbc.gridy = 0;
+    gbc.insets = new Insets(10, 0, 5, 0);
+    gbc.anchor = GridBagConstraints.EAST;
+    eventPanel.add(timerSpin, gbc);
+    //DONE
    // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
@@ -213,10 +237,10 @@ public class TaskDialog extends JDialog {
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(categoryCB,gbCon);
-        // MY GUI TIMER
-        jLabelCategory.setMaximumSize(new Dimension(150, 90));
-        jLabelCategory.setMinimumSize(new Dimension(110, 90));
-        jLabelCategory.setText("Timer:   ");
+        //MY GUI TIMER
+        jLabelTimer.setMaximumSize(new Dimension(150, 90));
+        jLabelTimer.setMinimumSize(new Dimension(110, 90));
+        jLabelTimer.setText("Timer:   ");
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = 2;
         gbCon.weighty = 3;
@@ -224,13 +248,13 @@ public class TaskDialog extends JDialog {
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(jLabelTimer,gbCon);
         
-        categoryCB.setFont(new java.awt.Font("Dialog", 0, 11));
+        timerCB.setFont(new java.awt.Font("Dialog", 0, 11));
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 3;
         gbCon.insets = new Insets(20,0,20,0);
         gbCon.anchor = GridBagConstraints.WEST;
-        gbLayout.setConstraints(categoryCB,gbCon);
+        gbLayout.setConstraints(timerCB,gbCon);
         // done
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
@@ -380,10 +404,10 @@ public class TaskDialog extends JDialog {
         jPanel8.add(todoField, null);
         jPanel8.add(jLabelCategory, null);
         jPanel8.add(categoryCB, null);
-        // my jPane
-        jPanel9.add(todoField, null);
-        jPanel9.add(jLabelTimer, null);
-        jPanel9.add(timerCB, null);
+        //MY jPane
+        //jPanel9.add(todoField, null);
+        jPanel8.add(jLabelTimer, null);
+        jPanel8.add(timerCB, null);
         // done
         jPanel8.add(jLabelDescription);
         jPanel8.add(descriptionScrollPane, null);
