@@ -313,8 +313,6 @@ public class TaskImpl implements Task, Comparable {
         setAttr("priority", String.valueOf(p));
     }
     
-    
-
     private void setAttr(String a, String value) {
         Attribute attr = _element.getAttribute(a);
         if (attr == null)
