@@ -389,8 +389,8 @@ public class TaskDialog extends JDialog {
         jPanel8.add(jLabelCategory, null);
         jPanel8.add(categoryCB, null);
         //MY jPane
-        jPane12.add(jLabelTimer, null);
-        jPane12.add(timerCB, null);
+        //jPane18.add(jLabelTimer, null);
+        //jPane18.add(timerCB, null);
         //DONE
         jPanel8.add(jLabelDescription);
         jPanel8.add(descriptionScrollPane, null);
