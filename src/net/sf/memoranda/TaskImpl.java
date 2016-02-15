@@ -158,6 +158,19 @@ public class TaskImpl implements Task, Comparable {
     }
 
     //MY adding
+   public String getTimer() {
+    	
+    	Element thisElement = _element.getFirstChildElement("timer");
+    	if (thisElement == null) {
+    		return null;
+    	}
+    	else {
+    		return thisElement.getValue();
+    	}
+    	
+    }
+    
+    
     public void setTimer(String taskTimer) {
     	Element timer = _element.getFirstChildElement("timer");
     	if (timer == null) {
@@ -172,17 +185,7 @@ public class TaskImpl implements Task, Comparable {
     }
 
     
-    public String getTimer() {
-    	
-    	Element thisElement = _element.getFirstChildElement("timer");
-    	if (thisElement == null) {
-    		return null;
-    	}
-    	else {
-    		return thisElement.getValue();
-    	}
-    	
-    }
+ 
     //DONE
     
     

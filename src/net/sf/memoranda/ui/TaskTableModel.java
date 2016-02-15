@@ -40,7 +40,7 @@ import java.util.Hashtable;
  * @author $Author: alexeya $
  */
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
-
+	//MY changed Timer Local.getString("Timer")
     String[] columnNames = {"", Local.getString("To-do"),
             Local.getString("Start date"), Local.getString("End date"), Local.getString("Category"), Local.getString("Priority"), Local.getString("Status"),
             "% " + Local.getString("done") };
@@ -76,6 +76,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getValueAt(java.lang.Object,
      *      int)
      */
+    //MY change 7 to 8 to add in Timer
     public Object getValueAt(Object node, int column) {
         if (node instanceof Project)
             return null;
@@ -98,6 +99,8 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             return getPriorityString(t.getPriority()); 
         case 6:
             return getStatusString(t.getStatus(CurrentDate.get()));
+        //case 7:
+           // return getTimerString(t.getPriority());
         case 7:            
             //return new Integer(t.getProgress());
 			return t;
@@ -176,6 +179,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     /**
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnClass(int)
      */
+    //MY changed 7 to 8
     public Class getColumnClass(int column) {
         try {
             switch (column) {
@@ -226,6 +230,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
 		return activeOnly;
     }
     
+    //MY but 7 to 8
     public boolean isCellEditable(Object node, int column) {
 		if(column == 7) return true; 
         return super.isCellEditable(node, column); 

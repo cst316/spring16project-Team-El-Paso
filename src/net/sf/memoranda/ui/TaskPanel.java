@@ -454,7 +454,7 @@ public class TaskPanel extends JPanel {
         dlg.todoField.setText(t.getText());
         dlg.descriptionField.setText(t.getDescription());
         dlg.categoryCB.setSelectedItem(t.getCategory());
-        // MY 
+        //MY 
         dlg.timerCB.setSelectedItem(t.getTimer());
         // done
         dlg.startDate.getModel().setValue(t.getStartDate().getDate());

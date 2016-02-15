@@ -108,6 +108,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             label.setText("");
             return label;
         }
+        //MY changed 7 to 8
         // if( column_name.equals("% " + Local.getString("done")) ){
         if (column == 7) {
             return getProgressCellRenderer(t, selected, hasFocus, column);
@@ -136,6 +137,14 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             label.setForeground(getColorForTaskStatus(t, false));
             return label;
         }
+        
+        //MY Puting in Timer
+        //if (column == 7) {
+           // label.setText(value.toString());
+          //  return label;
+      //  }
+        
+        
         label.setText(value.toString());
         return label;
     }

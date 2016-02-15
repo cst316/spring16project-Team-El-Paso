@@ -174,7 +174,7 @@ public class TaskTable extends JTable {
 		// do not allow moving columns
 		getTableHeader().setReorderingAllowed(false);
     }
-
+    //MY bumped up i to 9
     void initColumnWidths() {
         for (int i = 0; i < 8; i++) {
             TableColumn column = getColumnModel().getColumn(i);

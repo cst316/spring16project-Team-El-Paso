@@ -64,35 +64,15 @@ public class TaskDialog extends JDialog {
     String[] category = {"Planning", "Design", "Development", "Testing", "Postmortem", "Other"};
     JComboBox categoryCB = new JComboBox(category);
     JLabel jLabelCategory = new JLabel();
-    //MY2
-    JLabel lblTimer = new JLabel();
-    public JSpinner timerSpin = new JSpinner(new SpinnerDateModel(new Date(0), null, null, Calendar.MINUTE));
-    
     //MY add
-    //String[] timer = {"red", "blue", "3", "4", "5", "6"};
-    //JComboBox timerCB = new JComboBox(timer);
-    //JLabel jLabelTimer = new JLabel();
-    //MY next try with hr min
-    lblTimer.setText(Local.getString("Timer"));
-    lblTimer.setMinimumSize(new Dimension(160,24));
-    gbc = new GridBagConstraints();
-    gbc.gridx = 3; gbc.gridy = 0;
-    gbc.insets = new Insets(10, 10, 5, 10);
-    gbc.anchor = GridBagConstraints.EAST;
-    eventPanel.add(lblTimer, gbc);
-    durationSpin.setPreferredSize(new Dimension(65, 24));
-    durationSpin.setEditor(new JSpinner.DateEditor(durationSpin, "HH:mm"));
-    Date spinDate = new Date();
-    Calendar zeroTime = Calendar.getInstance();
-    zeroTime.set(0, 0, 0, 0, 0, 0);
-    spinDate = zeroTime.getTime();
-    timerSpin.setValue(spinDate);
-    gbc = new GridBagConstraints();
-    gbc.gridx = 4; gbc.gridy = 0;
-    gbc.insets = new Insets(10, 0, 5, 0);
-    gbc.anchor = GridBagConstraints.EAST;
-    eventPanel.add(timerSpin, gbc);
-    //DONE
+    //JPanel jPane20 = new JPanel(new GridLayout(3, 2));
+    //JTextField todoField = new JTextField();
+    
+    String[] timer = {"30min", "1hr", "1.5hr", "2hr", "2.5hr", "3hr, 3.5hr, 4hr, 4.5hr, 5hr, 5.5hr, 6hr, 6.5hr, 7hr, 7.5hr, 8hr"};
+    JComboBox timerCB = new JComboBox(timer);
+    JLabel jLabelTimer = new JLabel();
+    
+    
    // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
@@ -237,14 +217,15 @@ public class TaskDialog extends JDialog {
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(categoryCB,gbCon);
-        //MY GUI TIMER
-        jLabelTimer.setMaximumSize(new Dimension(150, 90));
-        jLabelTimer.setMinimumSize(new Dimension(110, 90));
+        
+        //MY button for Timer
+        jLabelTimer.setMaximumSize(new Dimension(100, 40));
+        jLabelTimer.setMinimumSize(new Dimension(60, 40));
         jLabelTimer.setText("Timer:   ");
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = 2;
         gbCon.weighty = 3;
-        gbCon.insets = new Insets(20,0,20,0);
+        gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(jLabelTimer,gbCon);
         
@@ -252,10 +233,11 @@ public class TaskDialog extends JDialog {
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 3;
-        gbCon.insets = new Insets(20,0,20,0);
+        gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(timerCB,gbCon);
-        // done
+        //DONE
+        
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
         jLabelDescription.setText(Local.getString("Description"));
@@ -316,6 +298,8 @@ public class TaskDialog extends JDialog {
             }
         });
 
+      
+        
         jLabel6.setText(Local.getString("Start date"));
         //jLabel6.setPreferredSize(new Dimension(60, 16));
         jLabel6.setMinimumSize(new Dimension(60, 16));
@@ -405,10 +389,9 @@ public class TaskDialog extends JDialog {
         jPanel8.add(jLabelCategory, null);
         jPanel8.add(categoryCB, null);
         //MY jPane
-        //jPanel9.add(todoField, null);
-        jPanel8.add(jLabelTimer, null);
-        jPanel8.add(timerCB, null);
-        // done
+        jPane12.add(jLabelTimer, null);
+        jPane12.add(timerCB, null);
+        //DONE
         jPanel8.add(jLabelDescription);
         jPanel8.add(descriptionScrollPane, null);
         areaPanel.add(jPanel2, BorderLayout.CENTER);
