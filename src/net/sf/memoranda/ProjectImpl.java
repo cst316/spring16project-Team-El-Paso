@@ -203,6 +203,20 @@ public class ProjectImpl implements Project {
     		goal.appendChild(s);    	
     	}
     }
+    
+    public void addPlanSummary(Element psumm) {
+    	_root.appendChild(psumm);
+    }
+    
+    public boolean hasSummary() {
+    	Element summ = _root.getFirstChildElement("PlanSummary");
+    	if (summ == null) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
+    }
 
         
     /**

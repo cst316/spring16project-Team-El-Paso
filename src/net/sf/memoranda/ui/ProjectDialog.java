@@ -29,6 +29,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.ProjectManager;
 import net.sf.memoranda.date.CalendarDate;
@@ -314,6 +315,16 @@ public class ProjectDialog extends JDialog {
     
     void okButton_actionPerformed(ActionEvent e) {
         CANCELLED = false;
+        if (!CurrentProject.get().hasSummary()) {
+        	//no summary - ask if user wants to create one and spawn summary dialog if yes
+        	JDialog psdlg = new PlanSummaryDialog(App.getFrame(), "Plan Summary");
+        	Dimension psdlgSize = new Dimension(400,600);
+        	psdlg.setMinimumSize(psdlgSize);
+        	Dimension frmSize = App.getFrame().getSize();
+            Point loc = App.getFrame().getLocation();
+            psdlg.setLocation((frmSize.width - psdlgSize.width) / 2 + loc.x, (frmSize.height - psdlgSize.height) / 2 + loc.y);
+        	psdlg.setVisible(true);
+        }
         this.dispose();
     }
     
