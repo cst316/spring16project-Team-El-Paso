@@ -695,11 +695,13 @@ public class AppFrame extends JFrame {
             super.processWindowEvent(e);
     }
 
-    public static void addExitListener(ActionListener al) {
+    @SuppressWarnings("unchecked")
+	public static void addExitListener(ActionListener al) {
         exitListeners.add(al);
     }
 
-    public static Collection getExitListeners() {
+    @SuppressWarnings("rawtypes")
+	public static Collection getExitListeners() {
         return exitListeners;
     }
 
