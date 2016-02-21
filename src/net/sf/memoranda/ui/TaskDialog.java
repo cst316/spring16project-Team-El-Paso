@@ -65,6 +65,10 @@ public class TaskDialog extends JDialog {
     JComboBox categoryCB = new JComboBox(category);
     JLabel jLabelCategory = new JLabel();
     
+    JButton jButtonTime = new JButton();
+    JLabel jLabelTime = new JLabel();
+    JTextField timeField = new JTextField();
+    
    // added by rawsushi
     JTextField effortField = new JTextField();
     JTextField sizeField = new JTextField();
@@ -211,10 +215,39 @@ public class TaskDialog extends JDialog {
         categoryCB.setFont(new java.awt.Font("Dialog", 0, 11));
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
-        gbCon.weighty = 3;
+        gbCon.weighty = 2;
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(categoryCB,gbCon);
+        
+        jButtonTime.setMaximumSize(new Dimension(90, 16));
+        jButtonTime.setMinimumSize(new Dimension(60, 16));
+        jButtonTime.setText("Start Timer");
+        gbCon = new GridBagConstraints();
+        gbCon.gridwidth = 1;
+        gbCon.weighty = 2;
+        gbCon.insets = new Insets(10,0,10,0);
+        gbCon.anchor = GridBagConstraints.WEST;
+        gbLayout.setConstraints(jButtonTime,gbCon);
+        
+        timeField.setBorder(border8);
+        timeField.setPreferredSize(new Dimension(60, 24));
+        gbCon = new GridBagConstraints();
+        gbCon.gridwidth = 2;
+        gbCon.weighty = 2;
+        gbCon.insets = new Insets(10,0,10,0);
+        gbCon.anchor = GridBagConstraints.WEST;
+        gbLayout.setConstraints(timeField,gbCon);
+        
+        jLabelTime.setMaximumSize(new Dimension(100, 16));
+        jLabelTime.setMinimumSize(new Dimension(60, 16));
+        jLabelTime.setText("Total Time Spent");
+        gbCon = new GridBagConstraints();
+        gbCon.gridwidth = GridBagConstraints.REMAINDER;
+        gbCon.weighty = 2;
+        gbCon.insets = new Insets(10,0,10,0);
+        gbCon.anchor = GridBagConstraints.WEST;
+        gbLayout.setConstraints(jLabelTime,gbCon);
         
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
@@ -376,6 +409,9 @@ public class TaskDialog extends JDialog {
         jPanel8.add(todoField, null);
         jPanel8.add(jLabelCategory, null);
         jPanel8.add(categoryCB, null);
+        jPanel8.add(jButtonTime, null);
+        jPanel8.add(timeField, null);
+        jPanel8.add(jLabelTime, null);
         jPanel8.add(jLabelDescription);
         jPanel8.add(descriptionScrollPane, null);
         areaPanel.add(jPanel2, BorderLayout.CENTER);
@@ -411,8 +447,7 @@ public class TaskDialog extends JDialog {
         
         jPanel3.add(setNotifB, null);
         jPanel2.add(jPanel3, null);
-
-        
+   
         priorityCB.setSelectedItem(Local.getString("Normal"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
