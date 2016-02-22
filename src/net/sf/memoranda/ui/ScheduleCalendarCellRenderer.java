@@ -88,7 +88,7 @@ public class ScheduleCalendarCellRenderer extends javax.swing.table.DefaultTable
 			label.setForeground(Color.BLACK);
 		}
 
-		if (EventsManager.isNREventsForDate(d))
+		if (EventsManager.isNrEventsForDate(d))
 			label.setIcon(evIcon);
 		else
 			label.setIcon(null);
