@@ -450,23 +450,23 @@ public class TaskDialog extends JDialog {
         areaPanel.add(jPanelTimer, BorderLayout.SOUTH);        
         jPanelTimer.add(jTglBtnTimer);
         
-        timer = new Timer(ONE_SEC, new ActionListener() {
-        	public void actionPerformed(ActionEvent evt) {
-        		timer_actionPerformed(evt);
-        	}
-        });
+		timer = new Timer(ONE_SEC, new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				timer_actionPerformed(evt);
+			}
+		});
 
 		ActionListener actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
 				boolean selected = abstractButton.getModel().isSelected();
-		        if (selected){
-		        	jTglBtnTimer.setText("Stop Timer");
-		        	timer.start();
-		        } else {
-		        	jTglBtnTimer.setText("Start Timer");
-		        	timer.stop();
-		        }
+				if (selected) {
+					jTglBtnTimer.setText("Stop Timer");
+					timer.start();
+				} else {
+					jTglBtnTimer.setText("Start Timer");
+					timer.stop();
+				}
 			}
 		};
 		jTglBtnTimer.addActionListener(actionListener);
@@ -576,7 +576,7 @@ public class TaskDialog extends JDialog {
 		clockHours = new Integer(hours).toString();
 		clockMinutes = new Integer(minutes).toString();
 		clockSeconds = new Integer(seconds).toString();
-    	timeField.setText(("00" + hours).substring(clockHours.length()) 
+		timeField.setText(("00" + hours).substring(clockHours.length()) 
     			+ ":" + ("00" + minutes).substring(clockMinutes.length()) 
     			+ ":" + ("00" + seconds).substring(clockSeconds.length()));
     }
