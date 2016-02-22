@@ -7,7 +7,7 @@ package net.sf.memoranda.util;
 import net.sf.memoranda.*;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.ui.*;
-import net.sf.memoranda.ui.htmleditor.AltHtmlWriter;
+import net.sf.memoranda.ui.htmleditor.AltHTMLWriter;
 
 import java.io.*;
 import java.util.*;
@@ -116,7 +116,7 @@ public class ProjectExporter {
     private static String getNoteHTML(Note note) {
         String text = "";
         StringWriter sw = new StringWriter();
-        AltHtmlWriter writer = new AltHtmlWriter(sw,
+        AltHTMLWriter writer = new AltHTMLWriter(sw,
                 (HTMLDocument) CurrentStorage.get().openNote(note), _charset,
                 _num);
         try {

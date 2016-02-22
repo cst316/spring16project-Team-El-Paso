@@ -16,7 +16,7 @@ import javax.swing.text.html.HTMLDocument;
 
 import net.sf.memoranda.Note;
 import net.sf.memoranda.ui.ExceptionDialog;
-import net.sf.memoranda.ui.htmleditor.AltHtmlWriter;
+import net.sf.memoranda.ui.htmleditor.AltHTMLWriter;
 
 
 import org.apache.xml.serialize.Method;
@@ -135,7 +135,7 @@ public class HTMLFileExport {
      private String getNoteBody() {
         String text = "";
         StringWriter sw = new StringWriter();
-        AltHtmlWriter writer = new AltHtmlWriter(sw, doc, charset, num);
+        AltHTMLWriter writer = new AltHTMLWriter(sw, doc, charset, num);
         try {
             writer.write();
             sw.flush();

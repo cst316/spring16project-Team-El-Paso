@@ -55,7 +55,7 @@ import javax.swing.text.html.StyleSheet;
  * Copyright 2002 Sun Microsystems, Inc.
  */
 
-public class AltHtmlWriter extends AbstractWriter {
+public class AltHTMLWriter extends AbstractWriter {
     /*
      * Stores all elements for which end tags have to
      * be emitted.
@@ -130,15 +130,15 @@ public class AltHtmlWriter extends AbstractWriter {
      *
      */
 
-    public AltHtmlWriter(Writer wr, HTMLDocument doc) {
+    public AltHTMLWriter(Writer wr, HTMLDocument doc) {
         this(wr, doc, 0, doc.getLength(), null, false);
     }
 
-    public AltHtmlWriter(Writer wr, HTMLDocument doc, String enc) {
+    public AltHTMLWriter(Writer wr, HTMLDocument doc, String enc) {
         this(wr, doc, 0, doc.getLength(), enc, false);
     }
 
-    public AltHtmlWriter(Writer wr, HTMLDocument doc, String enc, boolean nument) {
+    public AltHTMLWriter(Writer wr, HTMLDocument doc, String enc, boolean nument) {
         this(wr, doc, 0, doc.getLength(), enc, nument);
     }
 
@@ -150,7 +150,7 @@ public class AltHtmlWriter extends AbstractWriter {
      * @param pos the document location from which to fetch the content
      * @param len the amount to write out
      */
-    public AltHtmlWriter(Writer wr, HTMLDocument doc, int pos, int len, 
+    public AltHTMLWriter(Writer wr, HTMLDocument doc, int pos, int len, 
     		String enc, boolean nument) {
     	
         super(wr, doc, pos, len);
@@ -289,7 +289,7 @@ public class AltHtmlWriter extends AbstractWriter {
     protected void writeAttributes(AttributeSet attr) throws IOException {
         // translate css attributes to html
         convAttr.removeAttributes(convAttr);
-        convertToHtml32(attr, convAttr);
+        convertToHTML32(attr, convAttr);
 
         Enumeration names = convAttr.getAttributeNames();
         while (names.hasMoreElements()) {
@@ -729,7 +729,7 @@ public class AltHtmlWriter extends AbstractWriter {
     protected void writeEmbeddedTags(AttributeSet attr) throws IOException {
 
         // translate css attributes to html
-        attr = convertToHtml(attr, otConvAttr);
+        attr = convertToHTML(attr, otConvAttr);
 
         Enumeration names = attr.getAttributeNames();
         while (names.hasMoreElements()) {
@@ -782,7 +782,7 @@ public class AltHtmlWriter extends AbstractWriter {
         tagsToRemove.removeAllElements();
 
         // translate css attributes to html
-        attr = convertToHtml(attr, null);
+        attr = convertToHTML(attr, null);
 
         HTML.Tag tag;
         Object tagValue;
@@ -1010,7 +1010,7 @@ public class AltHtmlWriter extends AbstractWriter {
      * This will put the converted values into <code>to</code>, unless
      * it is null in which case a temporary AttributeSet will be returned.
      */
-    AttributeSet convertToHtml(AttributeSet from, MutableAttributeSet to) {
+    AttributeSet convertToHTML(AttributeSet from, MutableAttributeSet to) {
         if (to == null) {
             to = convAttr;
         }
@@ -1018,7 +1018,7 @@ public class AltHtmlWriter extends AbstractWriter {
         if (writeCss) {
             convertToHTML40(from, to);
         } else {
-            convertToHtml32(from, to);
+            convertToHTML32(from, to);
         }
         return to;
     }
@@ -1035,7 +1035,7 @@ public class AltHtmlWriter extends AbstractWriter {
      * mapping over to an HTML tag/attribute.  Other CSS attributes
      * will be placed in an HTML style attribute.
      */
-    private static void convertToHtml32(AttributeSet from, MutableAttributeSet to) {
+    private static void convertToHTML32(AttributeSet from, MutableAttributeSet to) {
         if (from == null) {
             return;
         }

@@ -31,7 +31,7 @@ import net.sf.memoranda.TaskList;
 import net.sf.memoranda.TaskListImpl;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.ui.ExceptionDialog;
-import net.sf.memoranda.ui.htmleditor.AltHtmlWriter;
+import net.sf.memoranda.ui.htmleditor.AltHTMLWriter;
 import nu.xom.Builder;
 import nu.xom.DocType;
 import nu.xom.Document;
@@ -121,7 +121,7 @@ public class FileStorage implements Storage {
         try {
             OutputStreamWriter fw =
                 new OutputStreamWriter(new FileOutputStream(filename), "UTF-8");
-            AltHtmlWriter writer = new AltHtmlWriter(fw, (HTMLDocument) doc);
+            AltHTMLWriter writer = new AltHTMLWriter(fw, (HTMLDocument) doc);
             writer.write();
             fw.flush();
             fw.close();
