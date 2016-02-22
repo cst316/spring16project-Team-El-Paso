@@ -41,8 +41,9 @@ import java.util.Hashtable;
  */
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
 
-    String[] columnNames = {"", Local.getString("To-do"),
-            Local.getString("Start date"), Local.getString("End date"), Local.getString("Category"), Local.getString("Priority"), Local.getString("Status"),
+    String[] columnNames = {"", Local.getString("To-do"), Local.getString("Description"),
+            Local.getString("Start date"), Local.getString("End date"), Local.getString("Category"), 
+            Local.getString("Priority"), Local.getString("Status"),
             "% " + Local.getString("done") };
 
     protected EventListenerList listenerList = new EventListenerList();
@@ -86,19 +87,21 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         case 1:
             return t;
         case 2:
-            return t.getStartDate().getDate();
+        	return t.getDescription();
         case 3:
+            return t.getStartDate().getDate();
+        case 4:
             if (t.getEndDate() == null)
                 return null;
             else
                 return t.getEndDate().getDate();        
-        case 4: return t.getCategory(); 
+        case 5: return t.getCategory(); 
         	
-        case 5:
-            return getPriorityString(t.getPriority()); 
         case 6:
+            return getPriorityString(t.getPriority()); 
+        case 7:
             return getStatusString(t.getStatus(CurrentDate.get()));
-        case 7:            
+        case 8	:            
             //return new Integer(t.getProgress());
 			return t;
         case TaskTable.TASK_ID:
@@ -183,14 +186,15 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
                 return TreeTableModel.class;
             case 0:
                 return TaskTable.class;
-            case 4:
+            case 2:
             case 5:
             case 6:
-                return Class.forName("java.lang.String");
-            case 2:
-            case 3:
-                return Class.forName("java.util.Date");
             case 7:
+                return Class.forName("java.lang.String");
+            case 3:
+            case 4:
+                return Class.forName("java.util.Date");
+            case 8:
                 return Class.forName("java.lang.Integer");
             }
         } catch (Exception ex) {
