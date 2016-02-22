@@ -35,12 +35,15 @@ import net.sf.memoranda.ProjectManager;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
+import nu.xom.Element;
 
 /*$Id: ProjectDialog.java,v 1.26 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ProjectDialog extends JDialog {
     public boolean CANCELLED = true;
+    boolean newprj = false;
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
+    static Element newSummary = null;
     CalendarFrame endCalFrame = new CalendarFrame();
     CalendarFrame startCalFrame = new CalendarFrame();
     GridBagConstraints gbc;
@@ -63,10 +66,14 @@ public class ProjectDialog extends JDialog {
     JPanel bottomPanel = new JPanel();
     JButton okButton = new JButton();
     JButton cancelButton = new JButton();
+    JButton psButton = new JButton();
+    Project passedPrj;
     
-    public ProjectDialog(Frame frame, String title) {
+    public ProjectDialog(Frame frame, String title, boolean prjExists, Project pprj) {
         super(frame, title, true);
         try {
+        	newprj = prjExists;
+        	passedPrj = pprj;
             jbInit();
             pack();
         }
@@ -278,8 +285,18 @@ public class ProjectDialog extends JDialog {
                 cancelButton_actionPerformed(e);
             }
         });
+        psButton.setMaximumSize(new Dimension(160, 25));
+        psButton.setMinimumSize(new Dimension(160, 25));
+        psButton.setPreferredSize(new Dimension(160, 25));
+        psButton.setText(Local.getString("Plan Summary..."));
+        psButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                psButton_actionPerformed(e);
+            }
+        });
         bottomPanel.add(okButton);
         bottomPanel.add(cancelButton);
+        bottomPanel.add(psButton);
         
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
@@ -315,16 +332,6 @@ public class ProjectDialog extends JDialog {
     
     void okButton_actionPerformed(ActionEvent e) {
         CANCELLED = false;
-        if (!CurrentProject.get().hasSummary()) {
-        	//no summary - ask if user wants to create one and spawn summary dialog if yes
-        	JDialog psdlg = new PlanSummaryDialog(App.getFrame(), "Plan Summary");
-        	Dimension psdlgSize = new Dimension(400,600);
-        	psdlg.setMinimumSize(psdlgSize);
-        	Dimension frmSize = App.getFrame().getSize();
-            Point loc = App.getFrame().getLocation();
-            psdlg.setLocation((frmSize.width - psdlgSize.width) / 2 + loc.x, (frmSize.height - psdlgSize.height) / 2 + loc.y);
-        	psdlg.setVisible(true);
-        }
         this.dispose();
     }
     
@@ -361,9 +368,21 @@ public class ProjectDialog extends JDialog {
         endCalFrame.show();
     }
     
+    void psButton_actionPerformed(ActionEvent e) {
+    	JDialog psdlg = new PlanSummaryDialog(App.getFrame(), "Plan Summary", prTitleField.getText(), newprj, passedPrj);
+    	Dimension psdlgSize = new Dimension(550,650);
+    	psdlg.setMinimumSize(psdlgSize);
+    	Dimension frmSize = App.getFrame().getSize();
+        Point loc = App.getFrame().getLocation();
+        psdlg.setLocation((frmSize.width - psdlgSize.width) / 2 + loc.x, (frmSize.height - psdlgSize.height) / 2 + loc.y);
+    	psdlg.setVisible(true);
+    	newSummary = ((PlanSummaryDialog) psdlg).getData();
+    	psdlg.dispose();
+    }
+    
     public static void newProject() {    	
     	String title = null;
-    	ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
+    	ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"), true, null);
        
         Dimension dlgSize = dlg.getSize();
         //dlg.setSize(dlgSize);
@@ -396,6 +415,7 @@ public class ProjectDialog extends JDialog {
         if (dlg.endDateChB.isSelected())
             endD = new CalendarDate((Date) dlg.endDate.getModel().getValue());
         Project prj = ProjectManager.createProject(title, startD, endD, description, goal);
+        prj.addPlanSummary(newSummary);
         /*if (dlg.freezeChB.isSelected())
             prj.freeze();*/
         CurrentStorage.get().storeProjectManager();

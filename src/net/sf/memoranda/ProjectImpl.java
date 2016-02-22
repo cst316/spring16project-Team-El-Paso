@@ -10,6 +10,7 @@ package net.sf.memoranda;
 
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
+import net.sf.memoranda.util.CurrentStorage;
 import nu.xom.Attribute;
 import nu.xom.Element;
 
@@ -217,14 +218,22 @@ public class ProjectImpl implements Project {
     		return true;
     	}
     }
+    
+    public Element getSummary() {
+    	return _root.getFirstChildElement("PlanSummary");
+    }
+    
+    public PlanSummary getPrjSummary() {
+    	return new PlanSummaryImpl(_root.getFirstChildElement("PlanSummary"));
+    }
 
         
     /**
      * @see net.sf.memoranda.Project#getTaskList()
      */
-    /*public TaskList getTaskList() {
+    public TaskList getTaskList() {
         return CurrentStorage.get().openTaskList(this);
-    }*/
+    }
     /**
      * @see net.sf.memoranda.Project#getNoteList()
      */

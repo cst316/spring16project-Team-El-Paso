@@ -50,10 +50,13 @@ public interface Project {
     void addPlanSummary(Element psumm);
     
     boolean hasSummary();
+    
+    Element getSummary();
+    PlanSummary getPrjSummary();
             
     //int getProgress();
     
-    //TaskList getTaskList();
+    TaskList getTaskList();
     
     //NoteList getNoteList();
     

@@ -15,6 +15,10 @@ public class PlanSummaryImpl implements PlanSummary {
 		_el = new Element("PlanSummary");
 	}
 	
+	public PlanSummaryImpl(Element xomDoc) {
+		_el = xomDoc;
+	}
+	
 	/**
 	 * 
 	 * @see net.sf.memoranda.PlanSummary#createPlanSummary
