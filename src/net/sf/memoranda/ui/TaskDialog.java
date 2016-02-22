@@ -130,8 +130,8 @@ public class TaskDialog extends JDialog {
 	private final JToggleButton jTglBtnTimer = new JToggleButton("Start Timer");
 	private Timer timer;
 	private int hours = 0;
-    private int minutes = 0;
-    private int seconds = 0;
+	private int minutes = 0;
+	private int seconds = 0;
 	private String clockHours;
 	private String clockMinutes;
 	private String clockSeconds;
@@ -450,26 +450,26 @@ public class TaskDialog extends JDialog {
         areaPanel.add(jPanelTimer, BorderLayout.SOUTH);        
         jPanelTimer.add(jTglBtnTimer);
         
-		timer = new Timer(ONE_SEC, new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				timer_actionPerformed(evt);
-			}
-		});
-
-		ActionListener actionListener = new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
-				boolean selected = abstractButton.getModel().isSelected();
-				if (selected) {
-					jTglBtnTimer.setText("Stop Timer");
-					timer.start();
-				} else {
-					jTglBtnTimer.setText("Start Timer");
-					timer.stop();
-				}
-			}
-		};
-		jTglBtnTimer.addActionListener(actionListener);
+        timer = new Timer(ONE_SEC, new ActionListener() {
+        	public void actionPerformed(ActionEvent evt) {
+        		timer_actionPerformed(evt);
+        	}
+        });
+        
+        ActionListener actionListener = new ActionListener() {
+        	public void actionPerformed(ActionEvent actionEvent) {
+        		AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+        		boolean selected = abstractButton.getModel().isSelected();
+        		if (selected) {
+        			jTglBtnTimer.setText("Stop Timer");
+        			timer.start();
+        		} else {
+        			jTglBtnTimer.setText("Start Timer");
+        			timer.stop();
+        		}
+        	}
+        };
+        jTglBtnTimer.addActionListener(actionListener);
         timeField.setToolTipText("Total Time Spent (00:00:00)");
         timeField.setText("00:00:00");
         timeField.setHorizontalAlignment(SwingConstants.LEFT);
