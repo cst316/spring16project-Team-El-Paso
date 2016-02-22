@@ -330,6 +330,7 @@ public class AppFrame extends JFrame {
          });
          */
         jMenuFileNewPrj.setAction(projectsPanel.newProjectAction);
+        jMenuFileNewPrj.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
 
         jMenuFileUnpackPrj.setText(Local.getString("Unpack project") + "...");
         jMenuFileExportNote.setText(Local.getString("Export current note")
