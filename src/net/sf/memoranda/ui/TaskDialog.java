@@ -125,11 +125,18 @@ public class TaskDialog extends JDialog {
 	CalendarDate endDateMin = startDateMin;
 	CalendarDate endDateMax = startDateMax;
 	
+	private final int ONE_SEC = 1000;
 	private final JPanel jPanelTimer = new JPanel();
 	private final JToggleButton jTglBtnTimer = new JToggleButton("Start Timer");
-	private TaskTimer data = new TaskTimer(1000, 0, 0, 0);
-
-	public TaskDialog(Frame frame, String title) {
+	private Timer timer;
+	private int hours = 0;
+    private int minutes = 0;
+    private int seconds = 0;
+	private String clockHours;
+	private String clockMinutes;
+	private String clockSeconds;
+    
+    public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
             jbInit();            
@@ -149,11 +156,11 @@ public class TaskDialog extends JDialog {
         border3 = new TitledBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0), 
         Local.getString("To Do"), TitledBorder.LEFT, TitledBorder.BELOW_TOP);
         border4 = BorderFactory.createEmptyBorder(0, 5, 0, 5);
-        // border5 = BorderFactory.createEmptyBorder();
-        // border6 = BorderFactory.createBevelBorder(BevelBorder.LOWERED,
-        // 		Color.white, Color.white, new Color(178, 178, 178),
-        //      new Color(124, 124, 124));
-        // border7 = BorderFactory.createLineBorder(Color.white, 2);
+//        border5 = BorderFactory.createEmptyBorder();
+//        border6 = BorderFactory.createBevelBorder(BevelBorder.LOWERED,
+//            Color.white, Color.white, new Color(178, 178, 178),
+//            new Color(124, 124, 124));
+//        border7 = BorderFactory.createLineBorder(Color.white, 2);
         border8 = BorderFactory.createEtchedBorder(Color.white, 
             new Color(178, 178, 178));
         cancelB.setMaximumSize(new Dimension(100, 26));
@@ -443,42 +450,28 @@ public class TaskDialog extends JDialog {
         areaPanel.add(jPanelTimer, BorderLayout.SOUTH);        
         jPanelTimer.add(jTglBtnTimer);
         
-        data.setTimer(new Timer(data.getONE_SEC(), new ActionListener() {
+        timer = new Timer(ONE_SEC, new ActionListener() {
         	public void actionPerformed(ActionEvent evt) {
-        		data.setSeconds(data.getSeconds() + 1);
-        		if(data.getSeconds() > 59){
-        			data.setSeconds(0);
-        			data.setMinutes(data.getMinutes() + 1);
-        		} 
-        		if(data.getMinutes() > 59){
-        			data.setMinutes(0);
-        			data.setHours(data.getHours() + 1);
-        		} 
-        		data.setClockHours(new Integer(data.getHours()).toString());
-        		data.setClockMinutes(new Integer(data.getMinutes()).toString());
-        		data.setClockSeconds(new Integer(data.getSeconds()).toString());
-        		timeField.setText(("00" + data.getHours()).substring(data.getClockHours().length()) 
-        				+ ":" + ("00" + data.getMinutes()).substring(data.getClockMinutes().length()) 
-        				+ ":" + ("00" + data.getSeconds()).substring(data.getClockSeconds().length()));
+        		timer_actionPerformed(evt);
         	}
-        }));
+        });
 
 		ActionListener actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abstractButton = (AbstractButton) 
-						actionEvent.getSource();
+				AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
 				boolean selected = abstractButton.getModel().isSelected();
 		        if (selected){
 		        	jTglBtnTimer.setText("Stop Timer");
-		        	data.getTimer().start();
+		        	timer.start();
 		        } else {
 		        	jTglBtnTimer.setText("Start Timer");
-		        	data.getTimer().stop();
+		        	timer.stop();
 		        }
 			}
 		};
 		jTglBtnTimer.addActionListener(actionListener);
         timeField.setToolTipText("Total Time Spent (00:00:00)");
+        timeField.setText("00:00:00");
         timeField.setHorizontalAlignment(SwingConstants.LEFT);
         jPanelTimer.add(timeField);
         
@@ -568,6 +561,24 @@ public class TaskDialog extends JDialog {
     void setNotifB_actionPerformed(ActionEvent e) {
     	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.eventsPanel.newEventB_actionPerformed(e, 
 			this.todoField.getText(), null, null, (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
+    }
+    
+    void timer_actionPerformed(ActionEvent e) {
+    	seconds++;
+		if(seconds > 59){
+			seconds = 0;
+			minutes += 1;
+		} 
+		if(minutes > 59){
+			minutes = 0;
+			hours += 1;
+		} 
+		clockHours = new Integer(hours).toString();
+		clockMinutes = new Integer(minutes).toString();
+		clockSeconds = new Integer(seconds).toString();
+		timeField.setText(("00" + hours).substring(clockHours.length()) 
+				+ ":" + ("00" + minutes).substring(clockMinutes.length()) 
+				+ ":" + ("00" + seconds).substring(clockSeconds.length()));
     }
 
 }
