@@ -563,22 +563,22 @@ public class TaskDialog extends JDialog {
 			this.todoField.getText(), null, null, (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
     }
     
-    void timer_actionPerformed(ActionEvent e) {
-    	seconds++;
-		if(seconds > 59){
+	void timer_actionPerformed(ActionEvent e) {
+		seconds++;
+		if (seconds > 59) {
 			seconds = 0;
 			minutes += 1;
-		} 
-		if(minutes > 59){
+		}
+		if (minutes > 59) {
 			minutes = 0;
 			hours += 1;
-		} 
+		}
 		clockHours = new Integer(hours).toString();
 		clockMinutes = new Integer(minutes).toString();
 		clockSeconds = new Integer(seconds).toString();
-		timeField.setText(("00" + hours).substring(clockHours.length()) 
-				+ ":" + ("00" + minutes).substring(clockMinutes.length()) 
-				+ ":" + ("00" + seconds).substring(clockSeconds.length()));
+    	timeField.setText(("00" + hours).substring(clockHours.length()) 
+    			+ ":" + ("00" + minutes).substring(clockMinutes.length()) 
+    			+ ":" + ("00" + seconds).substring(clockSeconds.length()));
     }
 
 }
