@@ -12,11 +12,14 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,6 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 //import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -40,6 +44,7 @@ import javax.swing.JCheckBox;
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
+import javax.swing.JToggleButton;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
@@ -56,27 +61,25 @@ public class TaskDialog extends JDialog {
     JPanel jPanel8 = new JPanel(new GridBagLayout());
     Border border3;
     Border border4;
-//    Border border5;
-//    Border border6;
+    // Border border5;
+    // Border border6;
     JPanel jPanel2 = new JPanel(new GridLayout(4, 2));
     JTextField todoField = new JTextField();
     
     String[] category = {"Planning", "Design", "Development", "Testing", "Postmortem", "Other"};
     JComboBox categoryCB = new JComboBox(category);
     JLabel jLabelCategory = new JLabel();
-    
-    JButton jButtonTime = new JButton();
     JLabel jLabelTime = new JLabel();
     JTextField timeField = new JTextField();
     
-   // added by rawsushi
+    // added by rawsushi
     JTextField effortField = new JTextField();
     JTextField sizeField = new JTextField();
     JTextField actualSizeField = new JTextField();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     
-//    Border border7;
+    // Border border7;
     Border border8;
     CalendarFrame startCalFrame = new CalendarFrame();
     CalendarFrame endCalFrame = new CalendarFrame();
@@ -93,14 +96,14 @@ public class TaskDialog extends JDialog {
     JLabel jLabel2 = new JLabel();
     JSpinner startDate;
     JSpinner endDate;
-//    JSpinner endDate = new JSpinner(new SpinnerDateModel());
+    // JSpinner endDate = new JSpinner(new SpinnerDateModel());
     JButton setEndDateB = new JButton();
     //JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanelSize = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanelActualSize = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    // JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
     JButton setNotifB = new JButton();
     JComboBox priorityCB = new JComboBox(priority);
@@ -121,8 +124,12 @@ public class TaskDialog extends JDialog {
 	CalendarDate startDateMax = CurrentProject.get().getEndDate();
 	CalendarDate endDateMin = startDateMin;
 	CalendarDate endDateMax = startDateMax;
-    
-    public TaskDialog(Frame frame, String title) {
+	
+	private final JPanel jPanelTimer = new JPanel();
+	private final JToggleButton jTglBtnTimer = new JToggleButton("Start Timer");
+	private TaskTimer data = new TaskTimer(1000, 0, 0, 0);
+
+	public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
             jbInit();            
@@ -142,11 +149,11 @@ public class TaskDialog extends JDialog {
         border3 = new TitledBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0), 
         Local.getString("To Do"), TitledBorder.LEFT, TitledBorder.BELOW_TOP);
         border4 = BorderFactory.createEmptyBorder(0, 5, 0, 5);
-//        border5 = BorderFactory.createEmptyBorder();
-//        border6 = BorderFactory.createBevelBorder(BevelBorder.LOWERED,
-//            Color.white, Color.white, new Color(178, 178, 178),
-//            new Color(124, 124, 124));
-//        border7 = BorderFactory.createLineBorder(Color.white, 2);
+        // border5 = BorderFactory.createEmptyBorder();
+        // border6 = BorderFactory.createBevelBorder(BevelBorder.LOWERED,
+        // 		Color.white, Color.white, new Color(178, 178, 178),
+        //      new Color(124, 124, 124));
+        // border7 = BorderFactory.createLineBorder(Color.white, 2);
         border8 = BorderFactory.createEtchedBorder(Color.white, 
             new Color(178, 178, 178));
         cancelB.setMaximumSize(new Dimension(100, 26));
@@ -219,35 +226,21 @@ public class TaskDialog extends JDialog {
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
         gbLayout.setConstraints(categoryCB,gbCon);
-        
-        jButtonTime.setMaximumSize(new Dimension(90, 16));
-        jButtonTime.setMinimumSize(new Dimension(60, 16));
-        jButtonTime.setText("Start Timer");
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = 1;
         gbCon.weighty = 2;
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
-        gbLayout.setConstraints(jButtonTime,gbCon);
-        
-        timeField.setBorder(border8);
-        timeField.setPreferredSize(new Dimension(60, 24));
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = 2;
         gbCon.weighty = 2;
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
-        gbLayout.setConstraints(timeField,gbCon);
-        
-        jLabelTime.setMaximumSize(new Dimension(100, 16));
-        jLabelTime.setMinimumSize(new Dimension(60, 16));
-        jLabelTime.setText("Total Time Spent");
         gbCon = new GridBagConstraints();
         gbCon.gridwidth = GridBagConstraints.REMAINDER;
         gbCon.weighty = 2;
         gbCon.insets = new Insets(10,0,10,0);
         gbCon.anchor = GridBagConstraints.WEST;
-        gbLayout.setConstraints(jLabelTime,gbCon);
         
         jLabelDescription.setMaximumSize(new Dimension(100, 16));
         jLabelDescription.setMinimumSize(new Dimension(60, 16));
@@ -409,9 +402,6 @@ public class TaskDialog extends JDialog {
         jPanel8.add(todoField, null);
         jPanel8.add(jLabelCategory, null);
         jPanel8.add(categoryCB, null);
-        jPanel8.add(jButtonTime, null);
-        jPanel8.add(timeField, null);
-        jPanel8.add(jLabelTime, null);
         jPanel8.add(jLabelDescription);
         jPanel8.add(descriptionScrollPane, null);
         areaPanel.add(jPanel2, BorderLayout.CENTER);
@@ -449,6 +439,59 @@ public class TaskDialog extends JDialog {
         jPanel2.add(jPanel3, null);
    
         priorityCB.setSelectedItem(Local.getString("Normal"));
+        
+        areaPanel.add(jPanelTimer, BorderLayout.SOUTH);        
+        jPanelTimer.add(jTglBtnTimer);
+        
+        data.setTimer(new Timer(data.getONE_SEC(), new ActionListener() {
+        	public void actionPerformed(ActionEvent evt) {
+        		data.setSeconds(data.getSeconds() + 1);
+        		if(data.getSeconds() > 59){
+        			data.setSeconds(0);
+        			data.setMinutes(data.getMinutes() + 1);
+        		} 
+        		if(data.getMinutes() > 59){
+        			data.setMinutes(0);
+        			data.setHours(data.getHours() + 1);
+        		} 
+        		data.setClockHours(new Integer(data.getHours()).toString());
+        		data.setClockMinutes(new Integer(data.getMinutes()).toString());
+        		data.setClockSeconds(new Integer(data.getSeconds()).toString());
+        		timeField.setText(("00" + data.getHours()).substring(data.getClockHours().length()) 
+        				+ ":" + ("00" + data.getMinutes()).substring(data.getClockMinutes().length()) 
+        				+ ":" + ("00" + data.getSeconds()).substring(data.getClockSeconds().length()));
+        	}
+        }));
+
+		ActionListener actionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				AbstractButton abstractButton = (AbstractButton) 
+						actionEvent.getSource();
+				boolean selected = abstractButton.getModel().isSelected();
+		        if (selected){
+		        	jTglBtnTimer.setText("Stop Timer");
+		        	data.getTimer().start();
+		        } else {
+		        	jTglBtnTimer.setText("Start Timer");
+		        	data.getTimer().stop();
+		        }
+			}
+		};
+		jTglBtnTimer.addActionListener(actionListener);
+        timeField.setToolTipText("Total Time Spent (00:00:00)");
+        timeField.setHorizontalAlignment(SwingConstants.LEFT);
+        jPanelTimer.add(timeField);
+        
+        timeField.setBorder(border8);
+        timeField.setPreferredSize(new Dimension(65, 24));
+        gbLayout.setConstraints(timeField,gbCon);
+        jLabelTime.setHorizontalAlignment(SwingConstants.LEFT);
+        jPanelTimer.add(jLabelTime);
+        
+        jLabelTime.setMaximumSize(new Dimension(100, 16));
+        jLabelTime.setMinimumSize(new Dimension(60, 16));
+        jLabelTime.setText("Total Time Spent");
+        gbLayout.setConstraints(jLabelTime,gbCon);
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ignoreStartChanged)
