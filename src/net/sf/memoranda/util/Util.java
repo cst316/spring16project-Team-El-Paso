@@ -22,6 +22,7 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.ui.App;
 import net.sf.memoranda.ui.AppFrame;
 import net.sf.memoranda.ui.ExceptionDialog;
+
 import java.util.Random;
 
 /**
@@ -152,7 +153,8 @@ public class Util {
     	AppFrame.addExitListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				for (Iterator i = tempFiles.iterator(); i.hasNext();) 
+				for (@SuppressWarnings("rawtypes")
+				Iterator i = tempFiles.iterator(); i.hasNext();) 
 					((File)i.next()).delete();				}
 			});
     }
