@@ -466,8 +466,7 @@ public class TaskPanel extends JPanel {
 
     
     void editTaskB_actionPerformed(ActionEvent e) {
-        Task t =
-            CurrentProject.getTaskList().getTask(
+        Task t = CurrentProject.getTaskList().getTask(
                 taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString());
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("Edit task"));
         Dimension frmSize = App.getFrame().getSize();
@@ -482,6 +481,7 @@ public class TaskPanel extends JPanel {
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
         dlg.sizeField.setText(t.getSize());
         dlg.actualSizeField.setText(t.getActualSize());
+        dlg.timeField.setText(t.getTime());
         if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
         	dlg.chkEndDate.setSelected(false);
         else
@@ -516,6 +516,7 @@ public class TaskPanel extends JPanel {
         	t.setActualSize(0);
         }
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
+        t.setTime(dlg.timeField.getText());
         
         //CurrentProject.getTaskList().adjustParentTasks(t);
 

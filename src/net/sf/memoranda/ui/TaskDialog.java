@@ -12,14 +12,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -34,7 +32,6 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-//import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -129,9 +126,6 @@ public class TaskDialog extends JDialog {
 	private final JPanel jPanelTimer = new JPanel();
 	private final JToggleButton jTglBtnTimer = new JToggleButton("Start Timer");
 	private Timer timer;
-	private int hours = 0;
-	private int minutes = 0;
-	private int seconds = 0;
 	private String clockHours;
 	private String clockMinutes;
 	private String clockSeconds;
@@ -564,6 +558,21 @@ public class TaskDialog extends JDialog {
     }
     
 	void timer_actionPerformed(ActionEvent e) {
+		String secs = "00";
+		String mins = "00";
+		String hrs = "00";
+		try {
+			secs = timeField.getText().substring(6,8);
+			mins = timeField.getText().substring(3,5);
+			hrs = timeField.getText().substring(0,2);
+		} catch (NullPointerException np) {
+			throw np;
+		}
+		
+		int seconds = Integer.parseInt(secs);
+		int minutes = Integer.parseInt(mins);
+		int hours = Integer.parseInt(hrs);
+		
 		seconds++;
 		if (seconds > 59) {
 			seconds = 0;
