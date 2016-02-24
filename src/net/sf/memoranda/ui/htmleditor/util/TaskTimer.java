@@ -19,7 +19,9 @@ public class TaskTimer {
 			mins = time.substring(3, 5);
 			hrs = time.substring(0, 2);
 		} catch (NullPointerException np) {
-			throw np;
+			secs = "00";
+			mins = "00";
+			hrs = "00";
 		}
 		
 		try {

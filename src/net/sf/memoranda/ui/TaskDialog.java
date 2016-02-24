@@ -518,7 +518,7 @@ public class TaskDialog extends JDialog {
 	}
 	
     void okB_actionPerformed(ActionEvent e) {
-	CANCELLED = false;
+    	CANCELLED = false;
         this.dispose();
     }
 
@@ -559,9 +559,8 @@ public class TaskDialog extends JDialog {
 			this.todoField.getText(), null, null, (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
     }
     
-	void timer_actionPerformed(ActionEvent e) {		
-		String cTime = timeField.getText();
-		timeField.setText(TaskTimer.tickTock(cTime));
+	void timer_actionPerformed(ActionEvent e) {
+		timeField.setText(TaskTimer.tickTock(timeField.getText()));
     }
 
 }
