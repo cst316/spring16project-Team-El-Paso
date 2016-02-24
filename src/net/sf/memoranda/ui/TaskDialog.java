@@ -40,7 +40,9 @@ import javax.swing.JCheckBox;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.ui.htmleditor.util.TaskTimer;
 import net.sf.memoranda.util.Local;
+
 import javax.swing.JToggleButton;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
@@ -126,9 +128,9 @@ public class TaskDialog extends JDialog {
 	private final JPanel jPanelTimer = new JPanel();
 	private final JToggleButton jTglBtnTimer = new JToggleButton("Start Timer");
 	private Timer timer;
-	private String clockHours;
-	private String clockMinutes;
-	private String clockSeconds;
+	//private String clockHours;
+	//private String clockMinutes;
+	//private String clockSeconds;
     
     public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
@@ -557,37 +559,9 @@ public class TaskDialog extends JDialog {
 			this.todoField.getText(), null, null, (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
     }
     
-	void timer_actionPerformed(ActionEvent e) {
-		String secs = "00";
-		String mins = "00";
-		String hrs = "00";
-		try {
-			secs = timeField.getText().substring(6,8);
-			mins = timeField.getText().substring(3,5);
-			hrs = timeField.getText().substring(0,2);
-		} catch (NullPointerException np) {
-			throw np;
-		}
-		
-		int seconds = Integer.parseInt(secs);
-		int minutes = Integer.parseInt(mins);
-		int hours = Integer.parseInt(hrs);
-		
-		seconds++;
-		if (seconds > 59) {
-			seconds = 0;
-			minutes += 1;
-		}
-		if (minutes > 59) {
-			minutes = 0;
-			hours += 1;
-		}
-		clockHours = new Integer(hours).toString();
-		clockMinutes = new Integer(minutes).toString();
-		clockSeconds = new Integer(seconds).toString();
-		timeField.setText(("00" + hours).substring(clockHours.length()) 
-    			+ ":" + ("00" + minutes).substring(clockMinutes.length()) 
-    			+ ":" + ("00" + seconds).substring(clockSeconds.length()));
+	void timer_actionPerformed(ActionEvent e) {		
+		String cTime = timeField.getText();
+		timeField.setText(TaskTimer.tickTock(cTime));
     }
 
 }

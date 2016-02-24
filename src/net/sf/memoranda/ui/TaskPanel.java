@@ -530,6 +530,7 @@ public class TaskPanel extends JPanel {
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New task"));
         int size = 0;
         int aSize = 0;
+        
         //XXX String parentTaskId = taskTable.getCurrentRootTask();
         
         Dimension frmSize = App.getFrame().getSize();
@@ -559,7 +560,7 @@ public class TaskPanel extends JPanel {
         	aSize = 0;
         }
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-        Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), size, aSize, dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),(String)dlg.categoryCB.getSelectedItem(), null);
+        Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), size, aSize, dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),(String)dlg.categoryCB.getSelectedItem(),dlg.timeField.getText(), null);
         //CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -611,7 +612,7 @@ public class TaskPanel extends JPanel {
         } catch (NumberFormatException nfe) {
         	aSize = 0;
         }
-        Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), size, aSize, dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),dlg.categoryCB.getToolTipText(), parentTaskId);
+        Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), size, aSize, dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),dlg.categoryCB.getToolTipText(), dlg.timeField.getText(), parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         //CurrentProject.getTaskList().adjustParentTasks(newTask);
 
