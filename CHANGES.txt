@@ -1,3 +1,9 @@
+Done by Anthony Kowal
+- Changed version in Splash Page from 1.0 to 2.5
+- Changed version in Splash Page from 2.5 to 2.0
+- Changed Splash Page color format with filters
+- Checking status of updating
+
 Done by Cristian Andrade
 - Color to the foreground on stickers
 - Simple HTML Format to stickers 
