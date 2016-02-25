@@ -109,7 +109,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             return label;
         }
         // if( column_name.equals("% " + Local.getString("done")) ){
-        if (column == 7) {
+        if (column == 8) {
             return getProgressCellRenderer(t, selected, hasFocus, column);
         }
         // if( column_name.equals("") ){
@@ -118,20 +118,20 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         }
         // if( column_name.equals(Local.getString("Start date")) ||
         // column_name.equals(Local.getString("End date")) ){
-        if ((column == 2) || (column == 3)) {
+        if ((column == 3) || (column == 4)) {
             label.setText(dateFormat.format((Date) value));
             return label;
         }
         
         // if( column_name.equals( Local.getString("Category") ) ){
-        if (column == 4) {
+        if (column == 5) {
             label.setText(value.toString());
             return label;
         }
 
               
         // if( column_name.equals( Local.getString("Status") ) ){
-        if (column == 6) {
+        if (column == 7) {
             label.setText(value.toString());
             label.setForeground(getColorForTaskStatus(t, false));
             return label;

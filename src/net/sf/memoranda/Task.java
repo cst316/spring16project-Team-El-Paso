@@ -86,6 +86,9 @@ public interface Task {
     
     void setActualSize(int asize);
     String getActualSize();
+    
+    void setTime(String string);
+    String getTime();
 
     Task getParentTask();
     String getParentId();
