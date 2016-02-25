@@ -111,22 +111,21 @@ public class PlanSummaryDialog extends JDialog {
 	GridBagConstraints formConstraints; 
 	
 	public PlanSummaryDialog(Frame frame, String title, String prjName, boolean prjnew, Project passedPrj) {
-        super(frame, title, true);
-        try {
-        	newprj = prjnew;
-        	psProject = passedPrj;
-            jbInit(prjName);
-            pack();
-        }
-        catch (Exception ex) {
-            new ExceptionDialog(ex);
-        }
+            super(frame, title, true);
+            try {
+                newprj = prjnew;
+                psProject = passedPrj;
+                jbInit(prjName);
+                pack();
+            } catch (Exception ex) {
+                new ExceptionDialog(ex);
+            }
 	}
 	
 	void jbInit(String prjName) throws Exception {
 		this.setResizable(false);
 		if (!newprj) {
-			psExists = psProject.hasSummary();
+		    psExists = psProject.hasSummary();
 		}
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
