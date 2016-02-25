@@ -393,6 +393,24 @@ public class TaskImpl implements Task, Comparable {
 			}
 		}
 	}
+	
+	public void setTime(String time) {
+		setAttr("time", time);
+
+	}
+
+	public String getTime() {
+		Attribute time = _element.getAttribute("time");
+		if (time == null) {
+			return "00:00:00";
+		} else {
+			try {
+				return time.getValue();
+			} catch (NumberFormatException e) {
+				return "00:00:00";
+			}
+		}
+	}
 	   
 	 /*
 	  * Comparable interface

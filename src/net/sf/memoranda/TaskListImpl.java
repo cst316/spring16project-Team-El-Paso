@@ -103,7 +103,7 @@ public class TaskListImpl implements TaskList {
         return filterActiveTasks(allTasks,date);
     }
 
-    public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int size, int aSize, int priority, long effort, String description, String category, String parentTaskId) {
+    public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int size, int aSize, int priority, long effort, String description, String category, String time, String parentTaskId) {
         Element el = new Element("task");
         el.addAttribute(new Attribute("startDate", startDate.toString()));
         el.addAttribute(new Attribute("endDate", endDate != null? endDate.toString():""));
@@ -114,6 +114,7 @@ public class TaskListImpl implements TaskList {
         el.addAttribute(new Attribute("size", String.valueOf(size)));
         el.addAttribute(new Attribute("actualSize", String.valueOf(aSize)));
         el.addAttribute(new Attribute("priority", String.valueOf(priority)));
+        el.addAttribute(new Attribute("time", String.valueOf(time)));
                 
         Element txt = new Element("text");
         txt.appendChild(text);
