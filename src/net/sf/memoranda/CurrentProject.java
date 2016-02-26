@@ -28,6 +28,7 @@ public class CurrentProject {
     private static TaskList _tasklist = null;
     private static NoteList _notelist = null;
     private static ResourcesList _resources = null;
+    private static PlanSummary _plansummary = null;
     private static Vector projectListeners = new Vector();
 
         
@@ -53,6 +54,9 @@ public class CurrentProject {
         _tasklist = CurrentStorage.get().openTaskList(_project);
         _notelist = CurrentStorage.get().openNoteList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
+        if ((_plansummary == null) && (_project.hasSummary())) {
+        	_plansummary = new PlanSummaryImpl(_project.getSummary());
+        }
         AppFrame.addExitListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 save();                                               
@@ -76,9 +80,16 @@ public class CurrentProject {
     public static ResourcesList getResourcesList() {
             return _resources;
     }
+    
+    public static PlanSummary getPlanSummary () {
+    	return _plansummary;
+    }
 
     public static void set(Project project) {
-        if (project.getID().equals(_project.getID())) return;
+        if (project.getID().equals(_project.getID())) {
+        	return;
+        }
+        PlanSummary newplansummary = new PlanSummaryImpl(project.getSummary());
         TaskList newtasklist = CurrentStorage.get().openTaskList(project);
         NoteList newnotelist = CurrentStorage.get().openNoteList(project);
         ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
@@ -87,6 +98,7 @@ public class CurrentProject {
         _tasklist = newtasklist;
         _notelist = newnotelist;
         _resources = newresources;
+        _plansummary = newplansummary;
         notifyListenersAfter();
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
     }

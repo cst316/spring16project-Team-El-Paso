@@ -9,6 +9,7 @@
 package net.sf.memoranda;
 
 import net.sf.memoranda.date.CalendarDate;
+import nu.xom.Element;
 
 /**
  * 
@@ -45,10 +46,17 @@ public interface Project {
     void setGoal(String aGoal);
     
     int getStatus();
+    
+    void addPlanSummary(Element psumm);
+    
+    boolean hasSummary();
+    
+    Element getSummary();
+    PlanSummary getPrjSummary();
             
     //int getProgress();
     
-    //TaskList getTaskList();
+    TaskList getTaskList();
     
     //NoteList getNoteList();
     

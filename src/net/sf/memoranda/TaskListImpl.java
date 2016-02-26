@@ -222,6 +222,16 @@ public class TaskListImpl implements TaskList {
             return t.getEffort();
         }
     }
+    
+    public int calculateActualLOC() {
+    	Collection allRootTasks = getTopLevelTasks();
+    	int totalActualLOC = 0;
+    	for (Iterator iter = allRootTasks.iterator(); iter.hasNext();) {
+    		Task e = (Task) iter.next();
+    		totalActualLOC = totalActualLOC + Integer.parseInt(e.getActualSize());
+    	}
+    	return totalActualLOC;
+    }
 
     /**
      * Looks through the entire sub task tree and corrects any inconsistencies in start dates

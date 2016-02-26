@@ -12,7 +12,11 @@ public class PlanSummaryImpl implements PlanSummary {
 	 * Default constructor of PlanSummaryImpl.
 	 */
 	public PlanSummaryImpl() {
-		_el = new Element("Plan Summary");
+		_el = new Element("PlanSummary");
+	}
+	
+	public PlanSummaryImpl(Element xomDoc) {
+		_el = xomDoc;
 	}
 	
 	/**
