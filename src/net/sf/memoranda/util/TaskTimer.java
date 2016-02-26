@@ -1,4 +1,4 @@
-package net.sf.memoranda.ui.htmleditor.util;
+package net.sf.memoranda.util;
 
 public class TaskTimer {
 

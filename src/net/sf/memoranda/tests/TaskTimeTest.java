@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import net.sf.memoranda.ui.htmleditor.util.TaskTimer;
+import net.sf.memoranda.util.TaskTimer;
 
 public class TaskTimeTest {
 	
