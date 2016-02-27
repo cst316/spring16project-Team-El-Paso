@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.util.TaskTimer;
 import net.sf.memoranda.util.Util;
 import nu.xom.Attribute;
 import nu.xom.Document;
@@ -231,6 +232,18 @@ public class TaskListImpl implements TaskList {
     		totalActualLOC = totalActualLOC + Integer.parseInt(e.getActualSize());
     	}
     	return totalActualLOC;
+    }
+    
+    public int calculateActualTime(String cat) {
+    	Collection mTasks = getTopLevelTasks();
+    	float rMinutes = 0;
+    	for (Iterator iter = mTasks.iterator(); iter.hasNext();) {
+    		Task e = (Task) iter.next();
+    		if (e.getCategory().compareToIgnoreCase(cat) == 0) {
+    			rMinutes += TaskTimer.toMinutes(e.getTime());
+    		}
+    	}
+    	return (int) rMinutes;
     }
 
     /**

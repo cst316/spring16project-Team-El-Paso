@@ -146,38 +146,6 @@ public class PlanSummaryImpl implements PlanSummary {
 	public int getTimePMPlan() {
 		return Integer.parseInt(_el.getAttributeValue("timePM"));
 	}
-	
-	/**
-	 * @see net.sf.memoranda.PlanSummary#getLOCperHrToDate()
-	 */
-	public int getLOCperHrToDate(CalendarDate cd) {
-		//NYI
-		return 0;
-	}
-
-	/**
-	 * @see net.sf.memoranda.PlanSummary#getLOCDeletedActual()
-	 */
-	public int getLOCDeletedActual(CalendarDate cd) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * @see net.sf.memoranda.PlanSummary#getLOCModifiedActual()
-	 */
-	public int getLOCModifiedActual(CalendarDate cd) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * @see net.sf.memoranda.PlanSummary#getLOCReusedActual()
-	 */
-	public int getLOCReusedActual(CalendarDate cd) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	/**
 	 * @see net.sf.memoranda.PlanSummary#getTimePlanningActual()
