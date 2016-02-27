@@ -116,5 +116,19 @@ public class NoteImpl implements Note, Comparable {
 		else 
 			return 0;
 	}
+	
+    public String getLinkedTask() {
+        Attribute lt = _el.getAttribute("linked_task");
+        if (lt == null) return "";
+        return _el.getAttribute("linked_task").getValue();
+    }
+    
+    
+    public void setLinkedTask(String task) {
+        Attribute lt = _el.getAttribute("linked_task");
+        if (lt == null) _el.addAttribute(new Attribute("linked_task", task));
+        else 
+            lt.setValue(task);
+    }
     
 }

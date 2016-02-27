@@ -68,11 +68,11 @@ public class DailyItemsPanel extends JPanel {
     ImageIcon expIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/star8.png"));
+    
     boolean expanded = true;
-
     Note currentNote;
+    
 	CalendarDate currentDate;
-
     boolean calendarIgnoreChange = false;
     boolean dateChangedByCalendar = false;
     boolean changedByHistory = false;
@@ -292,8 +292,8 @@ public class DailyItemsPanel extends JPanel {
         });
 
 		currentDate = CurrentDate.get();
-        currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
-		CurrentNote.set(currentNote,true);
+        //currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get()); 
+		//CurrentNote.set(currentNote,true); 
         editorPanel.setDocument(currentNote);
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
         cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
@@ -349,7 +349,7 @@ public class DailyItemsPanel extends JPanel {
 
 	void currentNoteChanged(Note note, boolean toSaveCurrentNote) {
 //		Util.debug("currentNoteChanged");
-		
+		//currentNote = note; //Dena
 		if (editorPanel.isDocumentChanged()) {
 			if (toSaveCurrentNote) {
 	            saveNote();				
@@ -396,9 +396,10 @@ public class DailyItemsPanel extends JPanel {
 
     public void saveNote() {
         if (currentNote == null)
-            currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
+        	currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
         currentNote.setTitle(editorPanel.titleField.getText());
 		currentNote.setId(Util.generateId());
+		currentNote.setLinkedTask(editorPanel.getCurrentLinkedTask());
         CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
         /*DEBUG* System.out.println("Save");*/
     }

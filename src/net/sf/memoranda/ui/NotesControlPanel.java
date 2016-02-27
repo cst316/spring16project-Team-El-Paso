@@ -244,7 +244,7 @@ public class NotesControlPanel extends JPanel {
     void setActiveNote() {
         Note note = (Note) notesList.getNote(notesList.getSelectedIndex());
         CurrentDate.set(note.getDate());
-		CurrentNote.set(note,true);
+		CurrentNote.set(note,false);
     }
    
 
@@ -299,7 +299,7 @@ public class NotesControlPanel extends JPanel {
             Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
 			if(CurrentProject.getNoteList().getActiveNote() != null && note.getDate().equals(CurrentProject.getNoteList().getActiveNote().getDate())){ 
 				/*Debug*/ System.out.println("[DEBUG] Current note removed");
-				CurrentNote.set(null,true);
+				CurrentNote.set(null,false);
 			}
 			CurrentProject.getNoteList().removeNote(note.getDate(), note.getId());
 			CurrentStorage.get().removeNote(note);

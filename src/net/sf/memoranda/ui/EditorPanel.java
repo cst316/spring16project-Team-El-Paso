@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
@@ -13,11 +16,13 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.text.DateFormat;
+import java.util.Vector;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -85,12 +90,26 @@ public class EditorPanel extends JPanel {
 	JButton newB = new JButton();
 
 	JButton previewB = new JButton();
-	
+
 	JButton saveB = new JButton();
-	
+
 	JButton clearB = new JButton();
 
 	DailyItemsPanel parentPanel = null;
+
+	JLabel taskListLabel = new JLabel("  Link to Task: ");
+	
+	Vector<String> taskList = new Vector<String>();
+	
+	JComboBox taskListCB = new JComboBox(taskList);
+	
+	String initialLinkedTask = "No Linked Task";
+	
+	String currentLinkedTask = new String();
+
+	public String getCurrentLinkedTask() {
+		return currentLinkedTask;
+	}
 
 	public EditorPanel(DailyItemsPanel parent) {
 		try {
@@ -187,6 +206,22 @@ public class EditorPanel extends JPanel {
 		editor = new HTMLEditor();
 
 		this.setLayout(borderLayout1);
+		
+		for (Object task:CurrentProject.getTaskList().getTopLevelTasks()){
+			taskList.add(task.toString());
+		}
+		
+		taskListCB.setMaximumSize(new Dimension(200,24));
+		taskListCB.setEditable(true);
+		taskListCB.addItemListener(new ItemListener(){
+			public void itemStateChanged(ItemEvent itemEvent) {
+				int state = itemEvent.getStateChange();
+				if (state == 2){
+					currentLinkedTask = taskListCB.getSelectedItem().toString();
+					System.out.println(state);
+				}
+			}
+		});
 
 		newB.setAction(newAction);
 		newB.setMaximumSize(new Dimension(100, 24));
@@ -380,6 +415,8 @@ public class EditorPanel extends JPanel {
 		editorToolBar.add(saveB, null);
 		editorToolBar.addSeparator(new Dimension(8, 24));
 		editorToolBar.add(clearB, null);
+		editorToolBar.add(taskListLabel, null);
+		editorToolBar.add(taskListCB, null);
 		// editorToolBar.add(printB, null);
 		jPanel1.add(editorToolBar, BorderLayout.NORTH);
 		jPanel1.add(editor, BorderLayout.CENTER);
@@ -550,10 +587,15 @@ public class EditorPanel extends JPanel {
 		// this.editor.editor.setPage(CurrentStorage.get().getNoteURL(note));
 		editor.document = (HTMLDocument) CurrentStorage.get().openNote(note);
 		editor.initEditor();
-		if (note != null)
+		if (note != null){
 			titleField.setText(note.getTitle());
-		else
+			taskListCB.setSelectedItem(note.getLinkedTask().toString());
+			initialLinkedTask = currentLinkedTask; //taskListCB.getSelectedItem().toString();
+		}
+		else{
 			titleField.setText("");
+			taskListCB.setSelectedItem("No Linked Task");
+		}
 		initialTitle = titleField.getText();
 		/*
 		 * } catch (Exception ex) { new ExceptionDialog(ex); }
@@ -572,7 +614,8 @@ public class EditorPanel extends JPanel {
 
 	public boolean isDocumentChanged() {
 		return editor.isDocumentChanged()
-				|| !titleField.getText().equals(initialTitle);
+				|| !titleField.getText().equals(initialTitle)
+				|| !initialLinkedTask.equals(currentLinkedTask);
 	}
 
 	void importB_actionPerformed(ActionEvent e) {
@@ -620,7 +663,7 @@ public class EditorPanel extends JPanel {
 	}
 
 	void newB_actionPerformed(ActionEvent e) {
-		CurrentNote.set(null, true);
+		CurrentNote.set(null, false); //Dena
 		setDocument(null);
 		this.titleField.requestFocus();
 	}
@@ -675,7 +718,7 @@ public class EditorPanel extends JPanel {
             Note note = (Note) NotesControlPanel.notesList.getNote(NotesControlPanel.notesList.getSelectedIndices()[i]);
 			if(CurrentProject.getNoteList().getActiveNote() != null && note.getDate().equals(CurrentProject.getNoteList().getActiveNote().getDate())){ 
 				/*Debug*/ System.out.println("[DEBUG] Current note removed");
-				CurrentNote.set(null,true);
+				CurrentNote.set(null,false); 
 			}
 			CurrentProject.getNoteList().removeNote(note.getDate(), note.getId());
 			CurrentStorage.get().removeNote(note);

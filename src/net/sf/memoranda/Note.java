@@ -27,4 +27,8 @@ public interface Note {
     void setMark(boolean mark);
         
     Project getProject();
+
+	String getLinkedTask();
+	
+	void setLinkedTask(String task);
 }
