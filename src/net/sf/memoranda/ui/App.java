@@ -1,19 +1,23 @@
 package net.sf.memoranda.ui;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
+//import java.awt.Dimension;
+//import java.awt.Frame;
+//import java.awt.Toolkit;
 import java.util.Calendar;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.UIManager;
+//import javax.swing.ImageIcon;
+//import javax.swing.JFrame;
+//import javax.swing.JLabel;
+//import javax.swing.UIManager;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
 import javax.swing.WindowConstants;
 
 import net.sf.memoranda.EventsScheduler;
 import net.sf.memoranda.util.Configuration;
-
+import net.sf.memoranda.ui.LoginForm;
 /**
  * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -53,15 +57,17 @@ public class App {
 			init();
 	}
 
-	public App(boolean fullmode) {
-		super();
-		if (fullmode)
-			fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
-		/* DEBUG */
-		if (!fullmode)
-			System.out.println("Minimized mode");
-		if (!Configuration.get("SHOW_SPLASH").equals("no"))
-			showSplash();
+//	public App(boolean fullmode) {
+//		super();
+//		if (fullmode)
+//			fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
+//		/* DEBUG */
+//		if (!fullmode)
+//			System.out.println("Minimized mode");
+//		if (!Configuration.get("SHOW_SPLASH").equals("no"))
+//			showSplash();
+		
+	public void startMenu(){	
 		System.out.println(VERSION_INFO);
 		System.out.println(Configuration.get("LOOK_AND_FEEL"));
 		try {
@@ -93,8 +99,45 @@ public class App {
 
 		EventsScheduler.init();
 		frame = new AppFrame();
-		if (fullmode) {
-			init();
+//		if (fullmode) {
+		
+	}
+
+	public App(boolean fullmode) {
+		super();
+		if (fullmode)
+			fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
+		/* DEBUG */
+		if (!fullmode)
+			System.out.println("Minimized mode");
+		if (!Configuration.get("SHOW_SPLASH").equals("no"))
+			showSplash();
+
+		final JFrame frame = new JFrame("Memoranda");
+		final JButton loginPrompt = new JButton("Start");
+
+		loginPrompt.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent e) {
+                        LoginForm loginForm = new LoginForm(frame);
+                        loginForm.setVisible(true);
+                        if(loginForm.isSucceeded()){
+                            loginPrompt.setText("Hi " + loginForm.getUsername() + "!");
+							startMenu();
+                        }
+                    }
+                });
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 100);
+        frame.setLayout(new FlowLayout());
+        frame.getContentPane().add(loginPrompt);
+        frame.setVisible(true);
+
+		if (fullmode){
+
+		
+		init();
 		}
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
