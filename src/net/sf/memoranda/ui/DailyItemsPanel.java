@@ -237,6 +237,7 @@ public class DailyItemsPanel extends JPanel {
             	// cannot save note here, changing to new project
             	currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
         		CurrentNote.set(currentNote,true);//dena
+        		editorPanel.refreshTasks(); //dena
                 editorPanel.setDocument(currentNote);  
                 
 //                // DEBUG
@@ -360,7 +361,7 @@ public class DailyItemsPanel extends JPanel {
 		currentNote = note;
 		editorPanel.setDocument(currentNote);
         calendar.set(CurrentDate.get());
-		editorPanel.editor.requestFocus();		
+		editorPanel.editor.requestFocus();
 	}
 	
     void currentProjectChanged(Project newprj, NoteList nl, TaskList tl, ResourcesList rl) {
@@ -440,6 +441,7 @@ public class DailyItemsPanel extends JPanel {
             }
         }
         indicatorsPanel.updateUI();
+        editorPanel.refreshTasks();
     }
 
     public void updateIndicators() {
@@ -452,7 +454,7 @@ public class DailyItemsPanel extends JPanel {
          //   calendar.jnCalendar.updateUI();
         }
         if (pan.equals("TASKS") && (tasksPanel.taskTable.getSelectedRow() > -1)) {
-            Task t =
+        	Task t =
                 CurrentProject.getTaskList().getTask(
                     tasksPanel
                         .taskTable

@@ -199,6 +199,14 @@ public class EditorPanel extends JPanel {
 		}
 	};
 	
+	public void refreshTasks(){
+		if (!taskList.isEmpty())
+			taskList.clear();
+		for (Object task:CurrentProject.get().getTaskList().getTopLevelTasks()){
+			taskList.add(task.toString());
+		}
+	}
+	
 	void jbInit() throws Exception {
 
 		if (!Configuration.get("DISABLE_L10N").equals("yes"))
@@ -209,10 +217,7 @@ public class EditorPanel extends JPanel {
 
 		this.setLayout(borderLayout1);
 		
-		for (Object task:CurrentProject.get().getTaskList().getTopLevelTasks()){
-			taskList.add(task.toString());
-		}
-		
+		refreshTasks();
 		final DefaultComboBoxModel model = new DefaultComboBoxModel(taskList);
 		taskListCB = new JComboBox(model); 
 		taskListCB.setMaximumSize(new Dimension(200,24));
