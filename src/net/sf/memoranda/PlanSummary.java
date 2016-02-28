@@ -93,40 +93,6 @@ public interface PlanSummary {
 	 */
 	int getTimePMPlan();
 	
-	/**
-	 * Parses tasks associated with this project and provides the lines of code per hour. This
-	 * method is appropriate for finding the actual LOC/hour after the project is complete.
-	 * @param A CalendarDate object representing the desired end date of the period calculated,
-	 * where the start date is the date the project was created.
-	 * @return An integer value representing the lines of code per hour through the given date.
-	 * The calculation is lines of code reported divided by time spent for all closed tasks.
-	 */
-	int getLOCperHrToDate(CalendarDate cd);
-	
-	/**This method is appropriate to use for "To Date" or "Actual" calculations. To find actuals,
-	 * pass the date the project closed.
-	 * @param A CalendarDate object representing the desired end date of the period calculated,
-	 * where the start date is the date the project was created.
-	 * @return Deleted lines of code, totaled from all tasks in the project.
-	 */
-	int getLOCDeletedActual(CalendarDate cd);
-	
-	/**This method is appropriate to use for "To Date" or "Actual" calculations. To find actuals,
-	 * pass the date the project closed.
-	 * @param A CalendarDate object representing the desired end date of the period calculated,
-	 * where the start date is the date the project was created.
-	 * @return Modified lines of code, totaled from all tasks in the project.
-	 */
-	int getLOCModifiedActual(CalendarDate cd);
-	
-	/**This method is appropriate to use for "To Date" or "Actual" calculations. To find actuals,
-	 * pass the date the project closed.
-	 * @param A CalendarDate object representing the desired end date of the period calculated,
-	 * where the start date is the date the project was created.
-	 * @return Reused lines of code, totaled from all tasks in the project.
-	 */
-	int getLOCReusedActual(CalendarDate cd);
-	
 	/**This method is appropriate to use for "To Date" or "Actual" calculations. To find actuals,
 	 * pass the date the project closed.
 	 * @param A CalendarDate object representing the desired end date of the period calculated,

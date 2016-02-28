@@ -40,6 +40,7 @@ public interface TaskList {
     public long[] calculateCompletionFromSubTasks(Task t);
     
     public int calculateActualLOC();
+    public int calculateActualTime(String cat);
 
     nu.xom.Document getXMLContent();
 
