@@ -416,7 +416,8 @@ public class TaskImpl implements Task, Comparable {
 	  * Comparable interface
 	  */
 	  
-	 public int compareTo(Object o) {
+	/* 
+	public int compareTo(Object o) {
 		 Task task = (Task) o;
 		 	if(getRate() > task.getRate())
 				return 1;
@@ -424,6 +425,18 @@ public class TaskImpl implements Task, Comparable {
 				return -1;
 			else 
 				return 0;
+	 }
+	 */
+	 
+	 //dena
+	 public int compareTo(Object o){
+		 Task task = (Task) o;
+		 if(getEndDate().after(task.getEndDate()))
+			 return 1;
+		 else if(getEndDate().before(task.getEndDate()))
+			 return -1;
+		 else 
+			 return 0;
 	 }
 	 
 	 public boolean equals(Object o) {
