@@ -196,6 +196,7 @@ public class NotesControlPanel extends JPanel {
 		searchPanel.notesList.addKeyListener(delNotes);
     }
 
+    
     public void refresh() {
         notesListPanel.notesList.update();
         bookmarksListPanel.notesList.update();
@@ -242,27 +243,28 @@ public class NotesControlPanel extends JPanel {
     }
 
     void setActiveNote() {
-        Note note = (Note) notesList.getNote(notesList.getSelectedIndex());
+    	Note note = (Note) notesList.getNote(notesList.getSelectedIndex());
         CurrentDate.set(note.getDate());
-		CurrentNote.set(note,false);
+        CurrentNote.set(note,true);
+        notesList.clearSelection();
     }
-   
+ 
 
-    void ppOpenB_actionPerformed(ActionEvent e) {
+	void ppOpenB_actionPerformed(ActionEvent e) {
         notesPPMenu.show(
             toolBar,
             (int) ppOpenB.getLocation().getX(),
             (int) ppOpenB.getLocation().getY() + 24);
     }
 
-    void ppAddBkmrk_actionPerformed(ActionEvent e) {
-        for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
-            Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
-            note.setMark(true);
-        }
-        notesList.updateUI();
-        bookmarksListPanel.notesList.update();
-	ppSetEnabled();
+	void ppAddBkmrk_actionPerformed(ActionEvent e) {
+		for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
+			Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
+			note.setMark(true);
+		}
+		notesList.updateUI();
+		bookmarksListPanel.notesList.update();
+		ppSetEnabled();
     }
 
     void ppClearNote_actionPerformed(ActionEvent e) {
@@ -327,15 +329,15 @@ public class NotesControlPanel extends JPanel {
     }
 
     void ppRemoveBkmrk_actionPerformed(ActionEvent e) {
-        for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
-            Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
-            note.setMark(false);
-        }
-        bookmarksListPanel.notesList.update();
-	ppSetEnabled();
-        notesList.updateUI();
-	notesList.clearSelection();
-	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();	
+    	for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
+    		Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
+    		note.setMark(false);
+    	}
+    	bookmarksListPanel.notesList.update();
+    	ppSetEnabled();
+    	notesList.updateUI();
+    	notesList.clearSelection();
+    	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();	
     }
 
     void ppSetEnabled() {

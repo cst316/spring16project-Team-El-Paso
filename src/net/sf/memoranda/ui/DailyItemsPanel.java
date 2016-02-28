@@ -31,7 +31,9 @@ import net.sf.memoranda.History;
 import net.sf.memoranda.HistoryItem;
 import net.sf.memoranda.HistoryListener;
 import net.sf.memoranda.Note;
+import net.sf.memoranda.NoteImpl;
 import net.sf.memoranda.NoteList;
+import net.sf.memoranda.NoteListImpl;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.ProjectListener;
 import net.sf.memoranda.ResourcesList;
@@ -234,8 +236,8 @@ public class DailyItemsPanel extends JPanel {
             	
             	// cannot save note here, changing to new project
             	currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
-        		CurrentNote.set(currentNote,false);
-                editorPanel.setDocument(currentNote);        
+        		CurrentNote.set(currentNote,true);//dena
+                editorPanel.setDocument(currentNote);  
                 
 //                // DEBUG
 //                if (currentNote != null) {
@@ -291,9 +293,9 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-		currentDate = CurrentDate.get();
-        //currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get()); 
-		//CurrentNote.set(currentNote,true); 
+        currentDate = CurrentDate.get();
+        currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
+		CurrentNote.set(currentNote,false);
         editorPanel.setDocument(currentNote);
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
         cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
@@ -349,7 +351,6 @@ public class DailyItemsPanel extends JPanel {
 
 	void currentNoteChanged(Note note, boolean toSaveCurrentNote) {
 //		Util.debug("currentNoteChanged");
-		//currentNote = note; //Dena
 		if (editorPanel.isDocumentChanged()) {
 			if (toSaveCurrentNote) {
 	            saveNote();				
@@ -395,13 +396,13 @@ public class DailyItemsPanel extends JPanel {
     }
 
     public void saveNote() {
-        if (currentNote == null)
-        	currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
-        currentNote.setTitle(editorPanel.titleField.getText());
-		currentNote.setId(Util.generateId());
-		currentNote.setLinkedTask(editorPanel.getCurrentLinkedTask());
-        CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
-        /*DEBUG* System.out.println("Save");*/
+    	if (currentNote == null)
+    		currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
+    	currentNote.setTitle(editorPanel.titleField.getText());
+    	currentNote.setId(Util.generateId());
+    	currentNote.setLinkedTask(editorPanel.getCurrentLinkedTask());
+    	CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
+    	/*DEBUG* System.out.println("Save");*/
     }
 
     void toggleButton_actionPerformed(ActionEvent e) {

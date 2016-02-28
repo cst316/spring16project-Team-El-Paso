@@ -20,6 +20,7 @@ import java.util.Vector;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -34,6 +35,7 @@ import javax.swing.text.html.HTMLDocument;
 
 import net.sf.memoranda.History;
 import net.sf.memoranda.Note;
+import net.sf.memoranda.NoteListImpl;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.CurrentNote;
 import net.sf.memoranda.CurrentProject;
@@ -101,7 +103,7 @@ public class EditorPanel extends JPanel {
 	
 	Vector<String> taskList = new Vector<String>();
 	
-	JComboBox taskListCB = new JComboBox(taskList);
+	JComboBox taskListCB; 
 	
 	String initialLinkedTask = "No Linked Task";
 	
@@ -196,7 +198,7 @@ public class EditorPanel extends JPanel {
 			clearB_actionPerformed(e);
 		}
 	};
-
+	
 	void jbInit() throws Exception {
 
 		if (!Configuration.get("DISABLE_L10N").equals("yes"))
@@ -207,21 +209,24 @@ public class EditorPanel extends JPanel {
 
 		this.setLayout(borderLayout1);
 		
-		for (Object task:CurrentProject.getTaskList().getTopLevelTasks()){
+		for (Object task:CurrentProject.get().getTaskList().getTopLevelTasks()){
 			taskList.add(task.toString());
 		}
 		
+		final DefaultComboBoxModel model = new DefaultComboBoxModel(taskList);
+		taskListCB = new JComboBox(model); 
 		taskListCB.setMaximumSize(new Dimension(200,24));
 		taskListCB.setEditable(true);
 		taskListCB.addItemListener(new ItemListener(){
-			public void itemStateChanged(ItemEvent itemEvent) {
-				int state = itemEvent.getStateChange();
+			public void itemStateChanged(ItemEvent e) {
+				int state = e.getStateChange();
 				if (state == 2){
 					currentLinkedTask = taskListCB.getSelectedItem().toString();
 					System.out.println(state);
 				}
 			}
 		});
+		
 
 		newB.setAction(newAction);
 		newB.setMaximumSize(new Dimension(100, 24));
@@ -580,23 +585,21 @@ public class EditorPanel extends JPanel {
 	}
 
 	String initialTitle = "";
-
+	
 	public void setDocument(Note note) {
-		// Note note = CurrentProject.getNoteList().getActiveNote();
-		// try {
-		// this.editor.editor.setPage(CurrentStorage.get().getNoteURL(note));
 		editor.document = (HTMLDocument) CurrentStorage.get().openNote(note);
 		editor.initEditor();
 		if (note != null){
 			titleField.setText(note.getTitle());
 			taskListCB.setSelectedItem(note.getLinkedTask().toString());
-			initialLinkedTask = currentLinkedTask; //taskListCB.getSelectedItem().toString();
+			 
 		}
 		else{
 			titleField.setText("");
 			taskListCB.setSelectedItem("No Linked Task");
 		}
 		initialTitle = titleField.getText();
+		initialLinkedTask = currentLinkedTask;  
 		/*
 		 * } catch (Exception ex) { new ExceptionDialog(ex); }
 		 */
@@ -612,7 +615,7 @@ public class EditorPanel extends JPanel {
 		return this.editor.document;
 	}
 
-	public boolean isDocumentChanged() {
+	public boolean isDocumentChanged()  {
 		return editor.isDocumentChanged()
 				|| !titleField.getText().equals(initialTitle)
 				|| !initialLinkedTask.equals(currentLinkedTask);
@@ -663,9 +666,11 @@ public class EditorPanel extends JPanel {
 	}
 
 	void newB_actionPerformed(ActionEvent e) {
-		CurrentNote.set(null, false); //Dena
 		setDocument(null);
+		Note note = null;
+		CurrentNote.set(note, false);
 		this.titleField.requestFocus();
+
 	}
 
 	void previewB_actionPerformed(ActionEvent e) {
