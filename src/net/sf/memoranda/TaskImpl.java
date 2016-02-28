@@ -427,8 +427,6 @@ public class TaskImpl implements Task, Comparable {
 				return 0;
 	 }
 	 */
-	 
-	 //dena
 	 public int compareTo(Object o){
 		 Task task = (Task) o;
 		 if(getEndDate().after(task.getEndDate()))
