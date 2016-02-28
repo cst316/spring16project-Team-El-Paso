@@ -194,12 +194,6 @@ public class PlanSummaryDialog extends JDialog {
         
         sLOCActualText.setPreferredSize(new Dimension(100,20));
         sLOCActualText.setEditable(false);
-        if (psExists) {
-        	if (psProject.getStatus() == Project.COMPLETED) {
-        		//gather actual LOC from all tasks in the project
-        		sLOCActualText.setText(Integer.toString(psProject.getTaskList().calculateActualLOC()));
-        	}
-        }
         formConstraints.gridx = 2;
         formConstraints.gridy = 2;
         mainPanel.add(sLOCActualText, formConstraints);
@@ -209,6 +203,15 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridx = 3;
         formConstraints.gridy = 2;
         mainPanel.add(sLOCToDateText, formConstraints);
+        
+        if (psExists) {
+        	if (psProject.getStatus() == Project.COMPLETED) {
+        		//gather actual LOC from all tasks in the project
+        		sLOCActualText.setText(Integer.toString(psProject.getTaskList().calculateActualLOC()));
+        	} else {
+        		sLOCToDateText.setText(Integer.toString(psProject.getTaskList().calculateActualLOC()));
+        	}
+        }
         
         //---------------------------------------------TIME HEADERS------------------------------>>
         timeHeaderLabel.setText("Time in Phase (min.)");
@@ -253,12 +256,14 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridy = 4;
         mainPanel.add(pTimePlanText, formConstraints);
         
+        pTimeActualText = actualFields();
         pTimeActualText.setPreferredSize(new Dimension(100,20));
         pTimeActualText.setEditable(false);
         formConstraints.gridx = 2;
         formConstraints.gridy = 4;
         mainPanel.add(pTimeActualText, formConstraints);
         
+        pTimeToDateText = toDateFields();
         pTimeToDateText.setPreferredSize(new Dimension(100,20));
         pTimeToDateText.setEditable(false);
         formConstraints.gridx = 3;
@@ -270,6 +275,17 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridx = 4;
         formConstraints.gridy = 4;
         mainPanel.add(pTimeToDatePercText, formConstraints);
+        
+        if (psExists) {
+        	if (psProject.getStatus() == Project.COMPLETED) {
+        		pTimeActualText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Planning")));
+        	} else {
+        		pTimeToDateText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Planning")));
+        		float numerator = Float.parseFloat(pTimeToDateText.getText());
+        		float denominator = Float.parseFloat(pTimePlanText.getText());
+        		pTimeToDatePercText.setText(Float.toString((numerator/denominator)*100));
+        	}
+        }
         
         //--------------------------------------TIME DESIGN FIELDS------------------------------->>
         timeDesignLabel.setText("  Design");
@@ -288,12 +304,14 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridy = 5;
         mainPanel.add(dTimePlanText, formConstraints);
         
+        dTimeActualText = actualFields();
         dTimeActualText.setPreferredSize(new Dimension(100,20));
         dTimeActualText.setEditable(false);
         formConstraints.gridx = 2;
         formConstraints.gridy = 5;
         mainPanel.add(dTimeActualText, formConstraints);
         
+        dTimeToDateText = toDateFields();
         dTimeToDateText.setPreferredSize(new Dimension(100,20));
         dTimeToDateText.setEditable(false);
         formConstraints.gridx = 3;
@@ -305,6 +323,17 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridx = 4;
         formConstraints.gridy = 5;
         mainPanel.add(dTimeToDatePercText, formConstraints);
+        
+        if (psExists) {
+        	if (psProject.getStatus() == Project.COMPLETED) {
+        		dTimeActualText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Design")));
+        	} else {
+        		dTimeToDateText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Design")));
+        		float numerator = Float.parseFloat(dTimeToDateText.getText());
+        		float denominator = Float.parseFloat(dTimePlanText.getText());
+        		dTimeToDatePercText.setText(Float.toString((numerator/denominator)*100));
+        	}
+        }
         
         //--------------------------------------TIME CODE FIELDS--------------------------------->>
         timeCodeLabel.setText("  Code");
@@ -323,12 +352,14 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridy = 6;
         mainPanel.add(cdTimePlanText, formConstraints);
         
+        cdTimeActualText = actualFields();
         cdTimeActualText.setPreferredSize(new Dimension(100,20));
         cdTimeActualText.setEditable(false);
         formConstraints.gridx = 2;
         formConstraints.gridy = 6;
         mainPanel.add(cdTimeActualText, formConstraints);
         
+        cdTimeToDateText = toDateFields();
         cdTimeToDateText.setPreferredSize(new Dimension(100,20));
         cdTimeToDateText.setEditable(false);
         formConstraints.gridx = 3;
@@ -340,6 +371,17 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridx = 4;
         formConstraints.gridy = 6;
         mainPanel.add(cdTimeToDatePercText, formConstraints);
+        
+        if (psExists) {
+        	if (psProject.getStatus() == Project.COMPLETED) {
+        		cdTimeActualText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Development")));
+        	} else {
+        		cdTimeToDateText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Development")));
+        		float numerator = Float.parseFloat(cdTimeToDateText.getText());
+        		float denominator = Float.parseFloat(cdTimePlanText.getText());
+        		cdTimeToDatePercText.setText(Float.toString((numerator/denominator)*100));
+        	}
+        }
         
         //--------------------------------------TIME COMPILE FIELDS------------------------------>>
         timeCompileLabel.setText("  Compile");
@@ -358,12 +400,14 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridy = 7;
         mainPanel.add(cpTimePlanText, formConstraints);
         
+        cdTimeActualText = actualFields();
         cpTimeActualText.setPreferredSize(new Dimension(100,20));
         cpTimeActualText.setEditable(false);
         formConstraints.gridx = 2;
         formConstraints.gridy = 7;
         mainPanel.add(cpTimeActualText, formConstraints);
         
+        cpTimeToDateText = toDateFields();
         cpTimeToDateText.setPreferredSize(new Dimension(100,20));
         cpTimeToDateText.setEditable(false);
         formConstraints.gridx = 3;
@@ -375,6 +419,17 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridx = 4;
         formConstraints.gridy = 7;
         mainPanel.add(cpTimeToDatePercText, formConstraints);
+        
+        if (psExists) {
+        	if (psProject.getStatus() == Project.COMPLETED) {
+        		cpTimeActualText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Other")));
+        	} else {
+        		cpTimeToDateText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Other")));
+        		float numerator = Float.parseFloat(cpTimeToDateText.getText());
+        		float denominator = Float.parseFloat(cpTimePlanText.getText());
+        		cpTimeToDatePercText.setText(Float.toString((numerator/denominator)*100));
+        	}
+        }
         
         //--------------------------------------TIME TEST FIELDS--------------------------------->>
         timeTestLabel.setText("  Test");
@@ -393,12 +448,14 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridy = 8;
         mainPanel.add(tTimePlanText, formConstraints);
         
+        tTimeActualText = actualFields();
         tTimeActualText.setPreferredSize(new Dimension(100,20));
         tTimeActualText.setEditable(false);
         formConstraints.gridx = 2;
         formConstraints.gridy = 8;
         mainPanel.add(tTimeActualText, formConstraints);
         
+        tTimeToDateText = toDateFields();
         tTimeToDateText.setPreferredSize(new Dimension(100,20));
         tTimeToDateText.setEditable(false);
         formConstraints.gridx = 3;
@@ -410,6 +467,17 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridx = 4;
         formConstraints.gridy = 8;
         mainPanel.add(tTimeToDatePercText, formConstraints);
+        
+        if (psExists) {
+        	if (psProject.getStatus() == Project.COMPLETED) {
+        		tTimeActualText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Testing")));
+        	} else {
+        		tTimeToDateText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Testing")));
+        		float numerator = Float.parseFloat(tTimeToDateText.getText());
+        		float denominator = Float.parseFloat(tTimePlanText.getText());
+        		tTimeToDatePercText.setText(Float.toString((numerator/denominator)*100));
+        	}
+        }
         
         //--------------------------------------TIME POSTMORTEM FIELDS--------------------------->>
         timePostMortemLabel.setText("  Postmortem");
@@ -428,17 +496,14 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridy = 9;
         mainPanel.add(pmTimePlanText, formConstraints);
         
+        pmTimeActualText = actualFields();
         pmTimeActualText.setPreferredSize(new Dimension(100,20));
         pmTimeActualText.setEditable(false);
-        if (psExists) {
-        	if (psProject.getStatus() == Project.COMPLETED) {
-        		//when implemented in tasks, this will tally actual times from this task type (postmortem)
-        	}
-        }
         formConstraints.gridx = 2;
         formConstraints.gridy = 9;
         mainPanel.add(pmTimeActualText, formConstraints);
         
+        pmTimeToDateText = toDateFields();
         pmTimeToDateText.setPreferredSize(new Dimension(100,20));
         pmTimeToDateText.setEditable(false);
         formConstraints.gridx = 3;
@@ -450,6 +515,19 @@ public class PlanSummaryDialog extends JDialog {
         formConstraints.gridx = 4;
         formConstraints.gridy = 9;
         mainPanel.add(pmTimeToDatePercText, formConstraints);
+        
+        if (psExists) {
+        	if (psProject.getStatus() == Project.COMPLETED) {
+        		pmTimeActualText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Postmortem")));
+        		updateActualTotal();
+        	} else {
+        		pmTimeToDateText.setText(Integer.toString(psProject.getTaskList().calculateActualTime("Postmortem")));
+        		float numerator = Float.parseFloat(pmTimeToDateText.getText());
+        		float denominator = Float.parseFloat(pmTimePlanText.getText());
+        		pmTimeToDatePercText.setText(Float.toString((numerator/denominator)*100));
+        		updateToDateTotal();
+        	}
+        }
         
         //--------------------------------------TIME TOTAL FIELDS--------------------------->>
         timeTotalLabel.setText("    Total");
@@ -540,10 +618,63 @@ public class PlanSummaryDialog extends JDialog {
     	return rtnfld;
     }
     
+    JFormattedTextField actualFields() {
+    	JFormattedTextField rtnfld = new JFormattedTextField(fieldFormat);
+    	rtnfld.setValue(0);
+    	rtnfld.addFocusListener(new FocusAdapter() {
+    		public void focusLost(FocusEvent e) {
+    			EventQueue.invokeLater(new Runnable() {
+    				public void run() {
+    					updateActualTotal();
+    				}
+    			});
+    		}
+    	});
+    	rtnfld.addPropertyChangeListener("value", new PropertyChangeListener() {
+    		public void propertyChange(PropertyChangeEvent e) {
+    			updateActualTotal();
+    		}
+    	});
+    	return rtnfld;
+    }
+    
+    JFormattedTextField toDateFields() {
+    	JFormattedTextField rtnfld = new JFormattedTextField(fieldFormat);
+    	rtnfld.setValue(0);
+    	rtnfld.addFocusListener(new FocusAdapter() {
+    		public void focusLost(FocusEvent e) {
+    			EventQueue.invokeLater(new Runnable() {
+    				public void run() {
+    					updateToDateTotal();
+    				}
+    			});
+    		}
+    	});
+    	rtnfld.addPropertyChangeListener("value", new PropertyChangeListener() {
+    		public void propertyChange(PropertyChangeEvent e) {
+    			updateToDateTotal();
+    		}
+    	});
+    	return rtnfld;
+    }
+    
     void updatePlanTotal() {
     	int newTotal = Integer.parseInt(pTimePlanText.getText()) + Integer.parseInt(dTimePlanText.getText()) + Integer.parseInt(cdTimePlanText.getText())
     	 + Integer.parseInt(cpTimePlanText.getText()) + Integer.parseInt(tTimePlanText.getText()) + Integer.parseInt(pmTimePlanText.getText());
     	ttlTimePlanText.setText(Integer.toString(newTotal));
+
+    }
+    
+    void updateActualTotal() {
+    	int newTotal = Integer.parseInt(pTimeActualText.getText()) + Integer.parseInt(dTimeActualText.getText()) + Integer.parseInt(cdTimeActualText.getText())
+   	 	+ Integer.parseInt(cpTimeActualText.getText()) + Integer.parseInt(tTimeActualText.getText()) + Integer.parseInt(pmTimeActualText.getText());
+    	ttlTimeActualText.setText(Integer.toString(newTotal));
+    }
+    
+    void updateToDateTotal() {
+    	int newTotal = Integer.parseInt(pTimeToDateText.getText()) + Integer.parseInt(dTimeToDateText.getText()) + Integer.parseInt(cdTimeToDateText.getText())
+   	 	+ Integer.parseInt(cpTimeToDateText.getText()) + Integer.parseInt(tTimeToDateText.getText()) + Integer.parseInt(pmTimeToDateText.getText());
+    	ttlTimeToDateText.setText(Integer.toString(newTotal));
     }
     /**
      * Returns the completed summary Element object from this dialog. Dispose of the dialog after retrieval.

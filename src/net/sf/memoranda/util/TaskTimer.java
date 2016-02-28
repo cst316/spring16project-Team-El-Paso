@@ -14,10 +14,33 @@ public class TaskTimer {
 	private static String hrs = "00";
 
 	public static String tickTock(String time) {
+		parseTime(time);
+		seconds++;
+		if (seconds > 59) {
+			seconds = 0;
+			minutes += 1;
+		}
+		if (minutes > 59) {
+			minutes = 0;
+			hours += 1;
+		}
+		clockHours = new Integer(hours).toString();
+		clockMinutes = new Integer(minutes).toString();
+		clockSeconds = new Integer(seconds).toString();
+
+		totalTime = (("00" + hours).substring(clockHours.length()) + ":"
+				+ ("00" + minutes).substring(clockMinutes.length()) + ":"
+				+ ("00" + seconds).substring(clockSeconds.length()));
+
+		return totalTime;
+
+	}
+	
+	private static void parseTime(String tTime) {
 		try {
-			secs = time.substring(6, 8);
-			mins = time.substring(3, 5);
-			hrs = time.substring(0, 2);
+			secs = tTime.substring(6, 8);
+			mins = tTime.substring(3, 5);
+			hrs = tTime.substring(0, 2);
 		} catch (NullPointerException np) {
 			secs = "00";
 			mins = "00";
@@ -39,25 +62,12 @@ public class TaskTimer {
 		} catch (NumberFormatException nfe) {
 			hours = 00;
 		}
-		seconds++;
-		if (seconds > 59) {
-			seconds = 0;
-			minutes += 1;
-		}
-		if (minutes > 59) {
-			minutes = 0;
-			hours += 1;
-		}
-		clockHours = new Integer(hours).toString();
-		clockMinutes = new Integer(minutes).toString();
-		clockSeconds = new Integer(seconds).toString();
-
-		totalTime = (("00" + hours).substring(clockHours.length()) + ":"
-				+ ("00" + minutes).substring(clockMinutes.length()) + ":"
-				+ ("00" + seconds).substring(clockSeconds.length()));
-
-		return totalTime;
-
 	}
+	
+	public static float toMinutes(String mTime) {
+		parseTime(mTime);
+		return (hours*60) + minutes + (seconds/60);
+	}
+
 
 }
