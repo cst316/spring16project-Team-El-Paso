@@ -39,14 +39,14 @@ import java.util.Hashtable;
  * @version $Id: TaskTableModel.java,v 1.7 2005/12/01 08:12:26 alexeya Exp $
  * @author $Author: alexeya $
  */
-public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
+public class TaskTableModel extends AbstractTreeTableModel {
 
     String[] columnNames = {"", Local.getString("To-do"), Local.getString("Description"),
             Local.getString("Start date"), Local.getString("End date"), Local.getString("Category"), 
             Local.getString("Priority"), Local.getString("Status"),
             "% " + Local.getString("done") };
 
-    protected EventListenerList listenerList = new EventListenerList();
+    protected EventListenerList taskTableListenerList = new EventListenerList();
 
     private boolean activeOnly = check_activeOnly();
         
@@ -81,35 +81,35 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         if (node instanceof Project) {
             return null;
         }
-        Task t = (Task) node;
+        Task nodeTask = (Task) node;
         switch (column) {
         case 0:
             return "";
         case 1:
-            return t;
+            return nodeTask;
         case 2:
-            return t.getDescription();
+            return nodeTask.getDescription();
         case 3:
-            return t.getStartDate().getDate();
+            return nodeTask.getStartDate().getDate();
         case 4:
-            if (t.getEndDate() == null) {
+            if (nodeTask.getEndDate() == null) {
                 return null;
             } else {
-                return t.getEndDate().getDate();
+                return nodeTask.getEndDate().getDate();
             }        
         case 5: 
-	    return t.getCategory(); 
+	    return nodeTask.getCategory(); 
         case 6:
-            return getPriorityString(t.getPriority()); 
+            return getPriorityString(nodeTask.getPriority()); 
         case 7:
-            return getStatusString(t.getStatus(CurrentDate.get()));
+            return getStatusString(nodeTask.getStatus(CurrentDate.get()));
         case 8	:            
             //return new Integer(t.getProgress());
-	    return t;
+	    return nodeTask;
         case TaskTable.TASK_ID:
-            return t.getID();
+            return nodeTask.getID();
         case TaskTable.TASK:
-            return t;
+            return nodeTask;
         }
         return "";
     }
@@ -135,8 +135,8 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         return "";
     }
 
-    String getPriorityString(int p) {
-        switch (p) {
+    String getPriorityString(int priority) {
+        switch (priority) {
         case Task.PRIORITY_NORMAL:
             return Local.getString("Normal");
         case Task.PRIORITY_LOW:
@@ -162,11 +162,11 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         		return CurrentProject.getTaskList().getTopLevelTasks().size();
         	}
         }
-        Task t = (Task) parent;
+        Task parentTask = (Task) parent;
         if(activeOnly()) {
-        	return CurrentProject.getTaskList().getActiveSubTasks(t.getID(), CurrentDate.get()).size();
+        	return CurrentProject.getTaskList().getActiveSubTasks(parentTask.getID(), CurrentDate.get()).size();
         } else {
-        	return t.getSubTasks().size();
+        	return parentTask.getSubTasks().size();
         }
     }
 
@@ -181,11 +181,11 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             	return CurrentProject.getTaskList().getTopLevelTasks().toArray()[index];
             }
         }
-        Task t = (Task) parent;
+        Task parentTask = (Task) parent;
         if( activeOnly() ) {
-        	return CurrentProject.getTaskList().getActiveSubTasks(t.getID(), CurrentDate.get()).toArray()[index];
+        	return CurrentProject.getTaskList().getActiveSubTasks(parentTask.getID(), CurrentDate.get()).toArray()[index];
         } else {
-        	return t.getSubTasks().toArray()[index];
+        	return parentTask.getSubTasks().toArray()[index];
         }
     }
 
@@ -229,11 +229,11 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
 
     public static boolean check_activeOnly(){
-	Object o = Context.get("SHOW_ACTIVE_TASKS_ONLY");
-	if(o == null) {
+	Object object = Context.get("SHOW_ACTIVE_TASKS_ONLY");
+	if(object == null) {
 	    return false;
 	}
-	return o.toString().equals("true");
+	return object.toString().equals("true");
     }
 
     public boolean activeOnly(){
