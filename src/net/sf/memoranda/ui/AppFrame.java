@@ -66,7 +66,7 @@ import nu.xom.Elements;
 
 public class AppFrame extends JFrame {
 
-    JPanel contentPane;
+    JPanel contentOfPane;
     JMenuBar menuBar = new JMenuBar();
     JMenu jMenuFile = new JMenu();
     JMenuItem jMenuFileExit = new JMenuItem();
@@ -259,8 +259,8 @@ public class AppFrame extends JFrame {
         this.setIconImage(new ImageIcon(AppFrame.class.getResource(
                 "resources/icons/jnotes16.png"))
                 .getImage());
-        contentPane = (JPanel) this.getContentPane();
-        contentPane.setLayout(borderLayout1);
+        contentOfPane = (JPanel) this.getContentPane();
+        contentOfPane.setLayout(borderLayout1);
         //this.setSize(new Dimension(800, 500));
         this.setTitle("Memoranda - " + CurrentProject.get().getTitle());
         //Added a space to App.VERSION_INFO to make it look some nicer
@@ -477,8 +477,8 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuHelp);
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
-        contentPane.add(statusBar, BorderLayout.SOUTH);
-        contentPane.add(splitPane, BorderLayout.CENTER);
+        contentOfPane.add(statusBar, BorderLayout.SOUTH);
+        contentOfPane.add(splitPane, BorderLayout.CENTER);
         splitPane.add(projectsPanel, JSplitPane.TOP);
         splitPane.add(workPanel, JSplitPane.BOTTOM);
         jMenuEdit.add(jMenuEditUndo);
@@ -614,10 +614,10 @@ public class AppFrame extends JFrame {
             this.setLocation(x, y);
         }
 
-        String pan = (String) Context.get("CURRENT_PANEL");
-        if (pan != null) {
-            workPanel.selectPanel(pan);
-            setEnabledEditorMenus(pan.equalsIgnoreCase("NOTES"));
+        String panel = (String) Context.get("CURRENT_PANEL");
+        if (panel != null) {
+            workPanel.selectPanel(panel);
+            setEnabledEditorMenus(panel.equalsIgnoreCase("NOTES"));
         }
 
         CurrentProject.addProjectListener(new ProjectListener() {
